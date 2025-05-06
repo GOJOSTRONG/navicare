@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
     backButton.addEventListener('click', function(e) {
       e.preventDefault();
       console.log('Back button clicked');
-      backtoHome(); // 🚀 this does the redirect
+      backtoHome(); 
     });
   }  
 // Back to log in button
