@@ -87,9 +87,31 @@ document.addEventListener('DOMContentLoaded', function () {
     // Show the content and overlay
     contentDisplay.classList.add('active');
     overlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Optional: lock scroll
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when content is open
   }
 });
+
+  //Home button
+  const backButton = document.querySelector('.back-button');
+  if (backButton) {
+    backButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Back button clicked');
+      backtoHome(); // 🚀 this does the redirect
+    });
+  }  
+// Back to log in button
+  document.addEventListener('DOMContentLoaded', function () {
+    const backButton2 = document.querySelector('.back-button2');
+  
+    if (backButton2) {
+      backButton2.addEventListener('click', function (e) {
+        e.preventDefault(); // optional — only useful if inside a form
+        console.log('Back to login clicked');
+        window.location.href = 'login_student.html';
+      });
+    }
+  });
 
 
 function backtoHome() {

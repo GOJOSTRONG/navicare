@@ -211,7 +211,7 @@ body {
   gap: 1rem;
   justify-content: center;
   position: fixed;
-  bottom: 8rem;
+  bottom: 9rem;
   left: 50%;
   transform: translateX(-50%) translateY(0);
   z-index: 998;
@@ -224,7 +224,7 @@ body {
 }
 
 .accessibility-menu button {
-  padding: 0.75rem 1.2rem;
+  padding: 0.75rem 0.2rem;
   border: none;
   background-color: #fef9e5;
   color: #000;
@@ -308,8 +308,8 @@ body {
 
 .content-logo img {
   position: absolute;
-  top: 5px;
-  left: 12px;  
+  top: 0px;
+  left: 0px;  
   width: 82px;
   height: auto;
 }
@@ -370,7 +370,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    bottom: 6rem; 
+    bottom: 5rem; 
   }
   
   .accessibility-content {
