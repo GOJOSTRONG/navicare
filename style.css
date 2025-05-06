@@ -17,6 +17,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background: url('res/school_bg.jpg') no-repeat center center fixed;
   background-size: cover;
+  background-position: 100% 0%;
   color: #a2165f;
   font-size: 1rem; /* use rem for scalable typography */
   overflow-x: hidden;
@@ -109,31 +110,78 @@ body {
 
 .user-types {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: clamp(10px, 3vw, 30px);
-  margin-bottom: 40px;
+  gap: clamp(6px, 2vw, 18px);
+  margin-bottom: 20px;
 }
 
 .user-card {
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* spacing between icon and text */
   background-color: transparent;
-  padding: 10px;
+  padding: 10px 15px;
   border-radius: 20px;
   text-decoration: none;
   color: #a2165f;
-  width: clamp(200px, 30%, 300px);
+  width: clamp(120px, 30%, 200px);
   transition: transform 0.3s;
 }
 
 .user-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
+}
+.user-card img {
+  width: clamp(50px, 10vw, 90px); /* bigger on small screens */
+  height: auto;
+  margin-bottom: 0;
 }
 
-.user-card img {
-  width: 100%;
-  max-width: 150px;
-  height: auto;
-  margin-bottom: 10px;
+.user-card p {
+  font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+  margin: 0;
+  text-align: center;
+  font-weight: 600;
+}
+.user-types {
+  display: flex;
+  flex-wrap: wrap; /* so it wraps nicely on small screens */
+  justify-content: center;
+  gap: clamp(12px, 3vw, 30px);
+  margin-bottom: 30px;
+}
+
+
+@media (max-width: 480px) and (max-height: 934px) {
+  .user-types {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: clamp(20px, 6vw, 30px);
+    justify-content: center;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .user-card {
+    min-width: 90px;
+    max-width: 120px;
+    padding: 4px;
+    font-size: 0.85em;
+    text-align: center;
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .user-card img {
+    max-width: 69px;
+    margin-bottom: 4px;
+  }
 }
 
 .footer {
@@ -182,6 +230,14 @@ body {
   border-radius: 10%;
 }
 
+@media (max-width: 450px) and (max-height: 950px) {
+  .accessibility-button {
+    width: 70px;
+    left: 10px;
+    bottom: 12px;
+  }
+}
+
 /*Blur Background Overlay */
 .accessibility-overlay {
   position: fixed;
@@ -214,7 +270,7 @@ body {
   bottom: 9rem;
   left: 50%;
   transform: translateX(-50%) translateY(0);
-  z-index: 998;
+  z-index: 1;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -223,18 +279,31 @@ body {
   transition: none;
 }
 
+/* Phone screen*/
+@media (max-width: 431px) and (max-height: 933px) {
+  .accessibility-menu {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.7rem;
+    bottom: 6.5rem;
+    max-width: 98vw;
+  }
+}
+
 .accessibility-menu button {
   padding: 0.75rem 0.2rem;
   border: none;
   background-color: #fef9e5;
-  color: #000;
-  border-radius: 8px;
+  /* color: #000; */
+  border-radius: 60px;
   font-weight: bold;
+  font-size: 0.76rem;
   color: #b81e63;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-  min-width: 120px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  min-width: 100px;
 }
 
 .accessibility-menu button:hover {
@@ -332,14 +401,14 @@ body {
 .back-button,
 .back-button2 {
   position: fixed;
-  bottom: 2rem;
+  bottom: 37rem;
   right: 2rem;
   background-color: white;
   color: #a2165f;
   border: none;
-  border-radius: 10px;
+  border-radius: 16px;
   padding: 0.4rem 1rem;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 2px 9px rgba(0,0,0,0.1);
@@ -355,8 +424,8 @@ body {
   .back-button,
   .back-button2 {
     right: 1rem;
-    bottom: 1rem;
-    font-size: 1rem;
+    bottom: 53rem;
+    font-size: 1.3rem;
     padding: 0.35rem 0.8rem;
   }
 }
@@ -390,104 +459,6 @@ body {
     padding: 10px;
   }
   
-  .user-types {
-    gap: 15px;
-  }
-  
-  .user-card {
-    width: calc(50% - 15px);
-    min-width: 100px;
-    padding: 10px;
-  }
-  
-  .user-card img {
-    width: 50px;
-  }
-  
-  .footer {
-    padding: 15px;
-    text-align: center;
-  }
-
-  .fixed-student-faculty {
-    position: static; 
-  }
-
-/* Medium mobile to tablet */
-@media (min-width: 481px) and (max-width: 768px) {
-  .user-card {
-    width: calc(33.333% - 20px);
-    padding: 15px;
-  }
-  
-  .user-card img {
-    width: 60px;
-  }
-  
-  .title {
-    font-size: 2em;
-  }
-  
-  .footer {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .fixed-student-faculty {
-    position: fixed;
-    right: 55%;
-  }
-}
-
-/* Tablets to small laptops */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .user-card {
-    width: 130px;
-  }
-  
-  .footer div {
-    flex: 1 1 200px;
-  }
-}
-
-/* Landscape orientation adjustments */
-@media (max-height: 500px) and (orientation: landscape) {
-  .overlay {
-    height: auto;
-    min-height: 120vh; /* Ensure content is fully visible */
-  }
-  
-  .user-types {
-    margin-bottom: 20px;
-  }
-  
-  .accessibility-button {
-    width: 120px;
-  }
-  
-  .accessibility-menu {
-    bottom: 80px;
-  }
-}
-
-/* High resolution displays */
-@media (min-width: 1400px) {
-  body {
-    font-size: 18px; /* Slightly larger base font for big screens */
-  }
-  
-  .container {
-    max-width: 1400px;
-  }
-  
-  .user-card {
-    width: 180px;
-  }
-  
-  .user-card img {
-    width: 100px;
-  }
-}
 
 /* Print styles */
 @media print {
@@ -645,4 +616,67 @@ body {
   color: #a13667;
   font-size: 0.65em; /* Slightly smaller */
   text-decoration: none;
+}
+
+/* GUEST UI*/
+.select-service {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: #c71c63;
+  margin: 20px auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 90%;
+}
+
+.service-types {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 1.5rem); 
+  margin: 30px auto 50px;
+  padding: 0 5%;
+  max-width: 100%;
+}
+
+.service-types a {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #a2165f;
+  width: clamp(140px, 30%, 260px);
+  gap: 0.3rem;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+.service-types a:hover {
+  transform: scale(1.05);
+}
+.service-types p {
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: #a2165f;
+  margin: 0;
+}
+.service-types p {
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: #a2165f;
+  margin: 0;
+}
+.service-types img {
+  width: 100%;
+  max-width: 70px; 
+  height: auto;
+  margin-bottom: 8px;
+}
+@media (max-width: 480px) {
+  .service-types img {
+    max-width: 55px; 
+  }
 }
