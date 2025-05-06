@@ -152,6 +152,7 @@ body {
   justify-content: center;
   gap: clamp(12px, 3vw, 30px);
   margin-bottom: 30px;
+  flex-direction: row-reverse;
 }
 
 
@@ -398,20 +399,19 @@ body {
   background-color: #f082b5;
 }
 
-.back-button,
-.back-button2 {
+.back-button, .back-button2 {
   position: fixed;
-  bottom: 37rem;
+  bottom: 35rem;
   right: 2rem;
   background-color: white;
   color: #a2165f;
   border: none;
   border-radius: 16px;
   padding: 0.4rem 1rem;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 2px 9px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
   z-index: 1001;
 }
 
@@ -450,7 +450,7 @@ body {
   
   .accessibility-button {
     width: 80px;
-    bottom: 15px;
+    bottom: 96px;
     left: 15px;
   }
   
@@ -514,6 +514,7 @@ body {
 }
 .login-box input::placeholder {
   color: #b81e63;
+  opacity: 0.5; /* Slightly transparent placeholder */
 }
 
 .login-box button {
@@ -564,58 +565,6 @@ body {
     padding: 8px;
     font-size: 0.95em;
   }
-}
-
-/**Register for Users */
-.register-box {
-  background-color: rgba(255, 255, 255, 0.85);
-  padding: 20px;
-  border-radius: 20px;
-  width: 300px;
-  margin: 30px auto;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  color: #a13667;
-  font-size: clamp(0.85rem, 2.5vw, 1rem); /* Smaller, responsive font size */
-}
-.register-box h2 {
-  margin-bottom: 20px;
-  font-size: clamp(1.1rem, 4vw, 1.25rem); /* Smaller, responsive heading */
-  color: #a13667;
-}
-.register-box input {
-  width: 90%;
-  padding: 8px;
-  margin: 8px 0;
-  border-radius: 20px;
-  border: 1px solid #a13667;
-  outline: none;
-  color: #a13667;
-  background-color: white;
-  font-size: clamp(0.85rem, 2.5vw, 0.95rem); /* Smaller, responsive font size */
-}
-.register-box input::placeholder {
-  color: #b81e63;
-}
-.register-box button {
-  width: 100%;
-  padding: 8px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: clamp(0.9rem, 2.5vw, 1rem); /* Smaller, responsive font size */
-}
-.register-box .login-links {
-  margin-top: 10px;
-}
-.register-box .login-links a {
-  margin: 0 10px;
-  color: #a13667;
-  font-size: 0.65em; /* Slightly smaller */
-  text-decoration: none;
 }
 
 /* GUEST UI*/
@@ -679,4 +628,56 @@ body {
   .service-types img {
     max-width: 55px; 
   }
+}
+/**Register for Users */
+.register-box {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 20px;
+  border-radius: 20px;
+  width: 300px;
+  margin: 30px auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: #a13667;
+  font-size: clamp(0.85rem, 2.5vw, 1rem); /* Smaller, responsive font size */
+}
+.register-box h2 {
+  margin-bottom: 20px;
+  font-size: clamp(1.1rem, 4vw, 1.25rem); /* Smaller, responsive heading */
+  color: #a13667;
+}
+.register-box input {
+  width: 90%;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 20px;
+  border: 1px solid #a13667;
+  outline: none;
+  color: #a13667;
+  background-color: white;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem); /* Smaller, responsive font size */
+}
+.register-box input::placeholder {
+  color: #b81e63;
+  opacity: 0.5; /* Slightly transparent placeholder */
+}
+.register-box button {
+  width: 100%;
+  padding: 8px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: clamp(0.9rem, 2.5vw, 1rem); /* Smaller, responsive font size */
+}
+.register-box .login-links {
+  margin-top: 10px;
+}
+.register-box .login-links a {
+  margin: 0 10px;
+  color: #a13667;
+  font-size: 0.65em; /* Slightly smaller */
+  text-decoration: none;
 }

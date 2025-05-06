@@ -121,27 +121,31 @@ function backToLogIn() {
   window.location.href = 'login_student.html';
 }
 //Case sensitive function
-document.querySelector("form").addEventListener("submit", function(e) {
+document.getElementById("registerForm").addEventListener("submit", function (e) {
+  const form = e.target;
   const patterns = {
     fullname: /^[A-Za-z\s]{2,50}$/,
     username: /^[a-zA-Z0-9._-]{4,20}$/,
     idnumber: /^\d{6,10}$/,
-    email: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+    email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     dob: /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{2}$/,
-    password: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+    password: /^[^\s]+$/
   };
 
-  const form = e.target;
-  let isValid = true;
+  const values = {
+    fullname: form.fullname.value.trim(),
+    username: form.username.value.trim(),
+    idnumber: form.idnumber.value.trim(),
+    email: form.email.value.trim(),
+    dob: form.dob.value.trim(),
+    password: form.password.value
+  };
 
-  for (let field in patterns) {
-    const input = form[field];
-    if (!patterns[field].test(input.value)) {
-      alert(`Please enter a valid ${field.replace(/([A-Z])/g, ' $1')}.`);
-      isValid = false;
-      break;
+  for (let key in patterns) {
+    if (!patterns[key].test(values[key])) {
+      alert(`Invalid ${key.replace(/([A-Z])/g, " $1")}.`);
+      e.preventDefault();
+      return;
     }
   }
-
-  if (!isValid) e.preventDefault();
 });
