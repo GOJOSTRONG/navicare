@@ -159,13 +159,13 @@ body {
   color: #891445;
 }
 
-/* =================== ACCESSIBILITY STYLES =================== */
+/* Accessibility_Menu*/
 
 .accessibility-button {
   position: fixed;
   bottom: 2rem;
   left: 2rem;
-  z-index: 999; /* Ensure this is always on top */
+  z-index: 1; /* Ensure this is always on top */
   cursor: pointer;
   width: clamp(80px, 12vw, 120px);
   height: auto;
@@ -182,7 +182,7 @@ body {
   border-radius: 10%;
 }
 
-/* Blur Background Overlay */
+/*Blur Background Overlay */
 .accessibility-overlay {
   position: fixed;
   top: 0;
@@ -191,55 +191,50 @@ body {
   height: 100vh;
   backdrop-filter: blur(8px);
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 997;
+  z-index: 5; /* Behind content & menu */
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease; /* Add visibility to transition */
-  pointer-events: none; /* Don't capture clicks when hidden */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  pointer-events: none;
 }
 
 .accessibility-overlay.active {
   opacity: 1;
   visibility: visible;
-  pointer-events: auto; /* Capture clicks when active */
+  pointer-events: auto;
 }
 
-/* Button Menu */
+/*Always Visible Menu */
 .accessibility-menu {
   display: flex;
+  color: #b81e63;
   gap: 1rem;
   justify-content: center;
   position: fixed;
   bottom: 8rem;
   left: 50%;
-  transform: translateX(-50%) translateY(20px); /* Add initial position for animation */
+  transform: translateX(-50%) translateY(0);
   z-index: 998;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease; /* Add visibility */
-  pointer-events: none; /* Don't capture clicks when hidden */
-  flex-wrap: wrap; /* Allow wrapping on small screens */
-  max-width: 90vw; /* Prevent overflow */
-}
-
-.accessibility-menu.active {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
-  pointer-events: auto; /* Capture clicks when active */
+  pointer-events: auto;
+  flex-wrap: wrap;
+  max-width: 90vw;
+  transition: none;
 }
 
 .accessibility-menu button {
   padding: 0.75rem 1.2rem;
   border: none;
-  background-color: #f7c1de;
+  background-color: #fef9e5;
   color: #000;
   border-radius: 8px;
   font-weight: bold;
+  color: #b81e63;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-  min-width: 120px; /* Ensure buttons have reasonable width */
+  min-width: 120px;
 }
 
 .accessibility-menu button:hover {
@@ -247,25 +242,25 @@ body {
   transform: scale(1.05);
 }
 
-/* Content Display */
+/*Content Display Box */
 .accessibility-content {
   position: fixed;
   bottom: 8rem;
   left: 50%;
-  transform: translateX(-50%) translateY(20px); /* Initial position for animation */
+  transform: translateX(-50%) translateY(20px);
   background-color: #fef9e5;
   border-radius: 30px;
   padding: 1.25rem;
   box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-  z-index: 998;
+  z-index: 999;
   width: clamp(350px, 80vw, 510px);
   max-height: 60vh;
   overflow-y: auto;
-  opacity: 0; /* Start with 0 opacity */
+  opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
   pointer-events: none;
-  display: flex; /* Always flex, but hidden by opacity/visibility */
+  display: flex;
   flex-direction: column;
 }
 
@@ -275,6 +270,7 @@ body {
   transform: translateX(-50%) translateY(0);
   pointer-events: auto;
 }
+
 
 /* Content Header */
 .content-header {
@@ -317,6 +313,22 @@ body {
   width: 82px;
   height: auto;
 }
+/*Close Button Design*/
+.accessibility-close {
+  background-color: #f3a5c8;
+  color: #e93772;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.accessibility-close:hover {
+  background-color: #f082b5;
+}
+
 .back-button,
 .back-button2 {
   position: fixed;
@@ -348,6 +360,7 @@ body {
     padding: 0.35rem 0.8rem;
   }
 }
+.back-button,
 .back-button2:hover {
   background-color: #f8d7e1;
 }
@@ -357,7 +370,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    bottom: 6rem; /* Move up a bit */
+    bottom: 6rem; 
   }
   
   .accessibility-content {
@@ -528,6 +541,9 @@ body {
   color: #a13667;
   background-color: white;
 }
+.login-box input::placeholder {
+  color: #b81e63;
+}
 
 .login-box button {
   width: 100%;
@@ -606,6 +622,9 @@ body {
   color: #a13667;
   background-color: white;
   font-size: clamp(0.85rem, 2.5vw, 0.95rem); /* Smaller, responsive font size */
+}
+.register-box input::placeholder {
+  color: #b81e63;
 }
 .register-box button {
   width: 100%;
