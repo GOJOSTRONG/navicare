@@ -209,6 +209,16 @@ body {
 }
 
 /* Accessibility_Menu*/
+.accessibility-button {
+  position: fixed;
+  bottom: 5.4rem;
+  left: 30rem;
+  z-index: 1;
+  cursor: pointer;
+  width: clamp(80px, 12vw, 80px);
+  height: auto;
+  transition: transform 0.3s;
+}
 .accessibility-button:hover {
   transform: scale(1.05);
 }
@@ -222,8 +232,8 @@ body {
 @media (max-width: 450px) and (max-height: 950px) {
   .accessibility-button {
     position: fixed;
-    bottom: 2rem;
-    left: 2rem;
+    bottom: 10.2rem;
+    left: 1rem;
     z-index: 1; 
     cursor: pointer;
     width: clamp(80px, 12vw, 120px);
@@ -266,7 +276,7 @@ body {
   gap: 1rem;
   justify-content: center;
   position: fixed;
-  bottom: 9rem;
+  bottom: 7rem;
   left: 50%;
   transform: translateX(-50%) translateY(0);
   z-index: 1;
@@ -448,16 +458,6 @@ display: flex
   background-color: #f8d7e1;
 }
 
-.accessibility-button {
-  position: fixed;
-  bottom: 10.2rem;
-  left: 1rem;
-  z-index: 1;
-  cursor: pointer;
-  width: clamp(80px, 12vw, 120px);
-  height: auto;
-  transition: transform 0.3s;
-}
   
   /* Small mobile devices */
   .container {
