@@ -152,7 +152,7 @@ body {
   justify-content: center;
   gap: clamp(12px, 3vw, 30px);
   margin-bottom: 30px;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 
@@ -445,10 +445,10 @@ display: flex
   background-color: #f8d7e1;
 }
 
-@media (max-width: 460px) and (max-height: 1000px){
+@media (max-width: 460px) and (max-height: 800px){
   .back-button, .back-button2 {
     right: 0rem;
-    bottom: 34rem;
+    bottom: 41rem;
     font-size: 1.3rem;
     padding: 0.35rem 0.8rem;
  }
@@ -820,7 +820,7 @@ display: flex
 
 .school-logos {
   position: absolute;
-  top: 24%;
+  top: 15%;
   display: flex;
   justify-content: center;
   opacity: 0;
@@ -828,7 +828,7 @@ display: flex
 }
 
 .school-logos img {
-  max-width: 115px;
+  max-width: 145px;
   height: auto;
 }
 
@@ -838,19 +838,22 @@ display: flex
   align-items: center;
   transform: translateY(-50px);
   opacity: 0;
-  animation: slideDown 1s ease-in-out forwards;
+  animation: fadeIn 0.9s ease-in-out forwards;
+  animation: slideDown 1.2s ease-in-out forwards;
 }
 
 .welcome-text {
   color: #e91e63;
-  font-size: 17px;
-  margin-bottom: 10px;
+  font-size: 30px;
+  margin-bottom: 1px;
 }
 
 .navicare-logo {
-  max-width: 280px;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
   opacity: 0;
-  animation: fadeIn 1s ease-in-out 1s forwards;
+  animation: fadeIn 1.3s ease-in-out 0.8s forwards;
 }
 
 .continue-button {
@@ -867,7 +870,7 @@ display: flex
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeInButton 1s ease-in-out 2.5s forwards;
+  animation: fadeInButton 1s ease-in-out 2.0s forwards;
   transition: background-color 0.3s ease;
 }
 
