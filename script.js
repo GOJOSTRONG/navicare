@@ -6,12 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const contentDisplay = document.getElementById('accessibilityContent');
   const overlay = document.querySelector('.accessibility-overlay');
   const closeButton = document.getElementById('closeAccessibilityContent');
-
-  if (!menu) console.error('Accessibility menu not found');
-  if (!contentDisplay) console.error('Content display not found');
-  if (!overlay) console.error('Overlay not found');
-  if (!closeButton) console.error('Close button not found');
-
       // If content is visible, hide it
       if (contentDisplay.classList.contains('active')) {
         contentDisplay.classList.remove('active');
@@ -149,3 +143,62 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     }
   }
 });
+
+//Terms and Conditions 
+    // Modal functionality
+    function openTermsModal() {
+      document.getElementById('termsModal').style.display = 'block';
+    }
+    
+    function closeTermsModal() {
+      document.getElementById('termsModal').style.display = 'none';
+    }
+    
+    function openPrivacyModal() {
+      document.getElementById('privacyModal').style.display = 'block';
+    }
+    
+    function closePrivacyModal() {
+      document.getElementById('privacyModal').style.display = 'none';
+    }
+    
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('termsModal')) {
+        closeTermsModal();
+      }
+      if (event.target == document.getElementById('privacyModal')) {
+        closePrivacyModal();
+      }
+    }
+    
+    function goBack() {
+      window.location.href= 'register.html';
+    }
+    
+    function proceedToLogin() {
+      document.getElementById('termsModal').classList.remove('active');
+      setTimeout(() => {
+        window.location.href = 'login_student.html';
+      }, 500); // waits half a second before redirect
+    
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Add each parameter as a hidden field
+      const fields = ['fullname', 'username', 'idnumber', 'email', 'dob', 'password'];
+      fields.forEach(field => {
+        if (urlParams.has(field)) {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = field;
+          input.value = urlParams.get(field);
+          form.appendChild(input);
+        }
+      });
+      
+      // Append form to body and submit
+      document.body.appendChild(form);
+      form.submit();
+    }
+    

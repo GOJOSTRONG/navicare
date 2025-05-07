@@ -25,12 +25,20 @@ if ($result->num_rows === 1) {
   $user = $result->fetch_assoc();
   if (password_verify($password, $user['password'])) {
     $_SESSION['user'] = $user['username'];
-    header("Location: dashboard.php");
+    header("Location: welcome.html"); // Change to your target page
     exit();
   } else {
-    echo "Incorrect password.";
+    showError("Incorrect password.");
   }
 } else {
-  echo "User not found.";
+  showError("User not found.");
+}
+function showError($message) {
+  echo "
+  <script>
+    alert('$message');
+    window.location.href = 'login_student.html'; // Redirect back to login page
+  </script>";
 }
 ?>
+<? echo $_SESSION["user"]; ?>

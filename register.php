@@ -21,7 +21,8 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("ssssss", $fullname, $username, $idnumber, $email, $dob, $password);
 
 if ($stmt->execute()) {
-  echo "Registration successful! <a href='index.html'>Login here</a>";
+  header("Location: Terms_and_Conditions.html"); //directly go to Terms and Condition
+  exit();
 } else {
   echo "Error: " . $stmt->error;
 }
