@@ -85,35 +85,31 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-  //Home button
+document.addEventListener('DOMContentLoaded', function () {
   const backButton = document.querySelector('.back-button');
   if (backButton) {
-    backButton.addEventListener('click', function(e) {
+    backButton.addEventListener('click', function (e) {
       e.preventDefault();
-      console.log('Back button clicked');
-      backtoHome();
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = 'index.html'; // fallback if no history
+      }
     });
-  }  
-// Back to log in button
-  document.addEventListener('DOMContentLoaded', function () {
-    const backButton2 = document.querySelector('.back-button2');
-  
-    if (backButton2) {
-      backButton2.addEventListener('click', function (e) {
-        e.preventDefault(); // optional — only useful if inside a form
-        console.log('Back to login clicked');
-        window.location.href = 'login_student.html';
-      });
-    }
-  });
+  }
+});
 
+document.addEventListener('DOMContentLoaded', function () {
+  const backButton2 = document.querySelector('.back-button2');
 
-function backtoHome() {
-  window.location.href = 'index.html';
-}
-function backToLogIn() {
-  window.location.href = 'login_student.html';
-}
+  if (backButton2) {
+    backButton2.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location.href = 'index.html';
+    });
+  }
+});
+
 //Case sensitive function
 document.getElementById("registerForm").addEventListener("submit", function (e) {
   const form = e.target;
