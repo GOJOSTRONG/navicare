@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NaviCare - Terms and Conditions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Gradient pink-white -->
+  <div class="gradient-overlay-bottom"></div>
+  <div class="overlay">
+    <!-- Main Content -->
+    <div class="container">
+      <div class="header">
+        <img src="res/school_and_dept_Logo.png" alt="school and dept">
+      </div>
+      <div class="navicare-icon">
+        <img src="res/navicare_icon.png" alt="NaviCare Logo">
+      </div>
+      
+      <div class="terms-consent-box">
+        <p class="terms-text">By clicking YES, you have read and agreed to Navicare's <span class="terms-link" onclick="openTermsModal()">Terms and Conditions</span> and <span class="privacy-link" onclick="openPrivacyModal()">Privacy Policy</span> and acknowledge the receipt of Privacy Notice.</p>
+        <button class="agree-button" onclick="proceedToLogin()">Yes, I agree to these Terms and Conditions</button>
+      </div>
+      
+      <div class="button-container">
+        <button class="agree-button" style="background-color: #e0e0e0; color: #555;" onclick="goBack()">Go Back</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Terms Modal -->
+  <div id="termsModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeTermsModal()">&times;</span>
+      <h2 class="modal-title">Terms and Conditions</h2>
+      <div class="modal-body">
+        <h3>1. Acceptance of Terms</h3>
+        <p>By accessing and using the NaviCare pilot website, www.navicare.edu.ph, you agree to be bound by these Terms and Conditions of Use. If you do not agree to these Terms, you are unauthorized to use the Website for educational, professional, or personal purposes.</p>
+        <p>The NaviCare is a pilot website being developed by Level Two (2) student nurses of the West Visayas State University - College of Nursing, as part of their partial fulfillment of NUR215: Nursing Informatics coursework. This innovation aims to explore the potential productivity, utility, and efficacy of an online platform to support WVSU-CON student nurses, clinical instructors, prospective patients, and alumni.</p>
+        
+        <h3>2. User Conduct and Responsibilities</h3>
+        <p>By agreeing to the Terms and Conditions as a user of this pilot Website, you are liable for:</p>
+        <ul>
+          <li>using the Website for its intended educational and informational purposes only and not in any way that violates applicable laws or regulations.</li>
+          <li>not attempting to gain unauthorized access to any portion of Navicare, its servers, or any related systems or networks.</li>
+          <li>respecting the intellectual property rights of West Visayas State University - College of Nursing and any third parties. This includes properly citing any materials used from the website in accordance with academic standards.</li>
+          <li>understanding that this is a pilot launch of an innovation project and the website may contain errors or be subjected to changes or discontinuation without notice.</li>
+          <li>provided only accurate and truthful information when interacting with Navicare.</li>
+          <li>not engaging in any activity that could disrupt or interfere with the operation of the website or other users' access to it.</li>
+        </ul>
+        
+        <h3>3. Intellectual Property</h3>
+        <p>All content included on the website, such as text, graphics, logos, images, and software, is the property of West Visayas State University - College of Nursing, its students, or its licensors and is protected by copyright and other intellectual property laws. Users are granted a limited, non-exclusive, and non-transferable license to access and use the content for educational, professional, or personal purposes within the scope of the pilot project. Any reproduction, distribution, modification, or republication of the website's content without prior written permission is strictly prohibited, except for properly cited use within academic work. Intellectual property used within the system will be properly cited, and permissions will be obtained where required.</p>
+        
+        <h3>4. Privacy and Data Protection</h3>
+        <p>The pilot website may collect and process limited user data for the purpose of evaluating its functionality and gathering feedback. This also includes data to be used in the process of creating an account, personalized dashboard, and others. All data collection and processing will be conducted in accordance with ethical principles, including data protection. Details regarding data handling will be provided in a separate Privacy Notice, if applicable.</p>
+        
+        <h3>5. Disclaimer of Warranties</h3>
+        <p>The website is provided on an "as is" and "as available" basis. West Visayas State University - College of Nursing and its student nurses make no representations or warranties of any kind, express or implied, regarding the operation or availability of the Website, or the accuracy, completeness, reliability, or suitability of the information and content provided. To the fullest extent permitted by applicable law, West Visayas State University - College of Nursing disclaims all warranties, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</p>
+        
+        <h3>6. Limitation of Liability</h3>
+        <p>In no event shall West Visayas State University - College of Nursing or its student nurses be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising out of or in any way connected with your use of Navicare, even if advised of the possibility of such damages.</p>
+        
+        <h3>7. Accessibility</h3>
+        <p>The pilot launch of the website is being designed with accessibility in mind, aiming to avoid exclusionary language or features that may disadvantage users of varying abilities or learning styles. However, as a pilot project, full accessibility may not be immediately achievable within the succeeding months. Subsequently, on-going maintenance is projected on a monthly basis in terms of website updates, modifications, and refinement.</p>
+        
+        <h3>8. Governing Law</h3>
+        <p>These Terms and Conditions shall be governed by and construed in accordance with the laws of the Republic of the Philippines, particularly Republic Act No. 10173, Republic Act No. 8293, Republic Act No. 7394, and Republic Act No. 10175.</p>
+        
+        <h3>9. Modifications to the Terms</h3>
+        <p>West Visayas State University reserves the right to modify these Terms at any time without prior notice. Any changes will be effective immediately upon posting on the website. Your continued use of Navicare after the posting of revised Terms and Conditions constitutes your acceptance of the changes.</p>
+        
+        <h3>10. Contact Information</h3>
+        <p>For any questions or concerns regarding these Terms and Conditions or the Website, please contact juliedanica.lorena@wvsu.edu.ph.</p>
+        
+        <h3>11. Ethical Considerations</h3>
+        <p>This pilot project will adhere to the ethical guidelines established by West Visayas State University - College of Nursing, including securing approval from the Institutional Review Board (IRB) of the College of Nursing, clinical instructors, and governing body of West Visayas State University prior to any formal study or publication related to the pilot.</p>
+        
+        <p>By using this Website, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Privacy Policy Modal -->
+  <div id="privacyModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closePrivacyModal()">&times;</span>
+      <h2 class="modal-title">Privacy Policy</h2>
+      <div class="modal-body">
+        <h3>1. Introduction</h3>
+        <p>This Privacy Policy outlines how the NaviCare pilot website collects, uses, and protects the personal information of its users. This website is being developed by student nurses of the West Visayas State University - College of Nursing, as partial fulfillment of their coursework. Rest assured, the student nurses are committed to protecting your privacy and ensuring the confidentiality of your information.</p>
+        
+        <h3>2. Information Collected</h3>
+        <p>The website may collect limited user data for the purpose of evaluating its functionality and gathering feedback.</p>
+        <p>The types of information collected may include:</p>
+        <ul>
+          <li>Login credentials</li>
+          <li>Usage data (e.g., pages visited, features used)</li>
+          <li>Feedback and survey responses</li>
+        </ul>
+        <p>The student nurses do not collect sensitive medical records or private information through this website.</p>
+        
+        <h3>3. How Your Information is Used</h3>
+        <p>The student nurses use the collected information to:</p>
+        <ul>
+          <li>Evaluate the website's functionality and user experience.</li>
+          <li>Gather feedback for website improvement and maintenance.</li>
+          <li>Generate reports and analyses for academic purposes.</li>
+        </ul>
+        
+        <h3>4. Data Protection and Security</h3>
+        <p>The student nurses implement appropriate security measures to protect user data against unauthorized access, disclosure, alteration, or destruction.</p>
+        <p>User data will be encrypted during transmission and storage.</p>
+        <p>Access to the Website and user data will be role-based, with tiered credentials for different user groups (e.g., students, faculty, patients).</p>
+        
+        <h3>5. Data Sharing and Disclosure</h3>
+        <p>The student nurses will not share or disclose your personal information to third parties except when required by law or with your explicit consent.</p>
+        
+        <h3>6. Data Retention</h3>
+        <p>User data will be stored securely for one academic year. If you wish to sustain your account, a yearly update of credentials will be required, otherwise your account will be discontinued.</p>
+        <p>If your account has been discontinued, users are required to relog in through a new account to utilize the website's services.</p>
+        <p>Data will be disposed of after this period unless extended retention is approved through ethical clearance.</p>
+        
+        <h3>7. User Rights</h3>
+        <p>Users may have the right to access, correct, or delete their personal information, depending on the Website's capabilities.</p>
+        <p>Users may also have the right to withdraw their consent for data collection, although this may limit their ability to use the Website.</p>
+        
+        <h3>8. Compliance</h3>
+        <p>This Privacy Policy is in compliance with the Philippine Data Privacy Act of 2012 or Republic Act No. 10173 and the ethical standards of West Visayas State University - College of Nursing.</p>
+        <p>The WVSU - CON Institutional Review Board and the IT Compliance Team will oversee privacy and compliance throughout the project lifecycle.</p>
+        
+        <h3>9. Updates to this Privacy Policy</h3>
+        <p>The student nurses may update this Privacy Policy without prior notice. Any changes will be posted on the website and users will be notified as appropriate for personal discretion.</p>
+        
+        <h3>10. Contact Information</h3>
+        <p>If you have any questions or concerns about this Privacy Policy or the data practices, please contact juliedanica.lorena@wvsu.edu.ph.</p>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

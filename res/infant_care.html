@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style2.css">
+  <title>NaviCare - Infant Care</title>
+</head>
+<body>
+  <!-- Gradient pink-white -->
+  <div class="gradient-overlay-bottom"></div>
+  <div class="overlay">
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="title">Infant Care</h1>
+      </div>
+
+      <!-- Module Options (First Template) -->
+      <div class="module-options" id="main-options">
+        <div class="option-card" onclick="showContent('physical-health')">
+          <div class="option-icon">💪</div>
+          <h3 class="option-title">Newborn care essentials</h3>
+          <p class="option-description">Mga Pangunahing Pangangalaga sa Bagong Panganak na Sanggol</p>
+        </div>
+        
+        <div class="option-card" onclick="showContent('mental-health')">
+          <div class="option-icon">🧠</div>
+          <h3 class="option-title">Signs of Danger in Newborns</h3>
+          <p class="option-description">Mga Palatandaan ng Panganib sa Bagong Silang na Sanggol</p>
+        </div>
+        
+        <div class="option-card" onclick="showContent('baby-care')">
+          <div class="option-icon">👶</div>
+          <h3 class="option-title">Common Infant Problem</h3>
+          <p class="option-description">Karaniwang Suliranin ng mga Sanggol</p>
+        </div>
+        
+        <div class="option-card" onclick="showContent('resources')">
+          <div class="option-icon">📋</div>
+          <h3 class="option-title">Resources</h3>
+          <p class="option-description">Local services and support groups</p>
+        </div>
+      </div>
+
+      <!-- Content Templates (Second Template) -->
+      <div class="content-template" id="physical-health">
+        <div class="back-button" onclick="showMainOptions()">← Back to options</div>
+        <h2 class="content-title">Physical Recovery</h2>
+        <div class="content-body">
+          <div class="content-section">
+            <h3 class="section-title">Healing After Birth</h3>
+            <p class="section-content">
+              Your body needs time to heal after giving birth. Whether you had a vaginal delivery or cesarean section, 
+              it's important to take care of yourself. Rest when you can, accept help from others, and don't hesitate 
+              to contact your healthcare provider with any concerns.
+            </p>
+          </div>
+          
+          <div class="content-section">
+            <h3 class="section-title">Postpartum Exercise</h3>
+            <p class="section-content">
+              Gentle movement like short walks can help with recovery. Start slow and gradually increase activity 
+              as your body allows. Always get clearance from your healthcare provider before beginning any exercise 
+              program after childbirth.
+            </p>
+          </div>
+          
+          <div class="content-section">
+            <h3 class="section-title">Nutrition Tips</h3>
+            <p class="section-content">
+              Eating well supports your recovery and, if breastfeeding, your milk production. Focus on nutrient-dense 
+              foods, stay hydrated, and consider continuing your prenatal vitamins as recommended by your healthcare provider.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-template" id="mental-health">
+        <div class="back-button" onclick="showMainOptions()">← Back to options</div>
+        <h2 class="content-title">Mental Wellbeing</h2>
+        <div class="content-body">
+          <div class="content-section">
+            <h3 class="section-title">Baby Blues vs. Postpartum Depression</h3>
+            <p class="section-content">
+              It's normal to experience mood swings, anxiety, or sadness after having a baby. Baby blues typically 
+              resolve within two weeks. If symptoms persist or worsen, it may be postpartum depression, which requires 
+              professional support. Remember, seeking help is a sign of strength.
+            </p>
+          </div>
+          
+          <div class="content-section">
+            <h3 class="section-title">Self-Care Strategies</h3>
+            <p class="section-content">
+              Even small moments of self-care can make a difference. Try to sleep when your baby sleeps, ask for help 
+              with household tasks and baby care, connect with other parents, and take short breaks to do things you enjoy.
+            </p>
+          </div>
+          
+          <div class="content-section">
+            <h3 class="section-title">When to Seek Help</h3>
+            <p class="section-content">
+              Contact your healthcare provider if you experience persistent feelings of sadness or emptiness, loss of interest 
+              in activities you used to enjoy, thoughts of harming yourself or your baby, or difficulty bonding with your baby.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-template" id="baby-care">
+        <div class="back-button" onclick="showMainOptions()">← Back to options</div>
+        <h2 class="content-title">Baby Care</h2>
+        <div class="content-body">
+          <div class="content-section">
+            <h3 class="section-title">Feeding Your Baby</h3>
+            <p class="section-content">
+              Whether you choose to breastfeed, formula feed, or a combination, fed is best. Newborns typically need to eat 
+              every 2-3 hours. Watch for hunger cues like rooting, sucking motions, or hand-to-mouth movements.
+            </p>
+          </div>
+          
+          <div class="content-section">
+            <h3 class="section-title">Sleep Safety</h3>
+            <p class="section-content">
+              Always place your baby on their back to sleep on a firm, flat surface without pillows, blankets, or toys. 
+              Room-sharing (but not bed-sharing) is recommended for the first 6-12 months to reduce the risk of SIDS.
+            </p>
+          </div>
+          
+          <div class="content-section">
+            <h3 class="section-title">Newborn Care Basics</h3>
+            <p class="section-content">
+              Regular diaper changes, gentle bathing 2-3 times per week, umbilical cord care, and dressing your baby 
+              appropriately for the temperature are important aspects of newborn care. Talk to your pediatrician about 
+              any specific concerns.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-template" id="resources">
+        <div class="back-button" onclick="showMainOptions()">← Back to options</div>
+        <h2 class="content-title">Resources</h2>
+        <div class="content-body">
+          <div class="content-section">
+            <h3 class="section-title">Local Support Services</h3>
+            <ul class="resource-list">
+              <li>Community Health Centers</li>
+              <li>Postpartum Support Groups</li>
+              <li>Lactation Consultants</li>
+              <li>Family Resource Centers</li>
+            </ul>
+          </div>
+          
+          <div class="content-section">
+            <h3 class="section-title">Hotlines</h3>
+            <ul class="resource-list">
+              <li>Postpartum Support International: 1-800-944-4773</li>
+              <li>National Parent Helpline: 1-855-427-2736</li>
+              <li>Crisis Text Line: Text HOME to 741741</li>
+            </ul>
+          </div>
+          
+          <div class="content-section">
+            <h3 class="section-title">Online Resources</h3>
+            <ul class="resource-list">
+              <li>CDC's Caring for a Newborn</li>
+              <li>La Leche League for breastfeeding support</li>
+              <li>Postpartum Support International website</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

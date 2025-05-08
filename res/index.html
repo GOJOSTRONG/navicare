@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NaviCare - Select User</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Gradient pink-white -->
+  <div class="gradient-overlay-bottom"></div>
+  <div class="overlay">
+  <!-- Accessibility -->
+  <div class="accessibility-overlay"></div>
+  <div class="accessibility-button" id="accessibilityBtn">
+    <img src="res/accessibility_icon.png" alt="Accessibility Icon">
+  </div>
+  <div id="accessibilityMenu" class="accessibility-menu">
+    <button data-content="aboutUs">ABOUT US</button>
+    <button data-content="wvsuVision">WVSU VISION</button>
+    <button data-content="wvsuMission">WVSU MISSION</button>
+  </div>
+  <div id="accessibilityContent" class="accessibility-content">
+    <div class="content-header">
+      <h2 id="contentTitle"></h2>
+    </div>
+    <div id="contentDescription" class="content-description"></div>
+    <div class="content-logo">
+      <img src="res/accessibility_icon.png" alt="WVSU Logo">
+    </div>
+    <button id="closeAccessibilityContent" class="accessibility-close">Close</button>
+  </div>
+    <!-- Main Content -->
+    <div class="container">
+      <div class="header">
+        <img src="res/school_and_dept_Logo.png" alt="school and dept">
+      </div>
+      <div class="navicare-icon">
+        <img src="res/navicare_icon.png" alt="NaviCare Logo">
+      </div>
+      <div class="user-type-section">
+        <p class="select-text">Select User Type</p>
+        <div class="user-types">
+          <a href="login_student.html" class="user-card">
+            <img src="res/stdnt_faculty_icon.png" alt="Student">
+            <p class="fixed-student-faculty">Student / Faculty</p>
+          </a>
+          <a href="welcome_guess.html" class="user-card">
+            <img src="res/guest_icon .png" alt="Guest">
+            <p>Guest</p>
+          </a>
+        </div>
+      </div>
+    </div> <!-- .container -->
+  </div> <!-- .overlay -->
+  
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+ 
+  html {
+    width: 100%;
+    min-height: 100%;
+    font-size: 100%; /* enables rem scaling based on browser */
+  }
+ 
+  body {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('res/school_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-position: center center;
+    color: #a2165f;
+    font-size: 1rem; /* use rem for scalable typography */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  .zoom-scroll-container {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    aspect-ratio: 5/3;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+ 
+  .zoom-scroll {
+    width: 100%;
+    height: 100%;
+    background-image: url('res/school_bg.png');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+ 
+  .zoom-scroll:hover {
+    transform: scale(1.5);
+  }
+     
+  .overlay {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+  }
+ 
+  .gradient-overlay-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 110vh;
+    background: linear-gradient(to top, #e93772, rgba(255, 255, 255, 0));
+    z-index: 0;
+    pointer-events: none;
+  }
+ 
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* New styles for the templates */
+  .module-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin: 40px auto;
+  }
+
+  .option-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 30px 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+  }
+
+  .option-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(233, 55, 114, 0.2);
+  }
+
+  .option-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #e93772;
+  }
+
+  .option-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #a2165f;
+    text-transform: uppercase;
+  }
+
+  .option-description {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  .header {
+    margin: 20px 0 40px 0;
+  }
+
+  .logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+
+  .title  {
+    color: #4CAF50;
+    font-size: 45px;
+    font-family: 'Dancing Script', cursive;
+	margin-bottom: 30px;
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    color: #666;
+  }
+
+  /* Content Template Styles */
+  .content-template {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .back-button_options {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 15px;
+    background-color: #a2165f;
+    color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .back-button_options:hover {
+    background-color: #e93772;
+  }
+  .content-title {
+    font-size: 2rem;
+    color: #a2165f;
+    margin-bottom: 20px;
+  }
+
+  .content-body {
+    text-align: left;
+    line-height: 1.6;
+  }
+
+  .content-section {
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    color: #a2165f;
+    margin-bottom: 10px;
+  }
+
+  .section-content {
+    color: #444;
+  }
+
+  .resource-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .resource-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .resource-list li:last-child {
+    border-bottom: none;
+  }

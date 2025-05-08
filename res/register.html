@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NaviCare - Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Gradient pink-white -->
+  <div class="gradient-overlay-bottom"></div>
+  <div class="overlay">
+    <!-- Main Content -->
+    <div class="container">
+      <div class="header">
+        <img src="res/school_and_dept_Logo.png" alt="school and dept">
+      </div>
+      <button class="back-button" >Back</button>
+      <div class="navicare-icon">
+        <img src="res/navicare_icon.png" alt="NaviCare Logo">
+      </div>
+      <div class="register-box">
+        <h2>Tell us about yourself</h2>
+        <form action="register.php" method="post">
+          <input type="text" name="fullname" placeholder="Full name" required>
+          <input type="text" name="username" placeholder="Create your username" required>
+          <input type="text" name="idnumber" placeholder="ID Number" required>
+          <input type="email" name="email" placeholder="Email address" required>
+          <input type="text" name="dob" placeholder="MM/DD/YY" required>
+          <input type="password" name="password" placeholder="Create your password" required>
+          <button type="submit">Create my account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
