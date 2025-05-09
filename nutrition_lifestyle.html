@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NaviCare - POSTPARTUM NUTRITION</title>
+  <style>    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      width: 100%;
+      min-height: 100%;
+      font-size: 100%;
+    }
+    
+    body {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('res/school_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-position: center center;
+    color: #a2165f;
+    font-size: 1rem; 
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+    
+    .gradient-overlay-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 110vh;
+      background: linear-gradient(to top, #e93772, rgba(255, 255, 255, 0));
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .overlay {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+      width: 100%;
+      min-height: 100vh;
+      height: auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .section-divider {
+      width: 100%;
+    height: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #f9b1e4;
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 20px;
+    }
+    h2 {
+      color: #e93772;
+      font-size: 2rem;
+      text-align: left;
+    }
+    h3 {
+      color: #a74161;
+      font-size: 1.5rem;
+      text-align: left;
+    }
+    
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .title-container {
+      padding: 20px 20px 5px 20px;
+      margin-bottom: 20px;
+    }
+    
+    .page-title {
+      color: #4CAF50;
+      font-size: 45px;
+      font-family: 'Dancing Script', cursive;
+      margin-bottom: 30px;
+      text-align: center;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    
+    .title-underline {
+      width: 100%;
+      height: 2px;
+      background-color: #7faf1b;
+      margin-top: 5px;
+    }
+
+    .topics-container {
+      padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .topic-button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(253, 241, 215, 0.8);
+      border-radius: 15px;
+      padding: 25px 30px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .topic-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .topic-button h3 {
+      color: #ffffff;
+      font-size: 24px;
+      margin: 0;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    
+    .plus-icon {
+      color: #FFFFFF;
+      font-size: 36px;
+      font-weight: bold;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgb(255, 203, 203) 100%, rgba(255, 125, 235, 0.7) 130%);
+      z-index: 1000;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      background: linear-gradient(to bottom, rgb(255, 199, 199), rgba(255, 255, 255, 0.7));
+      padding: 20px;
+    }
+    
+    .modal-title {
+      color: #4CAF50;
+      font-size: 24px;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0;
+    }
+    
+    .modal-subtitle {
+      color: #D81B60;
+      font-size: 25px;
+      margin: 15px 0;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    
+    .modal-content {
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .modal-content p {
+      color: #333333;
+      margin-bottom: 10px;
+      font-size: 18px;
+      text-align: justify;
+    }
+    
+    .photo-placeholder {
+      width: 100%;
+      height: 300px;
+      background-color: #ffceda;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffc9df;
+      font-size: 20px;
+      margin: 15px 0;
+    }
+    
+    .back-button, .back-button2 {
+      background-color: #f9e7f000;
+      color: #a2165f;
+      border: none;
+      border-radius: 20px;
+      padding: 0.4rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+    
+    .back-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+    
+    .back-button:hover, .back-button2:hover {
+      background-color: #f8d7e1;
+    }
+    
+    .modal .back-button2 {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+    }
+    
+    .topic-content {
+      color: #333;
+      text-align: left;
+    }
+    
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 32px;
+        text-align: left;
+        margin: 0;
+        text-transform: uppercase;
+      }
+    }
+      .topic-button h3 {
+        font-size: 20px;
+      }
+      
+      .photo-placeholder {
+        height: 200px;
+      }
+  .centered-text {
+  text-align: center;
+  font-size: 30px;
+}
+  .infographic-placeholder {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+    max-height: 800px;
+    background-color: #ffcad4;
+    border: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #f9b1e4;
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  .infographic-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px 0;
+    border: hidden;
+  }
+  
+  .infographic-wrapper img {
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+      
+      .back-button, .modal .back-button2 {
+        font-size: 1rem;
+        padding: 0.35rem 1.2rem;
+      }
+  </style>
+</head>
+<body>
+    <!-- Gradient overlay -->
+    <div class="gradient-overlay-bottom"></div>
+   
+    <!-- Main content -->
+    <div class="overlay">
+      <div class="container">
+        <button class="back-button">Back</button>
+    
+    <div class="title-container">
+      <h1 class="page-title">Nutrition & <br> Lifestyle</h1>
+      <div class="title-underline"></div>
+    </div>
+    
+    <div class="topics-container">
+      <button class="topic-button" id="hemorrhage-button" data-topic="hemorrhage">
+        <div class="topic-content">
+          <h3>POSTPARTUM NUTRITION</h3>
+        </div>
+        <span class="plus-icon">+</span>
+      </button>
+      
+      <div class="section-divider"><img src="https://images.healthandme.com/thumb/msid-151123663,thumbsize-1523302,width-390,height-220,resizemode-3/151123663.jpg" alt="banner"> </div>
+      
+      <button class="topic-button" id="infection-button" data-topic="infection">
+        <div class="topic-content">
+          <h3>RETURNING TO WORK</h3>
+        </div>
+        <span class="plus-icon">+</span>
+      </button>
+      
+      <div class="section-divider"><img src="https://www.myshortlister.com/app/uploads/2023/11/Diversity.png" alt="banner"> </div>
+      
+
+  <!-- Modals for each topic -->
+  <div id="hemorrhage-modal" class="modal">
+    <button class="back-button2">Back</button>
+    <div class="modal-header">
+      <h2 class="modal-title">POSTPARTUM NUTRITION</h2>
+      <h3 class="modal-subtitle">Nutrisyon sa Postpartum</h3>
+    </div>
+    <div class="modal-content">
+      <i><p>
+        <div class="infographic-placeholder">
+          <div class="infographic-wrapper">
+             <img src="https://scontent.fcgy2-4.fna.fbcdn.net/v/t1.6435-9/53303496_1464668907001882_2673282658296922112_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFCoIJuTOCVYjDMsE9WlW_ule5U0Ayj5lyV7lTQDKPmXGe68ZR3xjPz3j9dYmTSay4Sjo8O6W9d8A6NnRha9cCE&_nc_ohc=K5gOIZzxnbAQ7kNvwHEk__f&_nc_oc=Adm6DmN1DDRb_r2Tnane25tguDh4HyFPGkqUe8hLYn5inZCcBzvVyZ6Eto5VhAOUshHOFj6RHLbmqk2a5V7C15QV&_nc_zt=23&_nc_ht=scontent.fcgy2-4.fna&_nc_gid=uNvYVzHh6TaJ2dp83Jz4LA&oh=00_AfKf9nVwwty6Emj9-ALJhgHwkQHVmTpVBz2REO3XPLI0og&oe=6845A915" 
+              alt="Swaddling Infographic" 
+              style="width: 100%; height: 100%; object-fit: contain;">
+           </div>
+       </div>
+<div class="centererd-text"><a href="https://web.facebook.com/photo/?fbid=1464668900335216&set=a.475670645901718" target="_blank">Source</a></div>
+        <h2><i>1. Tumaas na Nutritional Needs<i></h2>
+            <p>• Pagkatapos ng panganganak, ang katawan ng isang ina ay sumasailalim sa paggaling at, kung nagpapasuso, ay patuloy na sumusuporta sa isa pang buhay. Ang mga pangangailangan sa nutrisyon ay mas mataas kaysa sa mga antas bago ang pagbubuntis.
+                Enerhiya: Upang maging well-nourished, ang mga nanay na nagpapasuso ay nangangailangan ng 340 hanggang 400 higit pang kilocalories (kcal) bawat araw kaysa sa dami ng kanilang nakonsumo bago ang pagbubuntis. Nangangahulugan ito ng humigit-kumulang 2,000 hanggang 2,800 kcal bawat araw para sa mga babaeng nagpapasuso kumpara sa 1,600 hanggang 2,400 kcal bawat araw para sa katamtamang aktibong mga kababaihan na hindi buntis at hindi nagpapasuso
+                Protina: Kailangan para sa pag-aayos ng tissue at paggawa ng gatas. Isama ang mga walang taba na karne, itlog, pagawaan ng gatas, munggo, at mani</p>
+        
+        <h2><i>2. Hydration<i></h2>
+            <p>• Sa panahon ng pagpapasuso, hinihikayat ang karagdagang 500 ml ng likido bawat araw para sa paggawa ng mataas na kalidad na gatas ng ina.
+                Maghangad ng 2.7–3.1 litro ng likido/araw.
+                Pinakamainam ang tubig, ngunit nag-aambag din ang mga sopas, gatas, at sariwang katas ng prutas.</p>
+
+         <h2><i>3. Mga Micronutrients na Pagtutuunan<i></h2>
+            <p><i>Pinupunan muli ang pagkawala ng dugo sa panahon ng panganganak.</i></p>
+            <p><i>Isama ang mga pagkaing mayaman sa bakal (pulang karne, atay, berdeng madahong gulay) at ipares sa mga pagkaing mayaman sa Vitamin C para sa mas mahusay na pagsipsip.</i></p>
+            <p><i>Maaaring kailanganin ang supplement, lalo na pagkatapos ng cesarean delivery o postpartum hemorrhage.</i></p>
+            
+            <p><i><h3>Kaltsyum</h3></i></p>
+            <p><i>Inirerekomenda ng American College of Obstetrics and Gynecology (ACOG) ang 1,000 hanggang 1,300 mg ng calcium araw-araw. Ang kaltsyum ay kinakailangan upang suportahan ang paglaki at pag-unlad ng sanggol pagkatapos ng kapanganakan.</i></p>
+            <p><i>Ang mga babaeng postpartum, lalo na ang mga nagpapasuso, ay nawawalan ng calcium sa pamamagitan ng gatas ng suso, na nagdaragdag ng pangangailangan na lagyang muli ito upang maprotektahan ang kanilang sariling skeletal at dental na kalusugan. Ang hindi sapat na paggamit ng calcium ay maaaring humantong sa de-mineralization ng mga buto at ngipin ng ina, na ginagawa itong mas madaling kapitan ng pagkabulok o pagiging sensitibo.</i></p>
+            <p><i>Ang mga produkto ng dairy, tofu, berdeng madahong gulay, at pinatibay na pagkain ay mahusay na pinagkukunan.</i></p>
+            
+            <p><i><h3>Bitamina D</h3></i></p>
+            <p><i>Pinahuhusay ang pagsipsip ng calcium.</i></p>
+            <p><i>Hikayatin ang pagkakalantad sa araw at mga mapagkukunan ng pagkain (isda, pinatibay na gatas) o suplemento kung kinakailangan.</i></p>
+            
+            <p><i><h3>Yodo</h3></i></p>
+            <p><i>Mahalaga para sa pag-unlad ng utak ng sanggol sa pamamagitan ng gatas ng ina.</i></p>
+            <p><i>Kumain ng iodized salt at mga pagkaing mayaman sa iodine tulad ng seafood at dairy.</i></p>
+            
+            <p><i><h3>Folic Acid</h3></i></p>
+            <p><i>Sinusuportahan ang paggawa ng pulang selula ng dugo at pinipigilan ang pagkapagod.</i></p>
+            <p><i>Natagpuan sa berdeng madahong gulay, munggo, at pinatibay na cereal.</i></p>
+            
+            <p><i><h3>Bitamina A</h3></i></p>
+            <p><i>Sinusuportahan ang immune function at paningin.</i></p>
+            <p><i>Kabilang sa mga mapagkukunan ang mga dilaw/orange na gulay (carrots, squash), atay, at itlog.</i></p>
+            
+            <i><h2>4. Ligtas na Nutrisyon sa Pagpapasuso</h3></i>
+            <p><i>Iwasan ang alak, limitahan ang caffeine, at iwasan ang high-mercury fish (hal., pating, swordfish).</i></p>
+            <p><i>Tiyakin ang kaligtasan ng pagkain upang maiwasan ang kontaminasyon.</i></p>
+            <p><i>Kung ang isang sanggol ay lumilitaw na mas maselan o magagalitin pagkatapos kumain ang ina ng mataas na halaga ng caffeine, dapat niyang isaalang-alang na bawasan ang kanyang paggamit. Ang mga preterm at mas batang bagong panganak na sanggol ay mas mabagal na bumabagsak ng caffeine, kaya maaaring isaalang-alang ng mga ina ng mga sanggol na ito ang pagkonsumo ng mas kaunting caffeine.</i></p>
+            <ul>
+              <p><i> Ang mga karaniwang pinagmumulan ng caffeine sa pagkain ay kinabibilangan ng:</i></li>
+              <li><i>• Kape</i></li>
+              <li><i>• Mga soda</i></li>
+              <li><i>• Tsaa</i></li>
+              <li><i>• Tsokolate</i></li>
+              <li><i>• Mga inumin na enerhiya</i></li>
+      </p></i>
+    </div>
+  </div>
+  <div id="infection-modal" class="modal">
+    <button class="back-button2">Back</button>
+    <div class="modal-header">
+      <h2 class="modal-title">POSTPARTUM NUTRITION</h2>
+      <h3 class="modal-subtitle">Return to Work</h3>
+    </div>
+    <div class="modal-content">
+      <p>Returning to work after childbirth can be a big transition. Here are some tips to help you manage your nutrition, health, and well-being as you go back to work:</p>
+      
+      <div class="photo-placeholder">Returning to Work Illustration</div>
+      
+      <p>• Prepare healthy snacks and meals in advance to ensure you have nutritious options during your workday.</p>
+      <p>• Stay hydrated by keeping a water bottle at your desk or in your bag.</p>
+      <p>• If you are breastfeeding, plan for pumping breaks and safe milk storage at work. Communicate with your employer about your needs.</p>
+      <p>• Try to maintain a regular sleep schedule and rest when possible, as adjusting to work and caring for your baby can be tiring.</p>
+      <p>• Ask for support from family, friends, or coworkers when needed.</p>
+      <p>• Listen to your body and don’t hesitate to reach out to your healthcare provider if you have concerns about your recovery or well-being.</p>
+    </div>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Main back button - navigates back in history
+      const backButton = document.querySelector('.back-button');
+      if (backButton) {
+        backButton.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            window.location.href = 'index.html'; // fallback if no history
+          }
+        });
+      }
+     
+      // Get all topic buttons
+      const topicButtons = document.querySelectorAll('.topic-button');
+     
+      // Add click event listeners to each button
+      topicButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const topic = button.getAttribute('data-topic');
+          openModal(topic);
+        });
+      });
+    });
+   
+    // Function to open the modal for a specific topic
+    function openModal(topic) {
+      // Get the appropriate modal
+      const modal = document.getElementById(`${topic}-modal`);
+      
+      // Show the modal if it exists
+      if (modal) {
+        modal.style.display = 'block';
+        // Modal back button - closes the modal
+        const backButton2 = modal.querySelector('.back-button2');
+        if (backButton2) {
+          // Remove existing event listeners to prevent duplicates
+          const newBackButton = backButton2.cloneNode(true);
+          backButton2.parentNode.replaceChild(newBackButton, backButton2);
+         
+          newBackButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+          });
+        }
+      } else {
+        console.error(`Modal for topic "${topic}" not found`);
+      }
+    }
+  </script>
+</body>
+</html>

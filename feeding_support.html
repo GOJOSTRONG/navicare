@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NaviCare - Feeding Support</title>
+  <style>
+    .topic-title {
+    color: var(--primary-magenta);
+    font-size: 16px;
+    margin: 0;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase;
+  }* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    width: 100%;
+    min-height: 100%;
+    font-size: 100%; /* enables rem scaling based on browser */
+  }
+  
+  body {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('res/school_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-position: center center;
+    color: #a2165f;
+    font-size: 1rem; /* use rem for scalable typography */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .zoom-scroll-container {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    aspect-ratio: 5/3; 
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .zoom-scroll {
+    width: 100%;
+    height: 100%;
+    background-image: url('res/school_bg.png');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+  
+  .zoom-scroll:hover {
+    transform: scale(1.5);
+  }
+     
+  .overlay {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .gradient-overlay-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 110vh;
+    background: linear-gradient(to top, #e93772, rgba(255, 255, 255, 0));
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  :root {
+    --primary-green: #4CAF50;
+    --primary-magenta: #D81B60;
+    --light-yellow: #FFF9C4;
+    --light-pink: #FFCDD2;
+    --dark-text: #333333;
+    --light-text: #FFFFFF;
+  }
+  
+  .title-container {
+    padding: 20px 20px 5px 20px;
+  }
+  
+  .page-title {
+    color: var(--primary-green);
+    font-size: 45px;
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 30px;
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  
+  .title-underline {
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-green);
+    margin-top: 5px;
+  }
+  
+  .topics-container {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .topic-title-container {
+    background-color: rgba(255, 249, 196, 0.8);
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .topic-title {
+    color: var(--primary-magenta);
+    font-size: 18px;
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .topic-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 249, 196, 0.8);
+    border-radius: 10px;
+    padding: 15px 20px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .topic-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .topic-button h3 {
+    color: var(--primary-magenta);
+    font-size: 16px;
+    margin: 0;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase;
+  }
+  
+  .plus-icon {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgb(255, 203, 203) 100%, rgba(255, 125, 235, 0.7) 130%);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  @media (max-width: 567px) {
+    .modal {
+        padding: 0;
+        background: linear-gradient(to bottom, rgb(255, 194, 194) 90%, rgba(255,205,210,0.85) 120%);
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+  }
+  
+  .modal-header {
+    background: linear-gradient(to bottom, rgb(255, 199, 199), rgba(255, 255, 255, 0.7));
+    padding: 20px;
+  }
+  
+  .modal-title {
+    color: var(--primary-green);
+    font-size: 24px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .modal-subtitle {
+    color: var(--primary-magenta);
+    font-size: 25px;
+    margin: 15px 0;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  
+  .modal-content {
+    padding: 20px;
+    line-height: 1.6;
+  }
+  
+  .modal-content p {
+    color: var(--dark-text);
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-align: justify;
+  }
+  
+  .video-row {
+    display: flex;
+    gap: 10px; /* optional spacing between videos */
+  }
+  
+  .photo-placeholder {
+    width: 100%;
+    height: 500px;
+    background-color: #ffceda;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffc9df;
+    font-size: 20px;
+    margin: 15px 0;
+  }
+  
+  .infographic-placeholder {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+    max-height: 800px;
+    background-color: #ffcad4;
+    border: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #f9b1e4;
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 20px;
+  }
+  .centered-text {
+    text-align: center;
+  }
+  .infographic-wrapper {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+    max-height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    padding: 20px 0;
+    border: hidden;
+  }
+  
+  .infographic-wrapper img {
+    max-width: 100%;
+    height: auto;
+    max-height: 800px;
+    display: block;
+    object-fit: contain;
+  }
+  
+  @media (max-width: 768px) {
+    .infographic-placeholder {
+        min-height: 400px;
+        max-height: 600px;
+        font-size: 16px;
+        margin: 15px 0;
+    }
+    
+    .infographic-wrapper {
+        min-height: 400px;
+        max-height: 600px;
+    }
+    
+    .infographic-wrapper img {
+        max-height: 600px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .photo-placeholder {
+        width: 100%;
+        height: auto;
+        background-color: #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #757575;
+        font-size: 20px;
+        margin: 80px 0;
+    }
+  }
+  
+  .back-button, .back-button2 {
+    background-color: #f9e7f0;
+    color: #a2165f;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  }
+  
+  .back-button {
+    position: fixed;
+    top: 20px;
+    left: 90%; 
+  }
+  
+  .back-button:hover, .back-button2:hover {
+    background-color: #f8d7e1;
+  }
+  
+  /* Modal back button specific positioning */
+  .modal .back-button2 {
+    position: fixed;
+    top: 20px;
+    left: 90%;
+    z-index: 1001;
+  }
+  
+  @media (max-width: 567px) {
+    .back-button {
+      font-size: 1rem;
+      padding: 0.35rem 1.2rem;
+      position: fixed;
+      top: 20px;
+      left: 330px; 
+    }
+    .modal .back-button2 {
+        position: fixed;
+        top: 20px;
+        left: 340px;
+        z-index: 1001;
+    }
+  }
+  </style>
+</head>
+<body>
+    <!-- Gradient overlay -->
+    <div class="gradient-overlay-bottom"></div>
+   
+    <!-- Main content -->
+    <div class="overlay">
+      <div class="container">
+        <button class="back-button">Back</button>
+       
+        <div class="title-container">
+          <h1 class="page-title">Feeding <br>  Support</h1>
+          <div class="title-underline"></div>
+        </div>
+       
+        <div class="topics-container">
+            <div class="topic-title-container">
+            <h2 class="topic-title">EDUKASYON SA GATAS NG BREAST AT MGA TEKNIK SA PAGPAPAKAIN</h2>
+            </div>
+         
+          <button class="topic-button" data-topic="advantages">
+            <h3>Advantages of Breastfeeding</h3>
+            <span class="plus-icon">+</span>
+          </button>
+         
+          <button class="topic-button" data-topic="techniques">
+            <h3>Breastfeeding Techniques</h3>
+            <span class="plus-icon">+</span>
+          </button>
+         
+          <button class="topic-button" data-topic="challenges">
+            <h3>Common Breastfeeding Challenges and Solutions</h3>
+            <span class="plus-icon">+</span>
+          </button>
+         
+          <button class="topic-button" data-topic="pumping">
+            <h3>Pumping and Storing Breast Milk</h3>
+            <span class="plus-icon">+</span>
+          </button>
+         
+          <button class="topic-button" data-topic="formula">
+            <h3>Tips for Mixed or Formula Feeding</h3>
+            <span class="plus-icon">+</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals for each topic -->
+
+    <div id="advantages-modal" class="modal">
+      <button class="back-button2">Back</button>
+      <div class="modal-header">
+        <h2 class="modal-title">Feeding Support</h2>
+        <h3 class="modal-subtitle">Advantages of Breastfeeding</h3>
+      </div>
+      <div class="modal-content">
+        <p>
+            <body>
+                <p><i><h2>INFORMATION</h2></i></p>
+                <p><i>Ano ang pagpapasuso ay isang natural na paraan ng pagpapakain sa iyong sanggol (pagsasalin) kapag ang mga sanggol ay kumapit o idikit ang kanilang bibig sa iyong suso at, sa pamamagitan ng pagsuso, uminom ng gatas na ginawa ng iyong katawan. (pagsasalin)</i></p>
+              
+                <p><i><h3>Kailan tayo magpapasuso?</h3></i></p>
+                <p><i>Hindi nagtagal pagkatapos silang ipanganak, madalas sa loob ng unang ilang oras. (pagsasalin)</i></p>
+                <p><i>Inirerekomenda ng World Health Organization ang eksklusibong pagpapasuso sa loob ng humigit-kumulang 6 na buwan, na may patuloy na pagpapasuso kasama ang pagpapakilala ng naaangkop na mga pantulong na pagkain hanggang sa 2 taong gulang o mas matagal pa. (pagsasalin)</i></p>
+                <p><i>Ipagpatuloy ang pagpapasuso kahit na magkasakit ang ina o ang sanggol.</i></p>
+              
+                <p><i><h2>Mga Bentahe ng Pagpapasuso</h2></i></p>
+              
+                <p><i><h3>Mga benepisyo sa nutrisyon para sa sanggol(mahahalagang sustansya, proteksyon sa immune)</h3></i></p>
+              
+                <p><i><h3>Mahahalagang Sustansya</h3></i></p>
+                <p><i>Ang gatas ng ina ay nagbibigay ng lahat ng nutrients na kailangan ng sanggol para sa paglaki at pag-unlad ng kalusugan, kabilang ang mga protina, taba, bitamina, at mineral, mula sa pagsilang hanggang 6 na buwan. Ito ay lalong mahalaga para sa pag-unlad ng utak at nagbibigay-malay.</i></p>
+              
+                <p><i><h3>Proteksyon</h3></i></p>
+                <p><i>Naglalaman ito ng mga antibodies na tumutulong sa sanggol na labanan ang impeksyon at mga sakit tulad ng pagtatae, pulmonya, impeksyon sa tainga, meningitis, at impeksyon sa ihi, at diabetes, mataas na presyon ng dugo, at labis na katabaan sa susunod na buhay.</i></p>
+              
+                <p><i><h3>Mga benepisyo sa kalusugan para sa ina</h3></i></p>
+                <p><i>Pag-urong ng matris, nabawasan ang panganib ng kanser sa suso.</i></p>
+              
+                <p><i><h3>Pag-urong ng Matris</h3></i></p>
+                <p><i>Ang pagpapasuso ay nagtataguyod ng pagpapalabas ng oxytocin, na tumutulong sa matris na bumalik sa kanyang prepartum pregnancy size at binabawasan ang postpartum bleeding.</i></p>
+              
+                <p><i><h3>Nabawasan ang Panganib ng Kanser sa Dibdib</h3></i></p>
+                <p><i>Ipinapakita ng mga pag-aaral na ang pagpapasuso ay nagpapababa ng panganib ng kanser sa suso, gayundin ng ovarian cancer at type 2 diabetes.</i></p>
+              
+                <p><i><h3>Emosyonal na pagbubuklod sa pagitan ng ina at sanggol</h3></i></p>
+              
+                <p><i><h3>Closeness at Comfort</h3></i></p>
+                <p><i>Ang pagpapasuso ay nagpapatibay ng isang malakas na emosyonal na bono sa pamamagitan ng balat-sa-balat na pakikipag-ugnayan, na nagpapahusay sa pakiramdam ng seguridad at pagkakadikit para sa ina at sanggol.</i></p>
+              
+                <p><i><h3>Hormone at Mga Benepisyo</h3></i></p>
+                <p><i>Ang pagpapakawala ng oxytocin sa panahon ng pagpapasuso ay nakakatulong na palakasin ang emosyonal na koneksyon, nagtataguyod ng mga damdamin ng pagmamahal at pagbubuklod.</i></p>
+              
+                <p><i><h3>Mga Benepisyo sa Pinansyal</h3></i></p>
+                <p><i>Ang pagpapasuso ay maaaring makatipid ng hanggang PHP2000 kada buwan kung ihahambing sa paggamit ng ibang gatas.</i></p>
+                <p><i>Ang mga ina ay hindi kailangang lumiban sa kanilang sarili sa trabaho dahil ang mga sanggol na nagpapasuso ay mas malamang na magkasakit.</i></p>
+              
+                <p><i><h3>Promosyon ng Lactation</h3></i></p>
+                <p><i>
+                <ul>
+                    <li><p>Masahe sa dibdib</p></li>
+                    <li><p>Breast Pumping</p></li>
+                    <li><p>Isang maayos na trangka</p></li>
+                    <li><p>Madalas na pagpapasuso</p></li>
+                    <li><p>Pakainin ang magkabilang suso</p></li>
+                    <li><p>Oatmeal</p></li>
+                    <li><p>Pag-aalaga ng kangaroo</p></li>
+                    <li><p>Malusog na diyeta</p></li>
+                    <li><p>Kumain at uminom pa</p></li>
+                    <li><p>Bawang</p></li>
+                    <li><p>Mga mani</p></li>
+                    <li><p>Mga pagkaing mayaman sa protina</p></li>
+                    <li><p>Malunggay</p></li>
+                </ul>
+                </i></p>
+              </body>
+              
+        </p>
+        
+        <div class="infographic-placeholder">
+            <div class="infographic-wrapper">
+               <img src="https://scontent.fmnl3-2.fna.fbcdn.net/v/t1.6435-9/38171745_1886082681448138_1694769583623241728_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEEWJJxv7lxmmmcJz5KTXyAMO1BOa9nXu8w7UE5r2de76RIy0sG4IHo8Zl73Rb4mGbBbLbkeVYfl5KvIMKuD00C&_nc_ohc=gsx9a2uJZp0Q7kNvwE07l-b&_nc_oc=Adkf3oHyqBZrKLVdICpRYIiPz4QyuvsXG5vpQp9abXKyvf83WHzwRCXHlDhaQyj_faEn9MdMfXS3heB_IExpuYkO&_nc_zt=23&_nc_ht=scontent.fmnl3-2.fna&_nc_gid=dPZ5WwFgqnDXViJdUyIbeQ&oh=00_AfJ13lfugMfXQGfEQX97lVm3XyXPw8KWzIpn9FEohwWzPw&oe=6844F60B" 
+                alt="Swaddling Infographic" 
+                style="width: 100%; height: 100%; object-fit: contain;">
+             </div>
+         </div>
+
+          <div class="centered-text">
+            <a href="https://www.facebook.com/922508751138874/posts/pfbid0BMZ82HTwQ15Lkag3rApyRQgfU3V1A5mJLoC6fFjyo6crah5R5DLRnQFMf1xVWbqAl/?app=fbl">Pindotin ito para sa iba pang impormasyon</a>
+          </div>
+
+        </div>
+      </div>
+
+    <!-- Add more modals for other topics -->
+    <div id="techniques-modal" class="modal">
+      <button class="back-button2">Back</button>
+      <div class="modal-header">
+        <h2 class="modal-title">Feeding Support</h2>
+        <h3 class="modal-subtitle">Mga Diskarte sa Pagpapasuso</h3>
+      </div>
+    <div class="modal-content">
+      <p><i><h3>Mga Diskarte sa Pagpapasuso</h3></i></p>
+      <p><i>Ang ina ay dapat mag-alok ng magkabilang suso sa sanggol nang sunud-sunod sa bawat oras ng pagpapakain, na nagpapahintulot sa sanggol na sumuso sa bawat suso sa loob ng mga 5-15 minuto.</i></p>
+      
+      <p><i><h3>Mga Palatandaan na ang Iyong Sanggol ay Gutom</h3></i></p>
+      <p><i>
+        <ul>
+        <li><p>Kapag ang sanggol ay lumingon patungo sa suso at hinanap ang utong</p></li>
+        <li><p>Mga paggalaw ng pagdila, pagbaluktot ng mga braso, pagkuyom ng mga kamao, pag-igting ng katawan at pagsipa ng mga binti</p></li>
+        <li><p>Ang pag-iyak ay ang huling tanda ng gutom</p></li>
+        </ul>
+      </i></p>
+      
+      <p><i><h3>Mga Senyales na Puno na ang Iyong Baby</h3></i></p>
+      <p><i>
+        <ul>
+        <li><p>Pinakawalan o "nahuhulog" ang iyong dibdib</p></li>
+        <li><p>Tumalikod sa iyong utong</p></li>
+        <li><p>Pinapakalma ang kanilang katawan at ibinuka ang kanilang mga kamao</p></li>
+        </ul>
+      </i></p>
+      
+      <p><i><h3>Tamang Latch Technique</h3></i></p>
+      <p><i>Kilitiin ang labi ng iyong sanggol gamit ang iyong utong. Makakatulong ito sa iyong sanggol na buksan ang kanilang bibig.</i></p>
+      <p><i>Ituon ang iyong utong sa itaas lamang ng tuktok na labi ng iyong sanggol. Siguraduhin na ang baba ng iyong sanggol ay hindi nakasuksok sa kanyang dibdib.</i></p>
+      <p><i>Layunin ang ibabang labi ng iyong sanggol palayo sa base ng iyong utong. Ang dila ng iyong sanggol ay dapat na pahabain, at ang iyong dibdib ay dapat punan ang bibig ng iyong sanggol.</i></p>
+      <p><i>Kung ang iyong sanggol ay nakakapit sa dulo ng iyong utong o sumasakit, dahan-dahang ilagay ang isang malinis na daliri sa bibig ng iyong sanggol upang masira ang trangka, pagkatapos ay subukang muli (USDA, n.d.)</i></p>
+      
+      <p><i><h3>Mga Palatandaan ng Good Latch</h3></i></p>
+      <p><i>
+        <ul>
+        <li><p>Kumportable at walang anumang sakit</p></li>
+        <li><p>Karamihan sa mga areola ay nakikita sa itaas ng bibig ng sanggol, hindi sa ibaba</p></li>
+        <li><p>Bukas ang bibig ng sanggol habang nagpapasuso</p></li>
+        <li><p>Ang ibabang bahagi ng panga ng sanggol ay nakausli</p></li>
+        <li><p>Dumadampi ang baba sa dibdib</p></li>
+        </ul>
+      </i></p>
+      <p><i><h3>Mga Posisyon ng Pagyakap at Pagpapakain Cradle Hold</h3></i></p>
+      <div class="photo-placeholder">
+        <img src="https://www.unicef.org/parenting/sites/unicef.org.parenting/files/styles/crop_thumbnail/public/Positions_Graphic_cradle.png.webp?itok=3E8695zW">
+    </div>
+         <i><h3>1.Cradle Hold</h3></i>
+          <p><i>Ang cradle hold ay mainam para sa pagpapakain, nagbibigay-daan sa mata, at nagbibigay ng pakiramdam ng init at pagkakalapit, at nagbibigay ng seguridad. Umupo sa isang komportableng upuan na may mga armrest, o isang kama na may mga unan o unan sa paligid mo.
+            Ihiga ang iyong sanggol sa iyong kandungan, nakaharap sa iyo.
+            Ilagay ang ulo ng iyong sanggol sa iyong bisig – ilong patungo sa iyong utong. Dapat suportahan ng iyong kamay ang haba ng kanilang katawan.
+            Ilagay ang ibabang braso ng iyong sanggol sa ilalim ng iyong braso.
+            Suriin upang matiyak na ang tainga, balikat at balakang ng iyong sanggol ay nasa isang tuwid na linya.</i></p>
+        
+            <div class="photo-placeholder">
+                <img src="https://www.unicef.org/parenting/sites/unicef.org.parenting/files/styles/crop_thumbnail/public/Positions_Graphic_cross-cradle.png.webp?itok=XuQMqd7h">
+            </div>
+        <i><h3>2.Cross-Cradle Hold</h3></i>
+        <p><i>Ang cross cradle hold ay mainam para sa pagpapakain. Makakatulong ang pag-upo ng tuwid sa isang komportableng upuan na may mga armrests.
+            Dalhin ang iyong sanggol sa harap ng iyong katawan, tiyan sa tiyan.
+            Hawakan ang iyong sanggol gamit ang braso na wala sa gilid ng dibdib na pinanggagalingan mo ng pagpapakain. Nangangahulugan ito ng kaliwang braso para sa kanang dibdib, at kanang braso para sa kaliwang dibdib.
+            Suportahan ang likod ng ulo ng sanggol gamit ang iyong nakabukas na kamay. Sa kabilang banda, suportahan ang iyong dibdib mula sa ilalim na bahagi gamit ang isang hugis-U na hawak.Gabayan ang bibig ng sanggol sa iyong dibdib<i></p>
+            
+            <div class="photo-placeholder">
+                <img src="https://www.unicef.org/parenting/sites/unicef.org.parenting/files/styles/crop_thumbnail/public/Positions_Graphic_football.png.webp?itok=uCmjlGMT">
+            </div>
+
+            <i><h3>3.Football Hold</h3></i>
+            <p><i>Tamang-tama ito para sa mga namamagang suso o namamagang utong. Nakakatulong ang hold na ito upang maiwasan ang mga nakasaksak na duct sa pamamagitan ng pagpoposisyon ng iyong sanggol upang alisin ang laman sa ilalim ng mga duct. Ito ay kapaki-pakinabang din para sa mga nagkaroon ng cesarean section at hindi mailagay ang sanggol sa kanilang tiyan (UNICEF, n.d.).
+                Habang nakatalikod, hawakan ang iyong sanggol na parang bola ng football o rugby sa kahabaan ng iyong bisig, habang ang katawan ng iyong sanggol sa iyong braso at mukha patungo sa iyong suso.
+                Ilagay ang mga binti ng iyong sanggol sa ilalim ng iyong braso. Gamitin ang iyong kabilang kamay upang suportahan ang iyong dibdib.</i></p>
+
+            <div class="photo-placeholder">
+                <img src="https://www.unicef.org/parenting/sites/unicef.org.parenting/files/styles/crop_thumbnail/public/Positions_Graphic_side-lying.png.webp?itok=I1OyfXqA">
+            </div>
+            <i><h3>4.Side-Lying Position</h3></i>
+            <p><i>Ang side lying hold ay mainam para sa mga ina na nagkaroon ng cesarean o mahirap na panganganak, o kung ang ina ay nagpapasuso sa kalagitnaan ng gabi (NHS, 2023).
+                Humiga sa iyong tagiliran at ilagay ang iyong sanggol sa kanyang tagiliran, nakaharap sa iyo, na ang kanyang ulo sa iyong dibdib.
+                Suportahan ang iyong likod ng mga unan at tiyaking hindi nakaharang ang ilong ng iyong sanggol.</i></p>
+            
+        <i><h3>Mga Palatandaan ng Magandang Posisyon: </h3></i>
+        <p><i><ul>
+            <li><p>Ang ulo at katawan ng iyong sanggol ay nasa linya. Ang isang sanggol ay hindi madaling sumuso o lumunok kung ang kanyang ulo ay baluktot o baluktot.</p></li>
+            <li><p>Ang iyong sanggol ay hawak malapit sa iyong katawan. Ang isang sanggol ay hindi makakadikit nang maayos sa suso kung sila ay malayo dito.</p></li>
+            <li><p>Ang buong katawan ng iyong sanggol ay sinusuportahan gamit ang iyong braso sa kanilang likod. Ito ay partikular na mahalaga para sa mga bagong silang at maliliit na sanggol. Para sa mas matatandang mga sanggol, karaniwang sapat ang suporta ng itaas na bahagi ng katawan.</p></li>
+            <li><p>Ang iyong sanggol ay lumalapit sa ilong ng dibdib sa utong, upang sila ay makarating sa iyong dibdib mula sa ilalim ng utong.</p></li>
+           
+            <i><h3>Burping</h3></i>
+        <p><i>Ang dumighay ay mahalaga para maibsan ang kakulangan sa ginhawa sa mga sanggol sa pamamagitan ng pagtulong sa pagpapalabas ng nakulong na hangin mula sa tiyan habang nagpapakain.</i></p>
+       
+        <div class="photo-placeholder">
+            <img src="https://content.artofmanliness.com/uploads//2013/12/Burp-Baby-1.jpg">
+        </div> 
+        <div class="centered-text">
+            <a href="https://www.artofmanliness.com/people/fatherhood/how-to-burp-a-baby/">Pindotin ito para sa iba pang impormasyon</a>
+          </div>
+
+             <i><h3>Narito ang ilang karaniwang pamamaraan na maaaring gamitin sa panahon ng pagpapasuso:</h3></i>
+        <p><i><ul>
+            <p><i><h3>Sa ibabaw ng balikat:</h3></i></p>
+                <li><p>Hawakan ang iyong sanggol nang patayo, ipinatong ang kanilang ulo sa iyong balikat.</p></li>
+                <li><p>Dahan-dahang tapikin o kuskusin ang likod ng sanggol habang tinitiyak na bahagyang nakataas ang ulo nito. Ang posisyon na ito ay tumutulong sa nakulong na hangin na tumaas at makatakas</p></li>
+                <li><p>PAng bahagyang pag-reclining ay maaaring maging mas komportable para sa magulang at sanggol</p></li>
+            <p><i><ul><h3>Sa iyong hita:</h3></p></i>
+                <li><p>Hawakan ang iyong sanggol sa iyong hita, na nakaharap sa iyo.</p></li>
+                <li><p>Suportahan ang kanilang ulo gamit ang isang kamay at dahan-dahang tapikin o kuskusin ang kanilang likod gamit ang kabilang kamay.</p></li>
+            </ul></p>
+            </ul></i></p>
+           <p><i><h3>Pagalaga ng iyong Utong</h3></i></p>
+           <p><i>Ang mga utong ay maaaring makaranas ng sakit at pangangati sa mga unang linggo ng pagpapasuso. Narito ang ilang mga tip upang mapanatili ang kalusugan ng iyong mga utong:</i></p>
+           <div class="photo-placeholder">
+            <img src="https://assets.hse.ie/media/images/attachment_key_to_successful_breastfeeding-1.width-320_efQbBLH.png">
+            
+        </div>
+            <div class="centered-text">
+            <a href="https://www2.hse.ie/babies-children/breastfeeding/a-good-start/positioning-and-attachment/">Pindotin ito para sa iba pang impormasyon</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+    <div id="challenges-modal" class="modal">
+      <button class="back-button2">Back</button>
+      <div class="modal-header">
+        <h2 class="modal-title">Feeding Support</h2>
+        <h3 class="modal-subtitle">Common Breastfeeding Challenges and Solutions</h3>
+      </div>
+      <div class="modal-content">
+        <p>Many mothers face challenges with breastfeeding. Sore nipples can be addressed by improving latch technique and applying expressed milk to soothe irritation. Engorgement can be relieved with warm compresses before feeding and cold compresses after.</p>
+        
+        <div class="photo-placeholder">Solutions for Common Challenges Illustration</div>
+        
+        <p>Low milk supply concerns can often be resolved by increasing feeding frequency, ensuring proper latch, staying well-hydrated, and getting adequate rest. Mastitis symptoms include breast pain, swelling, redness, and flu-like symptoms, requiring prompt medical attention.</p>
+        
+        <div class="infographic-wrapper">
+          <div class="infographic-placeholder">Troubleshooting Guide Infographic</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="pumping-modal" class="modal">
+      <button class="back-button2">Back</button>
+      <div class="modal-header">
+        <h2 class="modal-title">Feeding Support</h2>
+        <h3 class="modal-subtitle">Pumping and Storing Breast Milk</h3>
+      </div>
+      <div class="modal-content">
+        <p>Pumping can help maintain milk supply when you're away from your baby or if you're experiencing difficulties with direct breastfeeding. Electric pumps are efficient for regular use, while manual pumps are portable and quieter.</p>
+        
+        <div class="photo-placeholder">Pumping Equipment Guide Illustration</div>
+        
+        <p>Freshly expressed milk can be stored at room temperature for up to 4 hours, in the refrigerator for up to 4 days, and in the freezer for 6-12 months. Always use clean containers designed for milk storage and label them with the date.</p>
+        
+        <div class="infographic-wrapper">
+          <div class="infographic-placeholder">Breast Milk Storage Guidelines Infographic</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="formula-modal" class="modal">
+      <button class="back-button2">Back</button>
+      <div class="modal-header">
+        <h2 class="modal-title">Feeding Support</h2>
+        <h3 class="modal-subtitle">Tips for Mixed or Formula Feeding</h3>
+      </div>
+      <div class="modal-content">
+        <p>Formula feeding or combining breast milk and formula can be a good option for many families. When preparing formula, always wash your hands thoroughly, use clean bottles and nipples, and follow the manufacturer's instructions for mixing ratios.</p>
+        
+        <div class="photo-placeholder">Formula Preparation Guide Illustration</div>
+        
+        <p>If you're combining breast and formula feeding, it's often helpful to establish breastfeeding first before introducing bottles. This can help prevent nipple confusion and ensure your milk supply develops properly.</p>
+        
+        <div class="infographic-wrapper">
+          <div class="infographic-placeholder">Mixed Feeding Schedule Infographic</div>
+        </div>
+      </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Main back button - navigates back in history
+    const backButton = document.querySelector('.back-button');
+    if (backButton) {
+      backButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html'; // fallback if no history
+        }
+      });
+    }
+   
+    // Get all topic buttons
+    const topicButtons = document.querySelectorAll('.topic-button');
+   
+    // Add click event listeners to each button
+    topicButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const topic = button.getAttribute('data-topic');
+        openModal(topic);
+      });
+    });
+  });
+ 
+      // Function to open the modal for a specific topic
+  function openModal(topic) {
+    // Get the appropriate modal
+    const modal = document.getElementById(`${topic}-modal`);
+    
+    // If breast-milk-education is clicked, do nothing since it's now just a title
+    if (topic === 'breast-milk-education') {
+      return;
+    }
+    
+    // Show the modal if it exists
+    if (modal) {
+      modal.style.display = 'block';
+      // Modal back button - closes the modal
+      const backButton2 = modal.querySelector('.back-button2');
+      if (backButton2) {
+        // Remove existing event listeners to prevent duplicates
+        const newBackButton = backButton2.cloneNode(true);
+        backButton2.parentNode.replaceChild(newBackButton, backButton2);
+       
+        newBackButton.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
+      }
+    } else {
+      console.error(`Modal for topic "${topic}" not found`);
+    }
+  }
+</script>
+</body>
+</html>

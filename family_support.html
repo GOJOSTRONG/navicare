@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  :root {
+    --primary-green: #4CAF50;
+    --primary-magenta: #D81B60;
+    --light-yellow: #FFF9C4;
+    --light-pink: #FFCDD2;
+    --dark-text: #333333;
+    --light-text: #FFFFFF;
+  }
+
+  html {
+    width: 100%;
+    min-height: 100%;
+    font-size: 100%; 
+  }
+
+  body {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('res/school_bg.jpg') no-repeat center center fixed; 
+    background-size: cover;
+    background-position: center center;
+    color: #a2165f;
+    font-size: 1rem; 
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .zoom-scroll-container {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    aspect-ratio: 5/3;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .zoom-scroll {
+    width: 100%;
+    height: 100%;
+    background-image: url('res/school_bg.png');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+
+  .zoom-scroll:hover {
+    transform: scale(1.5);
+  }
+
+  .overlay {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .gradient-overlay-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 110vh;
+    background: linear-gradient(to top, #e93772, rgba(255, 255, 255, 0));
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  
+  .module-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+    max-width: 800px;
+    margin: 40px auto;
+  }
+
+  .option-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 30px 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+  }
+
+  .option-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(233, 55, 114, 0.2);
+  }
+
+  .option-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #e93772;
+  }
+
+  .option-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #a2165f;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .option-description {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .header {
+    margin: 20px 0 40px 0;
+  }
+
+  .logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+
+  .title-container {
+    padding: 20px 20px 5px 20px;
+  }
+
+  .page-title {
+    color: var(--primary-green);
+    font-size: 45px;
+    font-family: 'Dancing Script', cursive; 
+    margin-bottom: 30px;
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .title-underline {
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-green);
+    margin-top: 5px;
+  }
+
+  
+  .content-template {
+    display: none; 
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .back-button_options {
+    background-color: #f9e7f0;
+    color: #a2165f;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    display: inline-block;
+  }
+
+  .back-button_options:hover {
+    background-color: #e93772;
+    color: white;
+  }
+
+  .back-button {
+    background-color: #f9e7f0;
+    color: #a2165f;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+  }
+
+  .back-button:hover {
+    background-color: #f8d7e1;
+  }
+
+  .content-title {
+    font-size: 2rem;
+    color: #a2165f;
+    margin-bottom: 20px;
+  }
+
+  .content-body {
+    text-align: left;
+    line-height: 1.6;
+    color: #000;
+  }
+
+  .content-section {
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    color: #a2165f;
+    margin-bottom: 10px;
+  }
+
+  .section-content {
+    color: #444;
+  }
+
+  .section-content li {
+    color: #444;
+    margin-left: 20px;
+  }
+
+  .resource-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .resource-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .resource-list li:last-child {
+    border-bottom: none;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 250px; 
+    background-color: #e0f7fa; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #80deea; 
+    font-size: 50px; 
+    margin: 15px 0;
+    border-radius: 10px;
+  }
+
+  .infographic-placeholder {
+    width: 100%;
+    background-color: #ffccdd; 
+    border: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #e91e63; 
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 20px;
+    min-height: 150px; 
+    border-radius: 10px;
+  }
+
+  .infographic-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px 0;
+    border: hidden;
+  }
+
+  .infographic-wrapper img {
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .centered-text {
+    text-align: center;
+  }
+
+  .infographic-link {
+    color: #a2165f;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+
+  .infographic-link:hover {
+    color: #e93772;
+    text-decoration: underline;
+  }
+
+  
+  @media (max-width: 768px) {
+    .module-options {
+      grid-template-columns: repeat(2, 1fr); 
+      max-width: 600px;
+      gap: 15px;
+    }
+    .option-card {
+      padding: 20px 15px;
+    }
+    .option-icon {
+      font-size: 2.5rem;
+    }
+    .option-title {
+      font-size: 1.3rem;
+    }
+    .page-title { 
+      font-size: 38px; 
+    }
+    .content-title {
+      font-size: 1.8rem;
+    }
+    .section-title {
+      font-size: 1.3rem;
+    }
+    .back-button {
+      font-size: 1rem;
+      padding: 0.35rem 1.2rem;
+      top: 15px;
+      right: 15px;
+    }
+    .infographic-placeholder {
+      height: auto;
+      font-size: 20px;
+      margin: 15px 0;
+    }
+    .photo-placeholder {
+      height: 200px;
+      font-size: 40px;
+    }
+    .infographic-wrapper img {
+      max-width: 95%;
+    }
+  }
+
+  
+  @media (max-width: 576px) {
+    .container {
+      padding: 10px;
+    }
+    .module-options {
+      grid-template-columns: repeat(2, 1fr); 
+      max-width: 100%;
+      gap: 10px;
+    }
+    .page-title { 
+      font-size: 30px; 
+      margin-bottom: 20px;
+    }
+    .header {
+      margin: 20px 0 20px 0;
+    }
+    .option-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .option-title {
+      font-size: 1.1rem; 
+      margin-bottom: 5px;
+    }
+    .option-description {
+      font-size: 0.8rem;
+    }
+    .content-template {
+      padding: 20px 15px;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+    .content-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    .section-title {
+      font-size: 1.2rem;
+    }
+    .section-content {
+      font-size: 0.95rem;
+    }
+    .back-button_options {
+      font-size: 0.9rem;
+      padding: 0.3rem 1.2rem;
+    }
+    .back-button {
+      font-size: 0.9rem;
+      padding: 0.3rem 1rem;
+      top: 10px;
+      right: 10px;
+    }
+    .infographic-wrapper {
+      padding: 10px 0;
+    }
+    .photo-placeholder {
+        height: 150px;
+        font-size: 30px;
+    }
+  }
+
+  
+  @media (max-width: 375px) {
+    .page-title { 
+      font-size: 26px; 
+    }
+    .option-card {
+      min-height: 120px;
+      padding: 15px 10px;
+    }
+    .option-icon {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+    .option-title {
+      font-size: 1rem; 
+      margin-bottom: 3px;
+    }
+    .content-title {
+      font-size: 1.3rem;
+    }
+    .section-title {
+      font-size: 1.1rem;
+    }
+    .section-content {
+      font-size: 0.9rem;
+    }
+  }
+  </style>
+  <title>NaviCare - Family & Support System</title> </head>
+<body>
+  <div class="gradient-overlay-bottom"></div>
+  <div class="overlay">
+    <div class="container">
+      <button class="back-button" onclick="goBack()">Back</button>
+      <div class="title-container">
+        <h1 class="page-title">Family & <br> Support System</h1>
+        <div class="title-underline"></div>
+      </div>
+
+      <div class="module-options" id="main-options">
+        <div class="option-card" onclick="showContent('partner-family-support')">
+          <div class="option-icon">👨‍👩‍👧‍👦</div>
+          <h3 class="option-title">Partner and Family Support</h3>
+          <p class="option-description">Understanding the roles of loved ones.</p>
+        </div>
+
+        <div class="option-card" onclick="showContent('navigating-health-systems')">
+          <div class="option-icon">🏥</div>
+          <h3 class="option-title">Navigating Health Systems</h3>
+          <p class="option-description">Accessing care and medical advice.</p>
+        </div>
+
+        <div class="option-card" onclick="showContent('community-resources')">
+          <div class="option-icon">🤝</div>
+          <h3 class="option-title">Community Support Resources</h3>
+          <p class="option-description">Finding help in your local area.</p>
+        </div>
+
+        <div class="option-card" onclick="showContent('cultural-practices')">
+          <div class="option-icon">🌏</div>
+          <h3 class="option-title">Cultural Practices in Postpartum Care</h3>
+          <p class="option-description">Traditions and beliefs in family care.</p>
+        </div>
+      </div>
+
+      <div class="content-template" id="partner-family-support">
+        <div class="back-button_options" onclick="showMainOptions()">← Back to options</div>
+        <h2 class="content-title"><i>Partner and Family Support</i></h2>
+        <div class="content-body">
+            <div class="content-section">
+                <h3 class="section-title"><i>Ang Kahalagahan ng Suporta ng Kapareha at Pamilya</i></h3>
+                <p class="section-content">
+
+                    <div class="infographic-placeholder">
+                        <div class="infographic-wrapper">
+                           <img src="https://www.storkhelpers.com/media/site/news-page/How Your Partner Can Support You in Postpartum.png" 
+                            alt="Swaddling Infographic" 
+                            style="width: 100%; height: 100%; object-fit: contain;">
+                         </div>
+                     </div>
+                        <div class="centered-text">
+                            <a href="https://www.storkhelpers.com/blog/entry/how-your-partner-can-support-you-in-postpartum/" 
+                                class="infographic-link" target="_blank">Click here for more information</a>
+                    </div>
+                <ul>
+                    <li><i>Ang malakas na suporta ng kapareha at pamilya ay mahalaga para sa emosyonal, pisikal, at sikolohikal na paggaling ng isang ina pagkatapos ng panganganak.</i></li>
+                    <li><i>Ang emosyonal na suporta ay nakatutulong upang mabawasan ang panganib ng postpartum depression at pagkabalisa.</i></li>
+                    <li><i>Ang praktikal na suporta, tulad ng tulong sa gawaing bahay o pag-aalaga ng sanggol, ay nagpapahintulot sa ina na makapagpahinga at gumaling.</i></li>
+                    <li><i>Ang pakikilahok ng kapareha ay nagpapatibay sa pagbubuklod at nagtataguyod ng mga tungkulin sa pagiging magulang.</i></li>
+                </ul>
+                </p>
+                <div class="photo-placeholder"></div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="content-template" id="navigating-health-systems">
+        <div class="back-button_options" onclick="showMainOptions()">← Back to options</div>
+        <h2 class="content-title"><i>Navigating Health Systems (e.g., PhilHealth , barangay clinics)</i></h2>
+        <div class="content-body">
+            <div class="content-section">
+                <h3 class="section-title"><i>Pag-unawa sa Lokal na Sistema ng Kalusugan</i></h3>
+                <p class="section-content">
+                    <div class="infographic-placeholder">
+                        <div class="infographic-wrapper">
+                           <img src="https://scontent.fcgy2-1.fna.fbcdn.net/v/t39.30808-6/464679716_27269305702716420_2983519358473972180_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=0b6b33&_nc_eui2=AeHQnTJ2zwJFiuRuvmjfVJdtywOHCO3d0m3LA4cI7d3SbecX_J2IBC4OknKHENhY7Xod7wMLTt8oiNqw0Pp6_cbH&_nc_ohc=jBjLeXKA02IQ7kNvwFS0LN-&_nc_oc=AdlIE1wdCfVPT2o1hCDTuzhR9_-P3yFkTiw9j622epyGO6w-AclYtxfqWb4CHXXnA2p0lgRBfnRhjBAm95e9fznM&_nc_zt=23&_nc_ht=scontent.fcgy2-1.fna&_nc_gid=XopxcshVFvqVEQnEq9YUSA&oh=00_AfK5kdTnwj_9tEbCXSOBDhGfrjRflH9fLP3GpIeI1gAGTg&oe=68241423" 
+                            alt="Swaddling Infographic" 
+                            style="width: 100%; height: 100%; object-fit: contain;">
+                         </div>
+                     </div>
+                        <div class="centered-text">
+                            <a href="https://web.facebook.com/amsaphil/photos/a.371841499556205/1397595130314165/?type=3&mibextid=wwXIfr&rdid=YRX2EF2uGmCRRgEZ#" 
+                                class="infographic-link" target="_blank">Click here for more information</a>
+                    </div>
+                    <i>Ang wastong paggalugad sa lokal na sistema ng kalusugan ay nakatutulong upang matiyak ang access sa abot-kaya o libreng serbisyo para sa pangangalaga sa ina.</i>
+                </p>
+            </div>
+            <div class="content-section">
+                <h3 class="section-title"><i>Mga Benepisyo mula sa PhilHealth at Barangay Clinics</i></h3>
+                <p class="section-content">
+                <ul>
+                    <li><i>Nag-aalok ang PhilHealth ng Maternity Care Package at Newborn Care Package na sumasaklaw sa mga serbisyong tulad ng mga check-up, gamot, at panganganak sa mga pasilidad ng kalusugan.</i></li>
+                    <li><i>Nagbibigay ang mga barangay health center ng libreng postpartum na pagsusuri, pagbabakuna, pagpapayo sa pagpapasuso, at serbisyo sa pagpaplano ng pamilya.</i></li>
+                    <li><i>Ang pagpaparehistro sa PhilHealth at pagpapanatiling updated ng mga rekord sa antas ng barangay ay nakatutulong upang maging maayos ang pagkuha ng mga benepisyo.</i></li>
+                </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+   
+    <div class="content-template" id="community-resources">
+        <div class="back-button_options" onclick="showMainOptions()">← Back to options</div>
+        <h2 class="content-title"><i>Community Support Resources</i></h2>
+        <div class="content-body">
+            <div class="content-section">
+                <h3 class="section-title"><i>Suporta Mula sa Komunidad</i></h3>
+                <p class="section-content">
+                    <i>Ang suportang nakabatay sa komunidad ay gumaganap ng mahalagang papel sa pagpapagaan ng postpartum transition.</i>
+                </p>
+            </div>
+            <div class="content-section">
+                <h3 class="section-title"><i>Mga Uri ng Suporta sa Komunidad</i></h3>
+                <p class="section-content">
+                <ul>
+                    <li><i>Ang mga barangay health worker (BHWs) ay nag-aalok ng mga pagbisita sa bahay, edukasyon sa kalusugan, at mga referral.</i></li>
+                    <li><i>Ang mga grupo ng suporta (parehong online at personal) ay nagbibigay ng emosyonal na pagbabahagi at patnubay.</i></li>
+                    <li><i>Ang mga NGO at lokal na sentro ng kababaihan ay maaaring mag-alok ng suporta sa paggagatas, pagpapayo, mga klase sa pagiging magulang, at mga supply.</i></li>
+                    <li><i>Ang mga grupong nakabatay sa pananampalataya o mga ministeryo ng simbahan ay kadalasang nagbibigay ng suporta sa psychosocial at mga programa para sa ina-sanggol.</i></li>
+                </ul>
+                </p>
+                <div class="photo-placeholder"></div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="content-template" id="cultural-practices">
+        <div class="back-button_options" onclick="showMainOptions()">← Back to options</div>
+        <h2 class="content-title"><i>Mga Kasanayang Pangkultura sa Pangangalaga sa Postpartum</i></h2>
+        <div class="content-body">
+            <div class="content-section">
+                <h3 class="section-title"><i>Pagkilala sa mga Kultural na Tradisyon</i></h3>
+                <p class="section-content">
+                    <i>Ang mga paniniwala at tradisyon ng kultura ay may mahalagang papel sa pagpapagaling pagkatapos ng panganganak at dapat igalang habang tinitiyak ang kaligtasan.</i>
+                    <ul>
+                        <li><i>Ang mga kasanayan tulad ng "pagpapahilot" (tradisyonal na masahe), mainit na paliguan, at mga paghihigpit sa pagkain ay karaniwan sa pangangalaga sa postpartum ng mga Pilipino.</i></li>
+                        <li><i>Ang mga panahon ng "Rooming-in" at "lying-in" ay maaaring magpakita ng mga tradisyonal na halaga ng pahinga at bonding.</i></li>
+                    </ul>
+                </p>
+            </div>
+            <div class="content-section">
+                <h3 class="section-title"><i>Pagsasama-sama ng Kultural na Paniniwala at Medikal na Payo</i></h3>
+                <p class="section-content">
+                <ul>
+                    <li><i>Mahalagang balansehin ang mga kultural na kasanayan sa medikal na payo, lalo na tungkol sa kalinisan, pangangalaga sa sugat, at pagpapasuso.</i></li>
+                    <li><i>Ang mga manggagawang pangkalusugan ay dapat lumapit sa mga kultural na kasanayan nang may pagiging sensitibo at magbigay ng gabay kung kinakailangan upang maiwasan ang pinsala.</i></li>
+                </ul>
+                </p>
+                <div class="infographic-placeholder">
+                    <div class="infographic-placeholder">
+                        <div class="infographic-wrapper">
+                           <img src="https://www.researchgate.net/publication/307576268/figure/fig1/AS:402992093253638@1473092210657/nfographic-of-proposed-solutions-for-improving-systems-of-postpartum-care.png" 
+                            alt="Swaddling Infographic" 
+                            style="width: 100%; height: 100%; object-fit: contain;">
+                         </div>
+                     </div>
+                     <div class="centered-text">
+                        <a href="https://www.researchgate.net/figure/nfographic-of-proposed-solutions-for-improving-systems-of-postpartum-care_fig1_307576268" 
+                            class="infographic-link" target="_blank">Click here for more information</a>
+                    <br/><i>Kaalaman sa Kultura</i></div>
+                    
+            </div>
+        </div>
+    </div>
+
+    </div>
+  </div>
+  <script>
+    
+document.addEventListener('DOMContentLoaded', function() {
+  const backButton = document.querySelector('.back-button');
+  if (backButton) {
+    backButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      const mainOptionsVisible = document.getElementById('main-options').style.display === 'grid' || document.getElementById('main-options').style.display === '' || document.getElementById('main-options').style.display === 'block'; 
+      const anyContentVisible = Array.from(document.querySelectorAll('.content-template')).some(template => template.style.display === 'block');
+
+      if (anyContentVisible) {
+        showMainOptions();
+      } else if (window.history.length > 1) { 
+        window.history.back();
+      } else {
+        
+        
+         showMainOptions(); 
+      }
+    });
+  }
+
+  
+  showMainOptions();
+});
+
+
+function showContent(contentId) {
+  
+  const contentTemplates = document.querySelectorAll('.content-template');
+  contentTemplates.forEach(template => {
+    template.style.display = 'none';
+  });
+
+  
+  document.getElementById('main-options').style.display = 'none';
+
+  
+  const selectedContent = document.getElementById(contentId);
+  if (selectedContent) {
+    selectedContent.style.display = 'block';
+  }
+  
+  const backButton = document.querySelector('.back-button');
+   if (backButton) {
+    backButton.style.display = 'block'; 
+  }
+}
+
+
+function showMainOptions() {
+  
+  const contentTemplates = document.querySelectorAll('.content-template');
+  contentTemplates.forEach(template => {
+    template.style.display = 'none';
+  });
+
+  
+  const mainOptions = document.getElementById('main-options');
+  if (mainOptions) {
+    mainOptions.style.display = 'grid'; 
+  }
+
+  
+  const backButton = document.querySelector('.back-button');
+  if (backButton) {
+    
+    
+    backButton.style.display = 'block'; 
+  }
+}
+
+
+function goBack() {
+    const mainOptionsNode = document.getElementById('main-options');
+    const mainOptionsVisible = mainOptionsNode ? (mainOptionsNode.style.display === 'grid' || mainOptionsNode.style.display === 'block' || mainOptionsNode.style.display === '') : false;
+    const anyContentVisible = Array.from(document.querySelectorAll('.content-template')).some(template => template.style.display === 'block');
+
+    if (anyContentVisible) {
+        showMainOptions();
+    } else if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        
+        
+        showMainOptions();
+        console.log("At main options or no history to go back to.");
+    }
+}
+  </script>
+</body>
+</html>

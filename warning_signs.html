@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NaviCare - Warning Signs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      width: 100%;
+      min-height: 100%;
+      font-size: 100%;
+    }
+    
+    body {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('res/school_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-position: center center;
+    color: #a2165f;
+    font-size: 1rem; /* use rem for scalable typography */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+    
+    .gradient-overlay-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 110vh;
+      background: linear-gradient(to top, #e93772, rgba(255, 255, 255, 0));
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .overlay {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+      width: 100%;
+      min-height: 100vh;
+      height: auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .title-container {
+      padding: 20px 20px 5px 20px;
+    }
+    
+    .page-title {
+      color: #4CAF50;
+      font-size: 45px;
+      font-family: 'Dancing Script', cursive;
+      margin-bottom: 30px;
+      text-align: center;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    
+    .title-underline {
+      width: 100%;
+      height: 2px;
+      background-color: #4CAF50;
+      margin-top: 5px;
+    }
+
+    .topics-container {
+      padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .header-banner {
+      background-color: rgba(255, 237, 196, 0.8);
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-bottom: 10px;
+    }
+    
+    .header-banner h2 {
+      color: #D81B60;
+      font-size: 18px;
+      text-align: left;
+      margin: 0;
+      text-transform: uppercase;
+    }
+    
+    .topic-button {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      background-color: rgba(255, 230, 190, 0.8);
+      border-radius: 25px;
+      padding: 15px 20px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+    }
+    
+    .topic-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .topic-button h3 {
+      color: #D81B60;
+      font-size: 16px;
+      margin: 0;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: left;
+    }
+    
+    .plus-icon {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: bold;
+  }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgb(255, 203, 203) 100%, rgba(255, 125, 235, 0.7) 130%);
+      z-index: 1000;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      background: linear-gradient(to bottom, rgb(255, 199, 199), rgba(255, 255, 255, 0.7));
+      padding: 20px;
+    }
+    
+    .modal-title {
+      color: #4CAF50;
+      font-size: 24px;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0;
+    }
+    
+    .modal-subtitle {
+      color: #D81B60;
+      font-size: 25px;
+      margin: 15px 0;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    
+    .modal-content {
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .modal-content p {
+      color: #333333;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    .photo-placeholder {
+      width: 100%;
+      height: 300px;
+      background-color: #ffceda;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffc9df;
+      font-size: 20px;
+      margin: 15px 0;
+    }
+    
+    .back-button, .back-button2 {
+      background-color: #f9e7f0;
+      color: #a2165f;
+      border: none;
+      border-radius: 20px;
+      padding: 0.4rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    }
+    
+    .back-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+    
+    .back-button:hover, .back-button2:hover {
+      background-color: #f8d7e1;
+    }
+    
+    .modal .back-button2 {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+    }
+    
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 32px;
+        text-align: center;
+        margin: 0;
+        text-transform: uppercase;
+      }
+      
+      .topic-button h3 {
+        font-size: 14px;
+      }
+      
+      .photo-placeholder {
+        height: 200px;
+      }
+      
+      .back-button, .modal .back-button2 {
+        font-size: 1rem;
+        padding: 0.35rem 1.2rem;
+      }
+    }
+
+    .infographic-placeholder {
+    width: 100%;
+    background-color: #ffcad4;
+    border: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #f9b1e4;
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  .infographic-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px 0;
+    border: hidden;
+  }
+  
+  .infographic-wrapper img {
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .centered-text {
+    text-align: center;
+  }
+  
+  .infographic-link {
+    color: #a2165f;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .infographic-link:hover {
+    color: #e93772;
+    text-decoration: underline;
+  }
+  </style>
+</head>
+<body>
+  <!-- Gradient overlay -->
+  <div class="gradient-overlay-bottom"></div>
+  
+  <!-- Main content -->
+  <div class="overlay">
+    <div class="container">
+      <button class="back-button">Back</button>
+      
+      <div class="title-container">
+        <h1 class="page-title">Warning <br> Signs</h1>
+        <div class="title-underline"></div>
+      </div>
+      
+      <div class="topics-container">
+        <div class="header-banner">
+          <h2>Maternal Postpartum Complications</h2>
+        </div>
+        
+        <button class="topic-button" data-topic="hemorrhage">
+          <h3>Warning Signs of Hemorrhage</h3>
+          <span class="plus-icon">+</span>
+        </button>
+        
+        <button class="topic-button" data-topic="infection">
+          <h3>Warning Signs of Infection</h3>
+          <span class="plus-icon">+</span>
+        </button>
+        
+        <button class="topic-button" data-topic="anxiety">
+          <h3>Postpartum Anxiety and Depression</h3>
+          <span class="plus-icon">+</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals for each topic -->
+  <div id="hemorrhage-modal" class="modal">
+    <button class="back-button2">Back</button>
+    <div class="modal-header">
+
+      <h3 class="modal-subtitle">Warning Signs of Hemorrhage <br> <i>Mga senyales ng babala ng pagdurugo</i></h3>
+    </div>
+    <div class="modal-content">
+      <div class="infographic-placeholder"><img src="https://www.womans.org/sites/default/files/styles/coh_small/public/2023-08/urgentWarningSigns.jpg?itok=C2nhOk_W" alt="signs"></div>
+      <div class="centered-text">
+        <p>For more information, visit <a href="https://www.womans.org/services/pregnancy-childbirth/urgent-warning-signs" class="infographic-link">Urgent Warning Signs</a></p></div>
+      <h3><i>Mga senyales ng babala ng pagdurugo</i></h3>
+      <p><i>Kahulugan: Ang PPH ay labis na pagdurugo pagkatapos ng panganganak, na karaniwang tinutukoy bilang pagkawala ng higit sa 500 mL pagkatapos ng panganganak sa vaginal o 1,000 mL pagkatapos ng cesarean section. Maaari itong mangyari sa loob ng 24 na oras (pangunahin) o hanggang 12 linggo pagkatapos ng panganganak (pangalawang)</i></p>
+      <h3>Mga Palatandaan ng Babala:</h3>
+      <p><i>
+        <ul>
+            <li><p><i>Malakas na pagdurugo, pagbababad ng higit sa isang pad bawat oras</i></p></li>
+            <li><p><i>Pagpasa ng malalaking namuong dugo</i></p></li>
+            <li><p><i>Pagkahilo, pagkahilo, o panghihina</i></p></li>
+            <li><p><i>Mabilis na tibok ng puso</i></p></li>
+            <li><p><i>Malabo ang paningin</i></p></li>
+            <li><p><i>Pagduduwal o pagsusuka</i></p></li>
+            <li><p><i>Pamamaga at pananakit sa vaginal o perineal area</i></p></li>
+        </ul>
+      </i></p>
+      <p><i>
+        <h3>Tugon:</h3>
+        <ul>
+            <li><p><i>Humingi kaagad ng emerhensiyang pangangalagang medikal.</i></p></li>
+            <li><p><i>Habang naghihintay ng tulong, humiga at itaas ang iyong mga binti upang mapabuti ang daloy ng dugo.</i></p></li>
+            <li><p><i>Huwag subukang magmaneho sa iyong sarili; tumawag sa mga serbisyong pang-emergency.</i></p></li>
+        </ul>
+      </i></p>
+      
+    </div>
+  </div>
+
+  <div id="infection-modal" class="modal">
+    <button class="back-button2">Back</button>
+    <div class="modal-header">
+
+      <h3 class="modal-subtitle">Warning Signs of Infection</h3>
+    </div>
+    <div class="modal-content">
+      <p>Postpartum infections can occur in the uterus, urinary tract, or at incision sites. Watch for these warning signs:</p>
+      
+      <div class="photo-placeholder">Infection Warning Signs Illustration</div>
+      
+      <p>• Fever of 100.4°F (38°C) or higher</p>
+      <p>• Chills or feeling unusually hot</p>
+      <p>• Severe abdominal pain or tenderness</p>
+      <p>• Foul-smelling vaginal discharge</p>
+      <p>• Pain, redness, or discharge from a C-section incision</p>
+      <p>• Burning sensation when urinating</p>
+      <p>• Breast pain, redness, or warmth (signs of mastitis)</p>
+      
+      <p>Early treatment of infections is important. Contact your healthcare provider if you notice any of these symptoms.</p>
+    </div>
+  </div>
+
+  <div id="anxiety-modal" class="modal">
+    <button class="back-button2">Back</button>
+    <div class="modal-header">
+
+      <h3 class="modal-subtitle">Postpartum Anxiety and Depression</h3>
+    </div>
+    <div class="modal-content">
+      <p>Postpartum mood disorders are common and treatable. Be aware of these symptoms:</p>
+      
+      <div class="photo-placeholder">Mental Health Warning Signs Illustration</div>
+      
+      <p>• Feeling sad, hopeless, or overwhelmed for more than two weeks</p>
+      <p>• Loss of interest in activities you used to enjoy</p>
+      <p>• Difficulty bonding with your baby</p>
+      <p>• Changes in appetite or sleep patterns</p>
+      <p>• Excessive worry or racing thoughts</p>
+      <p>• Panic attacks or constant anxiety</p>
+      <p>• Thoughts of harming yourself or your baby</p>
+      
+      <p>If you're experiencing any of these symptoms, reach out to your healthcare provider. Postpartum mood disorders are not a sign of weakness and can be effectively treated with proper support.</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Main back button - navigates back in history
+      const backButton = document.querySelector('.back-button');
+      if (backButton) {
+        backButton.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            window.location.href = 'index.html'; // fallback if no history
+          }
+        });
+      }
+     
+      // Get all topic buttons
+      const topicButtons = document.querySelectorAll('.topic-button');
+     
+      // Add click event listeners to each button
+      topicButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const topic = button.getAttribute('data-topic');
+          openModal(topic);
+        });
+      });
+    });
+   
+    // Function to open the modal for a specific topic
+    function openModal(topic) {
+      // Get the appropriate modal
+      const modal = document.getElementById(`${topic}-modal`);
+      
+      // Show the modal if it exists
+      if (modal) {
+        modal.style.display = 'block';
+        // Modal back button - closes the modal
+        const backButton2 = modal.querySelector('.back-button2');
+        if (backButton2) {
+          // Remove existing event listeners to prevent duplicates
+          const newBackButton = backButton2.cloneNode(true);
+          backButton2.parentNode.replaceChild(newBackButton, backButton2);
+         
+          newBackButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+          });
+        }
+      } else {
+        console.error(`Modal for topic "${topic}" not found`);
+      }
+    }
+  </script>
+</body>
+</html>

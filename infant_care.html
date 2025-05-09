@@ -3,7 +3,491 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style2.css">
+  <style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  :root {
+    --primary-green: #4CAF50;
+    --primary-magenta: #D81B60;
+    --light-yellow: #FFF9C4;
+    --light-pink: #FFCDD2;
+    --dark-text: #333333;
+    --light-text: #FFFFFF;
+  }
+  
+  html {
+    width: 100%;
+    min-height: 100%;
+    font-size: 100%; 
+  }
+ 
+  body {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('res/school_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-position: center center;
+    color: #a2165f;
+    font-size: 1rem; 
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  .zoom-scroll-container {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    aspect-ratio: 5/3;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+ 
+  .zoom-scroll {
+    width: 100%;
+    height: 100%;
+    background-image: url('res/school_bg.png');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+  }
+ 
+  .zoom-scroll:hover {
+    transform: scale(1.5);
+  }
+     
+  .overlay {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+  }
+ 
+  .gradient-overlay-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 110vh;
+    background: linear-gradient(to top, #e93772, rgba(255, 255, 255, 0));
+    z-index: 0;
+    pointer-events: none;
+  }
+ 
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  
+  .module-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+    max-width: 800px;
+    margin: 40px auto;
+  }
+
+  .option-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 30px 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+  }
+
+  .option-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(233, 55, 114, 0.2);
+  }
+
+  .option-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #e93772;
+  }
+
+  .option-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #a2165f;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .option-description {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .header {
+    margin: 20px 0 40px 0;
+  }
+
+  .logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+  }
+
+  .title-container {
+    padding: 20px 20px 5px 20px;
+  }
+  
+  .page-title {
+    color: var(--primary-green);
+    font-size: 45px;
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 30px;
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  
+  .title-underline {
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-green);
+    margin-top: 5px;
+  }
+
+  
+  .content-template {
+    display: none; 
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .back-button_options {
+    background-color: #f9e7f0;
+    color: #a2165f;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    display: inline-block;
+  }
+
+  .back-button_options:hover {
+    background-color: #e93772;
+    color: white;
+  }
+  
+  .back-button {
+    background-color: #f9e7f0;
+    color: #a2165f;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    top: 20px;
+    right: 20px;
+  }
+  
+  .back-button:hover {
+    background-color: #f8d7e1;
+  }
+
+  .content-title {
+    font-size: 2rem;
+    color: #a2165f;
+    margin-bottom: 20px;
+  }
+
+  .content-body {
+    text-align: left;
+    line-height: 1.6;
+    color: #000;
+  }
+
+  .content-section {
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    color: #a2165f;
+    margin-bottom: 10px;
+  }
+
+  .section-content {
+    color: #444;
+  }
+  
+  .section-content li {
+    color: #444;
+    margin-left: 20px;
+  }
+
+  .resource-list {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .resource-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .resource-list li:last-child {
+    border-bottom: none;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 500px;
+    background-color: #ffceda;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffc9df;
+    font-size: 20px;
+    margin: 15px 0;
+  }
+  
+  .infographic-placeholder {
+    width: 100%;
+    background-color: #ffcad4;
+    border: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #f9b1e4;
+    margin: 20px 0;
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  .infographic-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 20px 0;
+    border: hidden;
+  }
+  
+  .infographic-wrapper img {
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .centered-text {
+    text-align: center;
+  }
+  
+  .infographic-link {
+    color: #a2165f;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .infographic-link:hover {
+    color: #e93772;
+    text-decoration: underline;
+  }
+
+  
+  @media (max-width: 768px) {
+    .module-options {
+      grid-template-columns: repeat(2, 1fr); 
+      max-width: 600px;
+      gap: 15px;
+    }
+      
+    .option-card {
+      padding: 20px 15px;
+    }
+      
+    .option-icon {
+      font-size: 2.5rem;
+    }
+      
+    .option-title {
+      font-size: 1.3rem;
+    }
+      
+    .title {
+      font-size: 2.2rem;
+    }
+      
+    .content-title {
+      font-size: 1.8rem;
+    }
+      
+    .section-title {
+      font-size: 1.3rem;
+    }
+      
+    .back-button {
+      font-size: 1rem;
+      padding: 0.35rem 1.2rem;
+      top: 15px;
+      right: 15px;
+    }
+      
+    .infographic-placeholder {
+      height: auto;
+      font-size: 16px;
+      margin: 15px 0;
+    }
+      
+    .photo-placeholder {
+      height: 200px;
+    }
+      
+    .infographic-wrapper img {
+      max-width: 95%;
+    }
+  }
+    
+  
+  @media (max-width: 576px) {
+    .container {
+      padding: 10px;
+    }
+    
+    .module-options {
+      grid-template-columns: repeat(2, 1fr); 
+      max-width: 100%;
+      gap: 10px;
+    }
+      
+    .title {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+      
+    .header {
+      margin: 20px 0 20px 0;
+    }
+      
+    .option-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+      
+    .option-title {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+      
+    .option-description {
+      font-size: 0.8rem;
+    }
+      
+    .content-template {
+      padding: 20px 15px;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+      
+    .content-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+      
+    .section-title {
+      font-size: 1.2rem;
+    }
+      
+    .section-content {
+      font-size: 0.95rem;
+    }
+      
+    .back-button_options {
+      font-size: 0.9rem;
+      padding: 0.3rem 1.2rem;
+    }
+      
+    .back-button {
+      font-size: 0.9rem;
+      padding: 0.3rem 1rem;
+      top: 10px;
+      right: 10px;
+    }
+      
+    .infographic-wrapper {
+      padding: 10px 0;
+    }
+  }
+    
+  
+  @media (max-width: 375px) {
+    .title {
+      font-size: 1.6rem;
+    }
+      
+    .option-card {
+      min-height: 120px;
+      padding: 15px 10px;
+    }
+    
+    .option-icon {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+      
+    .option-title {
+      font-size: 0.9rem;
+      margin-bottom: 3px;
+    }
+      
+    .content-title {
+      font-size: 1.3rem;
+    }
+      
+    .section-title {
+      font-size: 1.1rem;
+    }
+      
+    .section-content {
+      font-size: 0.9rem;
+    }
+  }
+  </style>
   <title>NaviCare - Infant Care</title>
 </head>
 <body>
@@ -12,165 +496,336 @@
   <div class="overlay">
     <!-- Main Content -->
     <div class="container">
-      <!-- Header -->
-      <div class="header">
-        <h1 class="title">Infant Care</h1>
+      <button class="back-button" onclick="goBack()">Back</button>
+      <div class="title-container">
+        <h1 class="page-title">Infant <br> Care</h1>
+        <div class="title-underline"></div>
       </div>
 
       <!-- Module Options (First Template) -->
       <div class="module-options" id="main-options">
-        <div class="option-card" onclick="showContent('physical-health')">
-          <div class="option-icon">💪</div>
+        <div class="option-card" onclick="showContent('newborn-care')">
+          <div class="option-icon">👶</div>
           <h3 class="option-title">Newborn care essentials</h3>
           <p class="option-description">Mga Pangunahing Pangangalaga sa Bagong Panganak na Sanggol</p>
         </div>
         
-        <div class="option-card" onclick="showContent('mental-health')">
-          <div class="option-icon">🧠</div>
+        <div class="option-card" onclick="showContent('danger-signs')">
+          <div class="option-icon">⚠️</div>
           <h3 class="option-title">Signs of Danger in Newborns</h3>
           <p class="option-description">Mga Palatandaan ng Panganib sa Bagong Silang na Sanggol</p>
         </div>
         
-        <div class="option-card" onclick="showContent('baby-care')">
-          <div class="option-icon">👶</div>
+        <div class="option-card" onclick="showContent('common-problems')">
+          <div class="option-icon">🩺</div>
           <h3 class="option-title">Common Infant Problem</h3>
           <p class="option-description">Karaniwang Suliranin ng mga Sanggol</p>
         </div>
         
-        <div class="option-card" onclick="showContent('resources')">
-          <div class="option-icon">📋</div>
-          <h3 class="option-title">Resources</h3>
-          <p class="option-description">Local services and support groups</p>
+        <div class="option-card" onclick="showContent('child-development')">
+          <div class="option-icon">📈</div>
+          <h3 class="option-title">Child Developmental Milestones</h3>
+          <p class="option-description">Mahahalagang Yugto ng Pag-unlad ng Bata</p>
         </div>
       </div>
 
       <!-- Content Templates (Second Template) -->
-      <div class="content-template" id="physical-health">
-        <div class="back-button" onclick="showMainOptions()">← Back to options</div>
-        <h2 class="content-title">Physical Recovery</h2>
+      <div class="content-template" id="newborn-care">
+        <div class="back-button_options" onclick="showMainOptions()">← Back to options</div>
+        <h2 class="content-title"><i>Mga Pangunahing Pangangalaga sa Bagong Panganak na Sanggol</i></h2>
         <div class="content-body">
           <div class="content-section">
-            <h3 class="section-title">Healing After Birth</h3>
+            <h3 class="section-title"><i>Pag-aalaga sa Pusod ng Bagong Silang</i></h3>
             <p class="section-content">
-              Your body needs time to heal after giving birth. Whether you had a vaginal delivery or cesarean section, 
-              it's important to take care of yourself. Rest when you can, accept help from others, and don't hesitate 
-              to contact your healthcare provider with any concerns.
+              <i>Inirerekomenda ng World Health Organization (WHO) ang dry cord care para sa mga bagong silang na sanggol, 
+                na nangangahulugang ang natitirang bahagi ng pusod ay dapat panatilihing malinis at tuyo, nang hindi nilalagyan 
+                ng anumang sangkap o gamot.</i>
             </p>
           </div>
           
           <div class="content-section">
-            <h3 class="section-title">Postpartum Exercise</h3>
+            <h3 class="section-title"><i>Pagpapalit ng Diaper at Pagbabalot Gamit ang Lampin</i></h3>
             <p class="section-content">
-              Gentle movement like short walks can help with recovery. Start slow and gradually increase activity 
-              as your body allows. Always get clearance from your healthcare provider before beginning any exercise 
-              program after childbirth.
+              <i>
+                <ul>
+                  <li>Palitan ang diaper ng madalas upang maiwasan ang diaper rash. 
+                    Linisin nang maingat ang bahagi ng diaper gamit ang tubig o banayad na wipes, 
+                    at hayaang matuyo bago lagyan ng panibagong diaper.</li>
+                  <li>Ang pagbabalot gamit ang lampin ay makatutulong upang patahanin ang sanggol
+                    at mapabuti ang tulog kapag ito ay ginawa nang tama. Tiyaking masikip ang 
+                    balot sa bandang mga braso ngunit maluwag sa bahagi ng balakang upang payagan ang natural na paggalaw. 
+                    Laging ihiga ang sanggol nang nakatihaya kapag nakabalot sa lampin upang mabawasan ang panganib ng Sudden Infant Death Syndrome (SIDS).</li>
+                </ul>
+              </i>
             </p>
-          </div>
-          
-          <div class="content-section">
-            <h3 class="section-title">Nutrition Tips</h3>
-            <p class="section-content">
-              Eating well supports your recovery and, if breastfeeding, your milk production. Focus on nutrient-dense 
-              foods, stay hydrated, and consider continuing your prenatal vitamins as recommended by your healthcare provider.
-            </p>
-          </div>
-        </div>
-      </div>
 
-      <div class="content-template" id="mental-health">
-        <div class="back-button" onclick="showMainOptions()">← Back to options</div>
-        <h2 class="content-title">Mental Wellbeing</h2>
-        <div class="content-body">
+            <div class="infographic-placeholder">
+                <div class="infographic-wrapper">
+                   <img src="http://media.healthdirect.org.au/images/inline/w700/swaddling-infographic-185067.png" 
+                    alt="Swaddling Infographic" 
+                    style="width: 100%; height: 100%; object-fit: cover;">
+                 </div>
+             </div>
+             
+            <div class="centered-text">
+             <a href="https://www.pregnancybirthbaby.org.au/swaddling-infographic" target="_blank" class="infographic-link">Click here for more information</a>
+            </div>
+          </div>
+          
           <div class="content-section">
-            <h3 class="section-title">Baby Blues vs. Postpartum Depression</h3>
+            <h3 class="section-title"><i>Pagpapanatili ng Tamang Init sa Katawan ng Sanggol</i></h3>
             <p class="section-content">
-              It's normal to experience mood swings, anxiety, or sadness after having a baby. Baby blues typically 
-              resolve within two weeks. If symptoms persist or worsen, it may be postpartum depression, which requires 
-              professional support. Remember, seeking help is a sign of strength.
+              <i>
+                Ang mga bagong silang, lalo na ang mga napaaga ang pagsilang (preterm), ay mas madaling ginawin dahil limitado pa 
+                ang kanilang kakayahang magpanatili ng tamang temperatura ng katawan. Mahalagang mapanatili ang isang neutral thermal environment (NTE), kung saan ang layunin ay mapanatili
+                ang temperatura sa kili-kili (axillary temperature) sa pagitan ng 36.5°C hanggang 37.5°C. 
+                Kabilang sa mga paraan upang gawin ito ay ang paglalapat ng balat ng ina at sanggol, paggamit ng incubator o 
+                radiant warmer, at pagtiyak na ang silid ay may angkop na temperatura.
+              </i> 
             </p>
           </div>
           
           <div class="content-section">
-            <h3 class="section-title">Self-Care Strategies</h3>
+            <h3 class="section-title"><i>Iskedyul ng Pagpapabakuna</i></h3>
             <p class="section-content">
-              Even small moments of self-care can make a difference. Try to sleep when your baby sleeps, ask for help 
-              with household tasks and baby care, connect with other parents, and take short breaks to do things you enjoy.
+              <i>Sa Pilipinas, inirerekomenda ng Department of Health (DOH) sa pamamagitan ng National Immunization Program (NIP) ang mga sumusunod na bakuna para sa mga sanggol:</i>
             </p>
-          </div>
-          
-          <div class="content-section">
-            <h3 class="section-title">When to Seek Help</h3>
-            <p class="section-content">
-              Contact your healthcare provider if you experience persistent feelings of sadness or emptiness, loss of interest 
-              in activities you used to enjoy, thoughts of harming yourself or your baby, or difficulty bonding with your baby.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="content-template" id="baby-care">
-        <div class="back-button" onclick="showMainOptions()">← Back to options</div>
-        <h2 class="content-title">Baby Care</h2>
-        <div class="content-body">
-          <div class="content-section">
-            <h3 class="section-title">Feeding Your Baby</h3>
-            <p class="section-content">
-              Whether you choose to breastfeed, formula feed, or a combination, fed is best. Newborns typically need to eat 
-              every 2-3 hours. Watch for hunger cues like rooting, sucking motions, or hand-to-mouth movements.
-            </p>
-          </div>
-          
-          <div class="content-section">
-            <h3 class="section-title">Sleep Safety</h3>
-            <p class="section-content">
-              Always place your baby on their back to sleep on a firm, flat surface without pillows, blankets, or toys. 
-              Room-sharing (but not bed-sharing) is recommended for the first 6-12 months to reduce the risk of SIDS.
-            </p>
-          </div>
-          
-          <div class="content-section">
-            <h3 class="section-title">Newborn Care Basics</h3>
-            <p class="section-content">
-              Regular diaper changes, gentle bathing 2-3 times per week, umbilical cord care, and dressing your baby 
-              appropriately for the temperature are important aspects of newborn care. Talk to your pediatrician about 
-              any specific concerns.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="content-template" id="resources">
-        <div class="back-button" onclick="showMainOptions()">← Back to options</div>
-        <h2 class="content-title">Resources</h2>
-        <div class="content-body">
-          <div class="content-section">
-            <h3 class="section-title">Local Support Services</h3>
-            <ul class="resource-list">
-              <li>Community Health Centers</li>
-              <li>Postpartum Support Groups</li>
-              <li>Lactation Consultants</li>
-              <li>Family Resource Centers</li>
+            <ul>
+              <li><i><b>Pagkasilang:</b>
+                <ul>
+                  <li>BCG (laban sa tuberculosis)</li>
+                  <li>Hepatitis B</li>
+                </ul>
+              </i></li>
+              <li><i><b>6 na Linggo:</b>
+                <ul>
+                  <li>Pentavalent vaccine (DTP-HepB-Hib)</li>
+                  <li>Oral Polio Vaccine (OPV)</li>
+                  <li>Pneumococcal Conjugate Vaccine (PCV)</li>
+                </ul>
+              </i></li>
+              <li><i><b>10 Linggo:</b>
+                <ul>
+                  <li>Ikalawang dose ng Pentavalent, OPV, at PCV</li>
+                </ul>
+              </i></li>
+              <li><i><b>14 na Linggo:</b>
+                <ul>
+                  <li>Ikatlong dose ng Pentavalent at OPV</li>
+                  <li>Inactivated Polio Vaccine (IPV)</li>
+                </ul>
+              </i></li>
+              <li><i><b>9 na Buwan:</b>
+                <ul>
+                  <li>Bakuna laban sa Tigdas, Beke, at Rubella (MMR)</li>
+                </ul>
+              </i></li>
             </ul>
           </div>
           
           <div class="content-section">
-            <h3 class="section-title">Hotlines</h3>
-            <ul class="resource-list">
-              <li>Postpartum Support International: 1-800-944-4773</li>
-              <li>National Parent Helpline: 1-855-427-2736</li>
-              <li>Crisis Text Line: Text HOME to 741741</li>
+            <h3 class="section-title"><i>Gabay sa Ligtas na Pagpapatulog sa Sanggol</i></h3>
+            <p class="section-content">
+            <i>Upang mabawasan ang panganib ng Sudden Infant Death Syndrome (SIDS) at iba pang kaugnay na insidente sa pagtulog:</i>
+            </p>
+            <ul>
+              <li><i>Ihiga ang sanggol nang nakatihaya (patagilid ang likod) sa lahat ng oras ng pagtulog.</i></li>
+              <li><i>Gumamit ng matigas at patag na higaan na walang malalambot na kumot, unan, o laruan.</i></li>
+              <li><i>Sa unang anim na buwan, mainam na ang lugar ng pagtulog ng sanggol ay nasa parehong silid kung saan natutulog ang magulang.</i></li>
+              <li><i>Iwasan ang sobrang pagbibihis o pagkakumot; damitan ang sanggol ayon sa temperatura ng silid upang hindi siya mapainit nang labis.</i></li>
             </ul>
+            
+
           </div>
-          
-          <div class="content-section">
-            <h3 class="section-title">Online Resources</h3>
-            <ul class="resource-list">
-              <li>CDC's Caring for a Newborn</li>
-              <li>La Leche League for breastfeeding support</li>
-              <li>Postpartum Support International website</li>
+        </div>
+      </div>
+
+    <div class="content-template" id="danger-signs">  
+      <div class="back-button_options" onclick="showMainOptions()"><i>← Back to options</i></div>
+      <h2 class="content-title"><i>Mga Palatandaan ng Panganib sa Bagong Silang na Sanggol</i></h2>
+      <div class="content-body">
+        <div class="content-section">
+        <h3 class="section-title"><i>Maging mapagmatyag sa mga sumusunod na babalang senyales:</i></h3>
+        <p class="section-content">
+        </p>
+        <ul>
+          <li><i>Lagnat: Rectal na temperatura na 37.2°C (99°F) o mas mataas</i></li>
+          <li><i>Hypothermia: Mababa ang temperatura ng katawan na maaaring senyales ng impeksyon</i></li>
+          <li><i>Mahinang Pagpapasuso o Pagkain: Hirap sa pagsuso o tumatangging kumain</i></li>
+          <li><i>Lantang-lanta: Labis na antok o hirap gisingin</i></li>
+          <li><i>Hirap sa Paghinga: Mabilis na paghinga, pag-ungol habang humihinga, o paglalapad ng butas ng ilong</i></li>
+        </ul>
+        <i>Ipaalam agad sa doktor o dalhin sa pinakamalapit na pagamutan kung mapansin ang alinman sa mga palatandaang ito.</i>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-template" id="child-development">
+      <div class="back-button_options" onclick="showMainOptions()"><i>← Back to options</i></div>
+      <h2 class="content-title"><i>Mahahalagang Yugto ng Pag-unlad ng Bata</i></h2>
+      <div class="content-body">
+        <div class="content-section">
+        <h3 class="section-title"><i>Gross Motor Skills (paggalaw ng malaking parte ng katawan)</i></h3>
+        <p class="section-content">
+        </p>
+        <ul>
+          <li><i><b>2 buwan:</b> Itinataas ang ulo kapag nakahiga sa tyan o nakakulob</i></li>
+          <li><i><b>6 na buwan:</b> Gumugulong sa magkabilang direksyon, at nagsisimulang umupo nang walang suporta</i></li>
+          <li><i><b>12 buwan:</b> Bumubwelo kapag tatayo, at nagsisimulang matuto na maglakad</i></li>
+          <li><i><b>18 buwan:</b> Naglalakad nang mag-isa, at nagsisimulang matuto na tumakbo</i></li>
+          <li><i><b>2 taon:</b> Sumisipa ng bola, at umaakyat sa mga muwebles sa bahay
+          </i></li>
+          <li><i><b>3 taon:</b> Umaakyat, at nagpepedal ng bisikleta</i></li>
+          <li><i><b>5 taon:</b> Tumatalon gamit ang dalawa o isang paa, at kayang magbalanse ng 10 segundo gamit ang isang paa </i></li>
+        </ul>
+        </div>
+        
+        <div class="content-section">
+        <h3 class="section-title"><i>Fine Motor Skills (paggalaw ng mga kamay at daliri)</i></h3>
+        <p class="section-content">
+        </p>
+        <ul>
+          <li><i><b>4 na buwan:</b> Hinahawakan ang mga bagay na malapit sa kanya</i></li>
+          <li><i><b>6 na buwan:</b> Pinapasa ang mga nahahawakang bagay mula sa isang kamay papunta sa kabilang kamay</i></li>
+          <li><i><b>12 buwan:</b> Pinagbabangga ang dalawang bagay at itinuturo gamit ang hintuturo.</i></li>
+          <li><i><b>2 taon:</b> Bumubuo ng tore na may 4 o higit pang mga bloke</i></li>
+          <li><i><b>3 taon:</b> Isa-isang ipinipihit ang mga pahina ng aklat at humahawak ng krayola.</i></li>
+          <li><i><b>4–5 taon:</b> Naguguhit ng payak na mga hugis, gumagamit ng gunting na pambata.</i></li>
+        </ul>
+        </div>
+        <div class="infographic-placeholder">
+          <div class="infographic-wrapper">
+            <img src="http://www.betterfamilyhealth.org/images/xchild-early-development-milestones-AMDASG-66941661.jpg.pagespeed.ic.0hERztvWWI.webp" 
+              alt="Safe Sleep Infographic" 
+              style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+        </div>
+        <div class="centered-text">
+          <a href="http://www.betterfamilyhealth.org/child-health.html" target="_blank" class="infographic-link">Click here for more information</a>
+        </div>
+
+        <div class="content-section">
+        <h3 class="section-title"><i>Wika at Komunikasyon</i></h3>
+        <p class="section-content">
+        </p>
+        <ul>
+          <li><i><b>2 buwan:</b> Humahagikgik </i></li>
+          <li><i><b>6 na buwan:</b> Lumilkaingon kapag tinatawag ang sariling pangalan, at gumagawa ng mga tunog</i></li>
+          <li><i><b>12 buwan:</b> Nagsasabi ng mga simpleng salita tulad ng "mama," at "papa"</i></li>
+          <li><i><b>2 taon:</b> Kayang pagsamahin ang dalawang salita, at may alam na 50 o higit pang mga salita</i></li>
+          <li><i><b>3 taon:</b> Nakakapagsalita gamit ang 3-4 na salitang pangungusap </i></li>
+          <li><i><b>4–5 taon:</b> Nakakapagsalaysay ng mga kwento, at gumagamit ng panlapi na panghinaharap</i></li>
+        </ul>
+        </div>
+        
+        <div class="content-section">
+        <h3 class="section-title"><i>Pakikipagkapwa at Emosyonal</i></h3>
+        <p class="section-content">
+        </p>
+        <ul>
+          <li><i><b>2 buwan:</b> Ngumingiti sa ibang tao</i></li>
+          <li><i><b>6 na buwan:</b> Kilala ang mga pamilyar na mukha, at mahilig makipaglaro sa ibang tao</i></li>
+          <li><i><b>12 buwan:</b> Natatakot sa mga partikular na sitwasyon, at iniabot ang aklat upang ipabasa </i></li>
+          <li><i><b>2 taon:</b> Ginagaya ang ugali at asal na nakikita sa iba, at gustong gawin ang mga gawain nang mag-isa</i></li>
+          <li><i><b>3–4 na taon:</b> Mas gustong makipaglaro sa iba kaysa maglaro nang mag-isa, at nagiging emosyonal</i></li>
+          <li><i><b>5 taon:</b> Nais mapasaya ang mga kaibigan, mahilig kumanta, sumayaw, at umarte</i></li>
+        </ul>
+        <p>Para sa iba pang mga impormasyon, maaaring bisitahin ang mga sumusunod:</p>
+        <div class="centered-text">
+            <a href="https://www.cdc.gov/ncbddd/actearly/milestones/index.html" target="_blank"class="infographic-link">LINK</a>
+            <a href="https://www.cdc.gov/ncbddd/actearly/pdf/LTSAE-Checklist_COMPLIANT_30MCorrection_508.pdf" target="_blank"class="infographic-link">LINK</a>
+      </div>
+      <div class="infographic-placeholder">
+        <div class="infographic-wrapper">
+          <img src="https://scontent.fmnl37-2.fna.fbcdn.net/v/t39.30808-6/464910476_9106036496074188_847806882470281469_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=108&ccb=1-7&_nc_sid=0b6b33&_nc_eui2=AeGCTP0B_c5Ka3pqF3uAcBMBHFv1EwmjqmwcW_UTCaOqbJd6x3QUCgP6aSxOaZ2VZjnUWatLQ589-WssFZA82M57&_nc_ohc=Dw8-gl5iM9QQ7kNvwEbG83M&_nc_oc=Adlv6XaWkpU_h0TOB4O6jT0xWRenQGPQmI8PpyUtWSrapghZiHPX9I9287SzVSzQ4PL-8DwZrLZ1MjuTTMe68jze&_nc_zt=23&_nc_ht=scontent.fmnl37-2.fna&_nc_gid=K96hQno0JBmhH1VEImtymg&oh=00_AfKvgHj7Ww7d7ktxZUhhrOkMiKFh_JSKHOkueNyIVbB87w&oe=68233682" 
+            alt="Safe Sleep Infographic" 
+            style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      </div>
+      <div class="centered-text">
+        <a href="https://www.facebook.com/DOHgovPH/posts/sundin-ang-schedule-ng-pagbabakuna-ng-mga-batang-isang-taong-gulang-pababa-para-/1095440113800573/" target="_blank" class="infographic-link">Click here for more information</a>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-template" id="common-problems">
+      <div class="back-button_options" onclick="showMainOptions()"><i>← Back to options</i></div>
+      <h2 class="content-title"><i>Karaniwang Suliranin ng mga Sanggol</i></h2>
+      <div class="content-body">
+        <div class="content-section">
+        <h3 class="section-title"><i></i></h3>
+        <ul>
+          <li><i><b>Colic:</b> Matagal na pag-iyak ng sanggol kahit siya ay mukhang malusog. Maaaring mapagaan ito sa pamamagitan ng paghele, pagyakap, o pagtitiyak na hindi siya gutom,  hindi puno ang diaper, o hindi komportable.        </i></li>
+          <li><i><b>Diaper Rash:</b> Pamumula at pamamaga ng balat sa bahagi ng diaper. Maiiwasan ito sa pamamagitan ng pagpapanatiling malinis at tuyo ang bahaging ito. Iwasan ang paglalagay ng mga chemical or produkto na maaaring makairita sa balat ng sanggol.</i></li>
+          <li><i><b>Constipation:</b> Bihirang pagdumi o matitigas na dumi. Tiyakin na sapat ang likido or tubig na nakukuha ng sanggol at kumunsulta sa doktor kung magpatuloy ang problema.</i></li>
+        </ul>
+        </div>
+      </div>
+    </div>
             </ul>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+      <script>
+        // Function to handle the back button navigation
+document.addEventListener('DOMContentLoaded', function() {
+    const backButton = document.querySelector('.back-button');
+    if (backButton) {
+      backButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html';
+        }
+      });
+    }
+  
+    // Initialize - make sure main options are shown and content templates are hidden
+    showMainOptions();
+  });
+  
+  // Function to show content template
+  function showContent(contentId) {
+    // Hide all content templates first
+    const contentTemplates = document.querySelectorAll('.content-template');
+    contentTemplates.forEach(template => {
+      template.style.display = 'none';
+    });
+    
+    // Hide main options
+    document.getElementById('main-options').style.display = 'none';
+    
+    // Show selected content
+    const selectedContent = document.getElementById(contentId);
+    if (selectedContent) {
+      selectedContent.style.display = 'block';
+    }
+  }
+  
+  // Function to return to main options
+  function showMainOptions() {
+    // Hide all content templates
+    const contentTemplates = document.querySelectorAll('.content-template');
+    contentTemplates.forEach(template => {
+      template.style.display = 'none';
+    });
+    
+    // Show main options
+    const mainOptions = document.getElementById('main-options');
+    if (mainOptions) {
+      mainOptions.style.display = 'grid';
+    }
+    
+    // Ensure the back button is visible when on the main options page
+    const backButton = document.querySelector('.back-button');
+    if (backButton) {
+      backButton.style.display = 'block';
+    }
+  }
+      </script>
     </div>
   </div>

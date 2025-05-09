@@ -34,6 +34,8 @@ body {
   overflow: hidden;
 }
 
+
+
 .zoom-scroll {
   width: 100%;
   height: 100%;
@@ -89,6 +91,16 @@ body {
   width: 100%;
   max-width: 500px;
   height: auto;
+}
+.header-title {
+  color: #c71c63;
+  font-size: 30px; 
+  font-family: 'Dancing Script';
+  flex-grow: 1;
+  text-align: center;
+  margin: 10px auto;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 .title {
@@ -423,12 +435,22 @@ display: flex
 .accessibility-close:hover {
   background-color: #f082b5;
 }
-
+.centered-text {
+  text-align: center;
+  font-size: 30px;
+}
+.centered-text2 {
+  text-align: center;
+  font-size: 30px;
+  position: absolute;
+  top: 35%;
+  color: #c21e6d;
+}
 .back-button, .back-button2 {
   position: fixed;
-  bottom: 40rem;
-  right: 3rem;
-  background-color: white;
+  top: 20px;
+  right: 20px;
+  background-color: #f8d7e1;
   color: #a2165f;
   border: none;
   border-radius: 16px;
@@ -445,10 +467,10 @@ display: flex
   background-color: #f8d7e1;
 }
 
-@media (max-width: 567px) and (max-height: 800px){
+@media (max-width: 567px) and (max-height: 950px){
   .back-button, .back-button2 {
-    right: 0rem;
-    bottom: 41rem;
+    top: 20px;
+    right: 20px;
     font-size: 1.3rem;
     padding: 0.35rem 0.8rem;
  }
@@ -846,6 +868,7 @@ display: flex
   color: #e91e63;
   font-size: 30px;
   margin-bottom: 1px;
+  text-align: center;
 }
 
 .navicare-logo {
@@ -927,12 +950,12 @@ display: flex
   border-radius: 25px;
   padding: 12px 20px;
   margin: 10px 15px;
-  width: 85%;
+  width: 90%;
   max-width: 350px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-size: 22px;
   font-weight: 500;
-  text-align: center;
+  text-align: left;
   transition: all 0.3s ease;
   cursor: pointer;
   text-decoration: none;
@@ -1111,18 +1134,33 @@ display: flex
   padding: 8px 10px;
   box-sizing: border-box;
 }
+.contact-item2 {
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
 
 .contact-name {
   color: #c71585;
   font-size: 14px;
   font-weight: bold;
 }
+.contact-name2 {
+  color: #c71585;
+  font-size: 20px;
+  text-align: center;
+}
 
 .contact-number {
   color: #c71585;
   font-size: 14px;
 }
-
+.contact-number2 {
+  color: #c71585;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
 
 /* Fixed category headers syntax */
 .category-header {
@@ -1133,6 +1171,15 @@ display: flex
   margin: 15px 0 5px 10px;
   padding-bottom: 5px;
   border-bottom: 1px solid #f0f0f0;
+}
+.consultator-icon {
+  width: 100%;
+  font-size: 150px;
+  font-weight: bold;
+  color: #38703d;
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f0f0f0
 }
 
 @media (max-width: 768px) {

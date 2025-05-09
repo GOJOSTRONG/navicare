@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaviCare - AI Query</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { width: 100%; min-height: 100%; font-size: 100%; }
+        body {
+            width: 100%; min-height: 100vh; height: auto;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('res/school_bg.jpg') no-repeat center center fixed;
+            background-size: cover; background-position: center center;
+            color: #a2165f; font-size: 1rem;
+            overflow-x: hidden; display: flex; flex-direction: column;
+        }
+        .gradient-overlay-bottom {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 110vh;
+            background: linear-gradient(to top, #e93772, rgba(255, 255, 255, 0));
+            z-index: 0; pointer-events: none;
+        }
+        .overlay {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+            width: 100%; min-height: 100vh; height: auto;
+            padding: 20px; position: relative; z-index: 1;
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .container { 
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .back-button {
+            background-color: #f9e7f0;
+            color: #a2165f;
+            border: none;
+            border-radius: 20px;
+            padding: 0.5rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            text-transform: uppercase;
+        }
+        @media (max-width: 480px) {
+            .back-button { top: 15px; right: 15px; }
+        }
+
+        
+        .query-container {
+            background-color: #f7eecc; 
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%; 
+            margin: 20px; 
+            text-align: left;
+            color: #333; 
+        }
+        .query-container h1 {
+            text-align: left;
+            color: #578851; 
+            margin-bottom: 25px;
+            font-size: 50px;
+        }
+        .query-container .subtitle {
+            text-align:left;
+            margin-bottom:25px;
+            color: #578851;
+            font-size: 20px;
+        }
+        .query-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+        .query-container textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            color: #333;
+        }
+        .query-container textarea#questionArea {
+            min-height: 80px;
+        }
+        .query-container textarea#answerArea {
+            min-height: 120px;
+            background-color: #f8f9fa; 
+            color: #333;
+        }
+        .query-container button {
+            background-color: #D95C8A;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto 0; 
+            transition: background-color 0.2s;
+        }
+        .query-container button:hover {
+            background-color: #c04a77;
+        }
+        .footer-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-overlay-bottom"></div>
+    <div class="overlay">
+        <div class="back-button">back</div>
+
+        <div class="query-container">
+            <h1>QUERIES</h1>
+            <p class="subtitle">Ask a Question</p>
+
+            <label for="questionArea">Type your question here:</label>
+            <textarea id="questionArea" rows="3" placeholder="Enter your question..."></textarea>
+
+            <button id="sendButton">Send</button>
+
+            <label for="answerArea" style="margin-top: 20px;">Answer:</label>
+            <textarea id="answerArea" rows="5" readonly placeholder="AI's answer will appear here..."></textarea>
+
+            <p class="footer-text">Powered by AI. We recommend you to do further research and consult a doctor.</p>
+        </div>
+    </div>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', () => {
+    const questionArea = document.getElementById('questionArea');
+    const sendButton = document.getElementById('sendButton');
+    const answerArea = document.getElementById('answerArea');
+
+    sendButton.addEventListener('click', async () => {
+        const question = questionArea.value.trim();
+        if (!question) {
+            answerArea.value = 'Please type a question.';
+            return;
+        }
+
+        answerArea.value = 'Thinking...'; // Show a loading message
+
+        try {
+            // This '/api/ask' is the endpoint you will create on your backend server
+            const response = await fetch('/api/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question: question }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: `HTTP error! Status: ${response.status}` }));
+                throw new Error(errorData.error || `Failed to get answer. Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            answerArea.value = data.answer;
+
+        } catch (error) {
+            console.error('Error fetching answer:', error);
+            answerArea.value = `Error: ${error.message}. Make sure your backend server is running.`;
+        }
+    });
+});
+
+        // Back button functionality
+        document.querySelector('.back-button').addEventListener('click', () => {
+            window.history.back();
+        });
+    </script>
+</body>
+</html>

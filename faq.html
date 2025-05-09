@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NaviCare - FAQs</title>
+  <style>
+    .faq-topics-heading {
+      color: var(--primary-green);
+      font-size: 60px;
+      font-weight: bold;
+      font-family: 'Glacial Indifference', sans-serif;
+      text-align: left;
+      margin-bottom: 15px;
+      margin-left: 200px;
+      text-transform: uppercase;
+
+    }
+    .faq-topics-heading-topic {
+      color: var(--primary-green);
+      font-size: 20px;
+      font-weight: bold;
+      font-family: 'Glacial Indifference', sans-serif;
+      text-align: left;
+      margin-bottom: 15px;
+      margin-left: 205px;
+      text-transform: uppercase;
+    }
+    @media (max-width: 768px) {
+      .faq-topics-heading {
+        margin-left: 20px;
+      }
+      .faq-topics-heading-topic {
+
+        margin-left: 20px;
+      }
+        
+    }
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    width: 100%;
+    min-height: 100%;
+    font-size: 100%;
+  }
+
+  body {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('res/school_bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-position: center center;
+    color: #a2165f;
+    font-size: 1rem;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .overlay {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .gradient-overlay-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 110vh;
+    background: linear-gradient(to top, #e93772, rgba(255, 255, 255, 0));
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  :root {
+    --primary-green: #4CAF50;
+    --primary-magenta: #D81B60;
+    --light-yellow: #FFFDE7; 
+    --light-pink: #FFCDD2;
+    --dark-text: #333333;
+    --light-text: #FFFFFF;
+    --question-color: #38761D; 
+    --answer-color: #A61C00;   
+  }
+
+  .topics-container {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .topic-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7eecc;
+    border-radius: 10px;
+    padding: 18px 20px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto 10px auto;
+  }
+
+  .topic-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .topic-button h3 {
+    color: var(--primary-magenta);
+    font-size: 18px;
+    margin: 0;
+    font-weight: bold;
+    text-align: center;
+    text-transform: none;
+  }
+
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(240, 240, 240, 0.95); 
+    z-index: 1000;
+    overflow-y: auto;
+    padding-top: 70px; 
+  }
+
+  .modal-fixed-header {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to bottom, rgb(255, 255, 255), rgba(255, 255, 255, 0.9)); 
+    padding: 15px 20px;
+    z-index: 1002; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    height: 60px; 
+  }
+
+  .modal-main-title { 
+    color: var(--primary-green);
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+.modal-topic-name { 
+    color: var(--primary-green); 
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: right; 
+}
+
+@media (max-width: 768px) {
+    .modal-topic-name {
+        font-size: 16px;
+        margin-left: 10px;
+        margin-right: 10px;
+        text-align: right;
+    }
+}
+
+@media (max-width: 567px) {
+    .modal-topic-name {
+        font-size: 14px;
+        margin-left: 5px;
+        margin-right: 5px;
+        text-align: right;
+    }
+}
+
+  .modal-banner-image-container {
+    width: 100%;
+    height: 200px; 
+    overflow: hidden;
+    margin-bottom: 20px; 
+    
+  }
+
+  .modal-banner-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  }
+
+  .modal-scrollable-content {
+    padding: 20px; 
+    line-height: 1.6;
+  }
+
+  .qa-pair {
+    margin-bottom: 25px; 
+  }
+
+  .qa-pair .question-text {
+    color: var(--question-color); 
+    font-size: 20px; 
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  .qa-pair .question-prefix { 
+      display: block;
+      color: var(--question-color);
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 3px;
+      text-align: left;
+  }
+
+  .qa-pair .answer-container {
+    background-color: var(--light-yellow); 
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 5px; 
+  }
+
+  .qa-pair .answer-prefix { 
+    color: var(--answer-color); 
+    font-size: 14px;
+    font-weight: bold;
+    display: block; 
+    margin-bottom: 8px; 
+    text-align: left;
+  }
+
+  .qa-pair .answer-text {
+    color: var(--dark-text);
+    font-size: 16px;
+    text-align: left;
+    margin: 0; 
+  }
+
+
+  .back-button, .back-button2 {
+    background-color: #f9e7f0;
+    color: #a2165f;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    text-transform: uppercase;
+  }
+
+  .back-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    left: auto;
+    z-index: 999;
+  }
+
+  .back-button:hover, .back-button2:hover {
+    background-color: #f8d7e1;
+  }
+
+  .modal .back-button2 { 
+    position: absolute; 
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    padding: 0.4rem 1.2rem; 
+    font-size: 0.9rem;
+    z-index: 1003; 
+  }
+
+
+  @media (max-width: 768px) {
+    .modal-main-title { font-size: 22px; }
+    .modal-topic-name { font-size: 16px; }
+    .qa-pair .question-text { font-size: 18px; }
+    .qa-pair .answer-text { font-size: 15px; }
+    .modal-banner-image-container { height: 150px; }
+  }
+
+
+  @media (max-width: 567px) {
+    .back-button {
+      font-size: 0.9rem;
+      padding: 0.4rem 1.2rem;
+      top: 15px;
+      right: 15px;
+    }
+     .modal {
+        padding-top: 50px; 
+    }
+    .modal-fixed-header {
+        height: 50px;
+        padding: 10px 15px;
+    }
+    .modal-main-title { font-size: 20px; }
+    .modal-topic-name { font-size: 14px; }
+    .modal .back-button2 {
+        padding: 0.3rem 1rem;
+        font-size: 0.8rem;
+        right: 15px;
+    }
+    .modal-banner-image-container { height: 120px; }
+    .faq-topics-heading {
+        margin-left: 10px;
+        text-align: left;
+    }
+    .topic-button h3 {
+        font-size: 16px;
+    }
+    .qa-pair .question-text { font-size: 17px; }
+    .qa-pair .answer-text { font-size: 14px; }
+  }
+  </style>
+  <link href="https://fonts.cdnfonts.com/css/glacial-indifference-2" rel="stylesheet">
+</head>
+<body>
+    <div class="gradient-overlay-bottom"></div>
+    <div class="overlay">
+      <div class="container">
+        <button class="back-button">Back</button>
+        <div class="topics-container">
+            <h2 class="faq-topics-heading">FREQUENTLY <br> ASKED <br> QUESTIONS</h2>
+            <h3 class="faq-topics-heading-topic">Topics:</h3>
+            <button class="topic-button" data-topic="general-postpartum" data-topic-name="General Postpartum Health">
+              <h3>Pangkalahatang Postpartum Health</h3>
+            </button>
+            <button class="topic-button" data-topic="physical-recovery" data-topic-name="Postpartum Physical Recovery">
+              <h3>Postpartum Physical Recovery</h3>
+            </button>
+            <button class="topic-button" data-topic="mental-health" data-topic-name="Mental Health & Emotional Support">
+              <h3>Mental Health at Emosyonal na Suporta</h3>
+            </button>
+            <button class="topic-button" data-topic="breastfeeding-infant" data-topic-name="Breastfeeding & Infant Care">
+              <h3>Pagpapasuso at Pangangalaga sa Sanggol</h3>
+            </button>
+            <button class="topic-button" data-topic="family-social" data-topic-name="Family and Social Support">
+              <h3>Family and Social Support</h3>
+            </button>
+            <button class="topic-button" data-topic="nutrition-postpartum" data-topic-name="nutrition postpartum and back to work">
+              <h3>Nutrisyon sa Postpartum at Pagbabalik sa Trabaho</h3>
+            </button>
+            <button class="topic-button" data-topic="when-to-seek-help" data-topic-name="when to seek help in medical help">
+              <h3>Kailan kukunsulta para sa tulong Medikal</h3>
+            </button>
+              
+        </div>
+      </div>
+    </div>
+
+    <div id="general-postpartum-modal" class="modal">
+        <div class="modal-fixed-header">
+          <h2 class="modal-main-title">Mga FAQ</h2>
+          <h3 class="modal-topic-name" id="modal-topic-name-general-postpartum">Pangkalahatang Postpartum Health</h3>
+          <button class="back-button2">Back</button>
+        </div>
+        <div class="modal-banner-image-container">
+          <img src="res/faq1.png" alt="FAQ Banner">
+        </div>
+        <div class="modal-scrollable-content">
+          <div class="qa-pair">
+            
+            <p class="question-text">Ano ang postpartum period?</p>
+            <div class="answer-container">
+              
+              <p class="answer-text">Ang postpartum period ay tumutukoy sa unang anim na linggo pagkatapos ng panganganak, isang kritikal na panahon para sa pagpapagaling, pagsasaayos, at pakikipag-ugnayan sa iyong sanggol.</p>
+            </div>
+          </div>
+          <div class="qa-pair">
+            
+            <p class="question-text">Bakit mahalaga ang pangangalaga sa postpartum?</p>
+            <div class="answer-container">
+              
+              <p class="answer-text">Nakakatulong ito na subaybayan ang pisikal na paggaling, sinusuportahan ang mental na kagalingan, at tinitiyak na ang iyong sanggol ay lumalaki nang maayos.</p>
+            </div>
+          </div>
+          <div class="qa-pair">
+            
+            <p class="question-text">Gaano kabilis ako dapat mag-iskedyul ng postpartum check-up?</p>
+            <div class="answer-container">
+              
+              <p class="answer-text">Ang isang check-up ay dapat na naka-iskedyul sa loob ng 7 araw pagkatapos ng panganganak, lalo na para sa mga nagkaroon ng mga komplikasyon o C-section.</p>
+            </div>
+          </div>
+          <div class="qa-pair">
+            
+            <p class="question-text">Ano ang karaniwang mga pisikal na pagbabago pagkatapos ng panganganak?</p>
+            <div class="answer-container">
+              
+              <p class="answer-text">Maaari kang makaranas ng pagdurugo ng ari, pananakit ng perineal, pananakit ng dibdib, pananakit ng likod, o paninigas ng dumi.</p>
+            </div>
+          </div>
+          <div class="qa-pair">
+            
+            <p class="question-text">Gaano katagal ako magdudugo pagkatapos manganak?</p>
+            <div class="answer-container">
+              
+              <p class="answer-text">Ang pagdurugo ng vaginal, na tinatawag na lochia, ay maaaring tumagal ng 4-6 na linggo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div id="physical-recovery-modal" class="modal">
+          <div class="modal-fixed-header">
+              <h2 class="modal-main-title">Mga FAQ</h2>
+              <h3 class="modal-topic-name" id="modal-topic-name-physical-recovery">Postpartum Physical Recovery</h3>
+              <button class="back-button2">Back</button>
+          </div>
+          <div class="modal-banner-image-container">
+              <img src="res/faq1.png" alt="FAQ Banner">
+          </div>
+          <div class="modal-scrollable-content">
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Kailan ako maaaring magsimulang mag-ehersisyo muli?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Maaaring magsimula ang magaan na aktibidad kapag sa tingin mo ay handa ka na, kadalasan sa loob ng 2–6 na linggo pagkatapos ng panganganak, depende sa iyong panganganak at payo ng doktor.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Normal lang bang makaramdam ng pananakit habang umiihi pagkatapos ng panganganak?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Oo, lalo na pagkatapos ng panganganak sa vaginal, ngunit iulat ang nasusunog o malalakas na amoy sa isang doktor.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Paano ko aalagaan ang mga tahi o isang cesarean incision?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Panatilihing malinis at tuyo ang lugar, iwasan ang mabigat na pagbubuhat, at sundin ang mga tagubilin sa pangangalaga ng sugat ng iyong doktor.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Kailan babalik ang aking regla?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Nag-iiba ito. Kung hindi ka nagpapasuso, maaari itong bumalik sa loob ng 6–8 na linggo; ang pagpapasuso ay maaaring maantala ito nang mas matagal.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Maaari ba akong mabuntis sa panahon ng postpartum?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Oo, bago pa man bumalik ang iyong unang regla. Gumamit ng contraception kung ayaw mong magbuntis.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+      <div id="mental-health-modal" class="modal">
+          <div class="modal-fixed-header">
+              <h2 class="modal-main-title">Mga FAQ</h2>
+              <h3 class="modal-topic-name" id="modal-topic-name-mental-health">Mental Health at Emosyonal na Suporta</h3>
+              <button class="back-button2">Back</button>
+          </div>
+          <div class="modal-banner-image-container">
+              <img src="res/faq1.png" alt="FAQ Banner">
+          </div>
+          <div class="modal-scrollable-content">
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Normal lang bang malungkot o mabigla pagkatapos ng panganganak?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Oo, karaniwan ang baby blues, ngunit kung magpapatuloy ang kalungkutan nang higit sa 2 linggo, maaaring ito ay postpartum depression.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Ano ang postpartum depression (PPD)?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Ang PPD ay isang malubhang mood disorder na may mga sintomas tulad ng kalungkutan, pagkapagod, pagkabalisa, at kawalang-interes sa iyong sanggol o araw-araw na buhay.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Kailan ako dapat humingi ng tulong para sa postpartum depression?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Humingi ng tulong kung wala kang pag-asa, hindi mo kayang makipag-ugnayan sa iyong sanggol, o may iniisip kang saktan ang sarili o saktan ang iyong sanggol.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Makakaranas din ba ang magkapareha ng postpartum depression?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Oo, ang mga ama at kapareha ay maaari ding dumanas ng depresyon pagkatapos ng panganganak.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Paano ko mapapamahalaan ang stress bilang isang bagong ina?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Magpahinga ng sapat, tumanggap ng tulong mula sa iba, sumali sa mga grupo ng suporta, at makipag-usap sa isang tagapagbigay ng pangangalagang pangkalusugan.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+      <div id="breastfeeding-infant-modal" class="modal">
+          <div class="modal-fixed-header">
+              <h2 class="modal-main-title">Mga FAQ</h2>
+              <h3 class="modal-topic-name" id="modal-topic-name-breastfeeding-infant">Pagpapasuso at Pangangalaga sa Sanggol</h3>
+              <button class="back-button2">Back</button>
+          </div>
+          <div class="modal-banner-image-container">
+              <img src="res/faq1.png" alt="FAQ Banner">
+          </div>
+          <div class="modal-scrollable-content">
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Gaano kabilis ako dapat magsimulang magpasuso?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Sa loob ng unang oras pagkatapos ng kapanganakan kung maaari, upang itaguyod ang pagbubuklod at pasiglahin ang produksyon ng gatas.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Normal ba na makaramdam ng sakit habang nagpapasuso?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Ang banayad na kakulangan sa ginhawa ay normal sa simula, ngunit ang matinding pananakit ay maaaring mangahulugan ng isyu ng trangka—humingi ng suporta mula sa isang consultant sa paggagatas.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Gaano kadalas ko dapat pakainin ang aking bagong panganak?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Ang mga bagong silang ay karaniwang nagpapakain tuwing 2-3 oras, mga 8-12 beses sa isang araw.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Anong mga pagkain ang dapat kong iwasan habang nagpapasuso?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Limitahan ang caffeine, alak, at mga pagkain na nakakainis sa iyong sanggol (tulad ng mga maanghang o nakaka-gas na pagkain).</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Maaari pa ba akong magpasuso kung ako ay may sakit?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Kadalasan ay oo, at maaari itong magpasa ng mga antibodies sa iyong sanggol. Palaging kumunsulta sa iyong doktor.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+      <div id="family-social-modal" class="modal">
+          <div class="modal-fixed-header">
+              <h2 class="modal-main-title">Mga FAQ</h2>
+              <h3 class="modal-topic-name" id="modal-topic-name-family-social">Family and Social Support</h3>
+              <button class="back-button2">Back</button>
+          </div>
+          <div class="modal-banner-image-container">
+              <img src="res/faq1.png" alt="FAQ Banner">
+          </div>
+          <div class="modal-scrollable-content">
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Paano ako masusuportahan ng aking kapareha pagkatapos ng panganganak?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Sa pamamagitan ng pagtulong sa pag-aalaga ng sanggol, mga gawaing-bahay, pagbibigay ng emosyonal na suporta, at paghikayat sa iyong magpahinga.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Anong papel ang ginagampanan ng pamilya sa panahon ng paggaling sa postpartum?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Maaari silang tumulong sa mga pagkain, gawaing bahay, at pag-aalaga sa iyong sanggol, na nagbibigay sa iyo ng oras upang gumaling.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Ano ang dapat kong gawin kung pakiramdam ko ay hindi ako sinusuportahan sa bahay?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Makipag-ugnayan sa mga propesyonal sa kalusugan, mga social worker, o mga grupo ng komunidad para sa emosyonal at praktikal na suporta.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+      <div id="nutrition-postpartum-modal" class="modal">
+          <div class="modal-fixed-header">
+              <h2 class="modal-main-title">Mga FAQ</h2>
+              <h3 class="modal-topic-name" id="modal-topic-name-nutrition-postpartum">Nutrisyon sa Postpartum at Pagbabalik sa Trabaho</h3>
+              <button class="back-button2">Back</button>
+          </div>
+          <div class="modal-banner-image-container">
+              <img src="res/faq1.png" alt="FAQ Banner">
+          </div>
+          <div class="modal-scrollable-content">
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Bakit mahalaga ang pagkain ng malusog pagkatapos manganak?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Tinutulungan nito ang iyong katawan na makabawi, pinapanatili ang iyong enerhiya, at sinusuportahan ang pagpapasuso.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Anong mga pagkain ang dapat kong kainin pagkatapos manganak?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Kumain ng prutas, gulay, buong butil, walang taba na karne, itlog, at masustansyang taba tulad ng mga mani at isda.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Maaari ba akong magbawas ng timbang pagkatapos manganak?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Pinakamainam na maghintay ng ilang linggo at mabagal na magbawas ng timbang na may malusog na pagkain at magaan na ehersisyo.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Kailangan ko bang kumain ng higit pa kung ako ay nagpapasuso?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Oo. Maaaring kailanganin mo ng 400–500 higit pang mga calorie sa isang araw upang makagawa ng sapat na gatas ng ina.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Anong mga pagkain ang nakakatulong sa pagpaparami ng gatas ng ina?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Ang mga oats, madahong gulay, bawang, at fenugreek ay karaniwang mga galactagogue, ngunit iba-iba ang mga tugon.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Dapat ko bang ipagpatuloy ang pag-inom ng prenatal vitamins?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Oo. Sinusuportahan ng prenatal vitamins ang pagbawi at pagpapasuso. Tingnan sa iyong doktor.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Maaari ba akong uminom ng kape o alak habang nagpapasuso?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Ang isang maliit na halaga ng kape ay mainam. Para sa alkohol, maghintay ng 2-3 oras bago magpasuso o mag-bomba at itapon.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Kailan ako dapat bumalik sa trabaho pagkatapos manganak?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Maraming mga ina ang bumabalik pagkatapos ng 6 hanggang 12 na linggo, ngunit depende ito sa iyong kalusugan at sitwasyon.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Maaari pa ba akong magpasuso pagkatapos bumalik sa trabaho?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Oo. Maaari kang magbomba ng gatas sa oras ng pahinga at iimbak ito para sa iyong sanggol.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Gaano kadalas ako dapat magbomba sa trabaho?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Subukang magbomba tuwing 2-3 oras, halos kapareho ng oras na normal na magpapakain ang iyong sanggol.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+      <div id="when-to-seek-help-modal" class="modal">
+          <div class="modal-fixed-header">
+              <h2 class="modal-main-title">Mga FAQ</h2>
+              <h3 class="modal-topic-name" id="modal-topic-name-when-to-seek-help">Kailan kukunsulta para sa tulong Medikal</h3>
+              <button class="back-button2">Back</button>
+          </div>
+          <div class="modal-banner-image-container">
+              <img src="res/faq1.png" alt="FAQ Banner">
+          </div>
+          <div class="modal-scrollable-content">
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Kailan ako dapat magpatingin sa doktor pagkatapos manganak?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Kung mayroon kang matinding pagdurugo, lagnat, pananakit ng dibdib, problema sa paghinga, o mga palatandaan ng depresyon, humingi kaagad ng medikal na pangangalaga.</p>
+                  </div>
+              </div>
+              <div class="qa-pair">
+                  
+                  <p class="question-text">Paano ako makakahanap ng malapit na mga serbisyo sa pangangalaga sa postpartum?</p>
+                  <div class="answer-container">
+                      
+                      <p class="answer-text">Gamitin ang direktoryo ng NaviCare o kumunsulta sa iyong lokal na health center para sa mga referral.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const mainBackButton = document.querySelector('.back-button');
+    if (mainBackButton) {
+      mainBackButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          console.log("No history to go back to.");
+        }
+      });
+    }
+
+    const topicButtons = document.querySelectorAll('.topic-button');
+    topicButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const topic = button.getAttribute('data-topic');
+        const topicName = button.getAttribute('data-topic-name'); // Get topic name for modal header
+        openModal(topic, topicName);
+      });
+    });
+  });
+
+  function openModal(topic, topicName) {
+    const modal = document.getElementById(`${topic}-modal`);
+    if (modal) {
+      // Set the topic name in the modal header
+      const modalTopicNameElement = modal.querySelector('.modal-topic-name');
+      if (modalTopicNameElement) {
+        modalTopicNameElement.textContent = topicName;
+      }
+
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+
+      const modalBackButton = modal.querySelector('.back-button2');
+      if (modalBackButton) {
+        const newModalBackButton = modalBackButton.cloneNode(true);
+        modalBackButton.parentNode.replaceChild(newModalBackButton, modalBackButton);
+        newModalBackButton.addEventListener('click', () => {
+          modal.style.display = 'none';
+          document.body.style.overflow = '';
+        });
+      }
+    } else {
+      console.error(`Modal for topic "${topic}" not found`);
+    }
+  }
+</script>
+</body>
+</html>
