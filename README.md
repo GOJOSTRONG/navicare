@@ -9,11 +9,13 @@ NaviCare is a one-stop platform for learning, hospital navigation, and health su
 4.  [Setup Instructions](#setup-instructions)
     * [Download NaviCare](#1-download-navicare)
     * [Install XAMPP](#2-install-xampp)
-    * [Extract Project Files](#3-extract-project-files)
-    * [Start XAMPP Services](#4-start-xampp-services)
-    * [Import Databases](#5-import-databases)
-    * [Install Ollama](#6-install-ollama-for-ai-queries)
-    * [Download AI Model](#7-download-ai-model)
+    * [Install Node.js](#3-install-nodejs)
+    * [Extract Project Files](#4-extract-project-files)
+    * [Start XAMPP Services](#5-start-xampp-services)
+    * [Import Databases](#6-import-databases)
+    * [Install Ollama](#7-install-ollama-for-ai-queries)
+    * [Create Custom AI Model](#8-create-custom-ai-model)
+    * [Setup Backend Server](#9-setup-backend-server)
 5.  [Running NaviCare](#running-navicare)
 6.  [Troubleshooting & Notes](#troubleshooting--notes)
 
@@ -29,6 +31,7 @@ NaviCare aims to simplify access to health education and support services. It pr
 ## Prerequisites
 Before you begin, ensure you have the following installed:
 * **XAMPP:** For running the PHP backend and MySQL database. (Download from [apachefriends.org](https://www.apachefriends.org/download.html))
+* **Node.js:** For running the backend server. (Download from [nodejs.org](https://nodejs.org/))
 * **Ollama:** For enabling the AI query features. (Download from [ollama.com](https://ollama.com/))
 * **A Modern Web Browser:** Chrome, Firefox, Edge, etc.
 * **Zip Archiver:** A tool to extract .zip files (e.g., 7-Zip, WinRAR, or built-in OS tools).
@@ -45,18 +48,29 @@ Follow these steps carefully to set up the NaviCare platform on your local machi
 * Download the appropriate XAMPP installer for your operating system (Windows, Linux, or macOS).
 * Follow the installation instructions provided on the XAMPP website or within the installer. Default settings are usually fine for a local development environment.
 
-### 3. Extract Project Files
+### 3. Install Node.js
+* Go to the [Node.js download page](https://nodejs.org/).
+* Download the LTS (Long Term Support) version recommended for most users.
+* Follow the installation instructions to complete the Node.js setup.
+* Verify installation by opening a command prompt or terminal and typing:
+  ```bash
+  node --version
+  npm --version
+  ```
+  Both commands should display version numbers if installation was successful.
+
+### 4. Extract Project Files
 * Once XAMPP is installed, navigate to the `htdocs` directory within your XAMPP installation folder.
     * Default for Windows: `C:/xampp/htdocs/`
     * Default for macOS: `/Applications/XAMPP/htdocs/`
     * Default for Linux: `/opt/lampp/htdocs/`
 * Extract the contents of the downloaded NaviCare .zip file directly into the `htdocs` directory. You should have a folder structure like `C:/xampp/htdocs/navicare/` (if you named the extracted folder `navicare`).
 
-### 4. Start XAMPP Services
+### 5. Start XAMPP Services
 * Open the XAMPP Control Panel application.
 * Start the **Apache** and **MySQL** services by clicking their respective "Start" buttons. Ensure they are running without errors (ports should be green).
 
-### 5. Import Databases
+### 6. Import Databases
 NaviCare uses two SQL database templates: `navicare.sql` and `navicare-planner.sql`.
 * Open your web browser and go to `http://localhost/phpmyadmin`.
 * **Create Databases (Recommended):**
@@ -71,24 +85,90 @@ NaviCare uses two SQL database templates: `navicare.sql` and `navicare-planner.s
     * Repeat these steps for the second database: Select `navicare_planner_db`, go to "Import", choose `navicare-planner.sql`, and import it.
     * **Note:** Ensure the project's database configuration files (if any, typically PHP files that connect to the database) are updated with the database names, username (default for XAMPP is `root`), and password (default for XAMPP is empty) you are using.
 
-### 6. Install Ollama (for AI Queries)
+### 7. Install Ollama (for AI Queries)
 * Go to [ollama.com](https://ollama.com/) and download the Ollama installer for your operating system.
 * Install Ollama by following the on-screen instructions.
 
-### 7. Download AI Model
-* Once Ollama is installed, open your command prompt (CMD or PowerShell on Windows, Terminal on macOS/Linux).
-* Run the following command to download and run the specified AI model:
-    ```bash
-    ollama run llama3.2:3b
-    ```
-    (Note: Ensure this specific model tag `llama3.2:3b` is available or use an alternative model available in the Ollama library if needed. You can list models with `ollama list`.)
-* Ollama needs to be running in the background for the AI features of NaviCare to function.
+### 8. Create Custom AI Model
+* Navigate to the NaviCare project directory in your command prompt or terminal:
+  ```bash
+  cd C:/xampp/htdocs/navicare
+  ```
+* Create the custom WVSU-Navicare-AI model by running the following command:
+  ```bash
+  ollama create WVSU-Navicare-AI:latest -f ./WVSU-Navicare-Ai.modelfile
+  ```
+* This will create a custom AI model specifically for NaviCare using the provided modelfile.
+
+### 9. Setup Backend Server
+* Create a new folder for the backend server (e.g., `navicare-backend`) in a location of your choice:
+  ```bash
+  mkdir navicare-backend
+  cd navicare-backend
+  ```
+* Initialize a new Node.js project and install required dependencies:
+  ```bash
+  npm init -y
+  npm install express cors body-parser
+  ```
+* Create a new file named `server.js` in the `navicare-backend` folder and add the following code:
+
+```javascript
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { exec } = require('child_process');
+
+const app = express();
+const port = 3000;
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// Route for AI queries
+app.post('/api/query', (req, res) => {
+    const { query } = req.body;
+    
+    if (!query) {
+        return res.status(400).json({ error: 'Query is required' });
+    }
+    
+    const command = `ollama run WVSU-Navicare-AI:latest "${query}"`;
+    
+    exec(command, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error: ${error.message}`);
+            return res.status(500).json({ error: 'Failed to process query' });
+        }
+        
+        if (stderr) {
+            console.error(`Stderr: ${stderr}`);
+        }
+        
+        return res.json({ response: stdout });
+    });
+});
+
+// Start server
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+});
+```
+
+* Save the `server.js` file.
+* Start the backend server:
+  ```bash
+  node server.js
+  ```
+* Keep this terminal window open as the server needs to continue running.
 
 ## Running NaviCare
 After completing all the setup steps:
 1.  Ensure Apache and MySQL are running in XAMPP.
-2.  Ensure Ollama is running with the required model.
-3.  Open your web browser and navigate to:
+2.  Ensure Ollama is running in the background.
+3.  Ensure the Node.js backend server is running.
+4.  Open your web browser and navigate to:
     ```
     http://localhost/navicare/index.html
     ```
@@ -101,7 +181,11 @@ After completing all the setup steps:
 * **Ollama Not Responding:**
     * Verify Ollama is running in your system tray or as a background process.
     * Check the Ollama server logs if AI queries are failing.
-    * Ensure the AI model (`llama3.2:3b`) was downloaded successfully and is available.
+    * Ensure the custom AI model (`WVSU-Navicare-AI:latest`) was created successfully and is available.
+* **Node.js Server Issues:**
+    * If the server fails to start, check that all required dependencies are installed.
+    * Port 3000 might be in use by another application; you can change the port in the `server.js` file if needed.
+    * Ensure your firewall is not blocking the connection.
 * **File Paths:** Ensure all file paths in the setup are correct for your operating system and XAMPP installation directory. The project assumes it's placed in a subfolder (e.g., `navicare`) within `htdocs`.
 * **PHP Extensions:** NaviCare might require specific PHP extensions to be enabled (e.g., `mysqli`, `pdo_mysql`, `curl`). These are usually enabled by default in XAMPP, but you can check your `php.ini` file (accessible via XAMPP Control Panel > Apache > Config > `php.ini`).
 * **Project Root:** The instructions assume the main access point is `index.html`. If it's `index.php` or another file, adjust the final URL accordingly.
