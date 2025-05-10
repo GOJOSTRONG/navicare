@@ -220,6 +220,10 @@
     right: 20px;
     z-index: 10;
   }
+  .container h2{
+    text-align: center;
+    font-size: 1.5rem;
+  }
 
   .back-button:hover {
     background-color: #f8d7e1;
@@ -633,98 +637,69 @@
             </div>
         </div>
     </div>
-
     </div>
+      <h2>REFERENCES:</h2>
+      <p>
+        <br>https://doh.gov.ph/faq-post-category/maternal-and-child-health/<br>
+        <br>www.philhealth.gov.ph<br>
+        <br>https://www.who.int/health-topics/maternal-health<br>
+        <br>World Health Organization (WHO). Cultural contexts of health: The use of traditional practices in maternal care<br>
+        <br>Philippine Journal of Nursing (PJN). Cultural Beliefs and Practices Among Postpartum Mothers in Rural Communities<br>
+      </p>
   </div>
   <script>
     
-document.addEventListener('DOMContentLoaded', function() {
-  const backButton = document.querySelector('.back-button');
-  if (backButton) {
-    backButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      const mainOptionsVisible = document.getElementById('main-options').style.display === 'grid' || document.getElementById('main-options').style.display === '' || document.getElementById('main-options').style.display === 'block'; 
-      const anyContentVisible = Array.from(document.querySelectorAll('.content-template')).some(template => template.style.display === 'block');
-
-      if (anyContentVisible) {
-        showMainOptions();
-      } else if (window.history.length > 1) { 
-        window.history.back();
-      } else {
-        
-        
-         showMainOptions(); 
-      }
-    });
-  }
-
-  
-  showMainOptions();
-});
-
-
-function showContent(contentId) {
-  
-  const contentTemplates = document.querySelectorAll('.content-template');
-  contentTemplates.forEach(template => {
-    template.style.display = 'none';
-  });
-
-  
-  document.getElementById('main-options').style.display = 'none';
-
-  
-  const selectedContent = document.getElementById(contentId);
-  if (selectedContent) {
-    selectedContent.style.display = 'block';
-  }
-  
-  const backButton = document.querySelector('.back-button');
-   if (backButton) {
-    backButton.style.display = 'block'; 
-  }
-}
-
-
-function showMainOptions() {
-  
-  const contentTemplates = document.querySelectorAll('.content-template');
-  contentTemplates.forEach(template => {
-    template.style.display = 'none';
-  });
-
-  
-  const mainOptions = document.getElementById('main-options');
-  if (mainOptions) {
-    mainOptions.style.display = 'grid'; 
-  }
-
-  
-  const backButton = document.querySelector('.back-button');
-  if (backButton) {
-    
-    
-    backButton.style.display = 'block'; 
-  }
-}
-
-
-function goBack() {
-    const mainOptionsNode = document.getElementById('main-options');
-    const mainOptionsVisible = mainOptionsNode ? (mainOptionsNode.style.display === 'grid' || mainOptionsNode.style.display === 'block' || mainOptionsNode.style.display === '') : false;
-    const anyContentVisible = Array.from(document.querySelectorAll('.content-template')).some(template => template.style.display === 'block');
-
-    if (anyContentVisible) {
-        showMainOptions();
-    } else if (window.history.length > 1) {
-        window.history.back();
-    } else {
-        
-        
-        showMainOptions();
-        console.log("At main options or no history to go back to.");
+    // Main back button - navigates back in history
+    const backButton = document.querySelector('.back-button');
+    if (backButton) {
+      backButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html'; // fallback if no history
+        }
+      });
     }
-}
+
+
+  function showContent(contentId) {
+    // Hide all content templates first
+    const contentTemplates = document.querySelectorAll('.content-template');
+    contentTemplates.forEach(template => {
+      template.style.display = 'none';
+    });
+    
+    // Hide main options
+    document.getElementById('main-options').style.display = 'none';
+    
+    // Show selected content
+    const selectedContent = document.getElementById(contentId);
+    if (selectedContent) {
+      selectedContent.style.display = 'block';
+    }
+  }
+  
+  // Function to return to main options
+  function showMainOptions() {
+    // Hide all content templates
+    const contentTemplates = document.querySelectorAll('.content-template');
+    contentTemplates.forEach(template => {
+      template.style.display = 'none';
+    });
+    
+    // Show main options
+    const mainOptions = document.getElementById('main-options');
+    if (mainOptions) {
+      mainOptions.style.display = 'grid';
+    }
+    
+    // Ensure the back button is visible when on the main options page
+    const backButton = document.querySelector('.back-button');
+    if (backButton) {
+      backButton.style.display = 'block';
+    }
+  }
   </script>
 </body>
 </html>
