@@ -102,6 +102,15 @@ body {
   text-align: center;
   text-transform: capitalize;
 }
+.footer_text {
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 18px;
+  color: #f4f4f4;
+}
 
 .title {
   font-size: clamp(1.5rem, 5vw, 2.5rem); 
@@ -445,8 +454,8 @@ display: flex
   text-align: center;
   font-size: 30px;
   position: absolute;
-  top: 35%;
-  color: #c21e6d;
+  top: 30%;
+  color: #ff7cbb;
 }
 .back-button, .back-button2 {
   position: fixed;

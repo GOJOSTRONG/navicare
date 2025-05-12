@@ -23,7 +23,7 @@
     min-height: 100%;
     font-size: 100%; 
   }
- 
+
   body {
     width: 100%;
     min-height: 100vh;
@@ -38,8 +38,8 @@
     display: flex;
     flex-direction: column;
   }
- 
-  .zoom-scroll-container {
+
+  .zoom-scroll-container { /* This class is styled but not used in the provided HTML body */
     width: 100%;
     max-width: 500px;
     height: auto;
@@ -47,8 +47,8 @@
     margin: 0 auto;
     overflow: hidden;
   }
- 
-  .zoom-scroll {
+
+  .zoom-scroll { /* This class is styled but not used in the provided HTML body */
     width: 100%;
     height: 100%;
     background-image: url('res/school_bg.png');
@@ -56,21 +56,22 @@
     background-position: center;
     transition: transform 0.5s ease;
   }
- 
-  .zoom-scroll:hover {
+
+  .zoom-scroll:hover { /* This class is styled but not used in the provided HTML body */
     transform: scale(1.5);
   }
-     
+      
   .overlay {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
     width: 100%;
-    min-height: 100vh;
-    height: auto;
-    padding: 20px;
+    min-height: 100vh; /* Ensure it covers viewport */
+    height: auto; /* Allow content to expand */
+    padding: 20px; /* Default padding */
     position: relative;
     z-index: 1;
+    flex-grow: 1; /* Added to make overlay fill space if body is flex */
   }
- 
+
   .gradient-overlay-bottom {
     position: fixed;
     bottom: 0;
@@ -81,13 +82,13 @@
     z-index: 0;
     pointer-events: none;
   }
- 
+
   .container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    padding: 20px;
+    padding: 20px; /* Default padding */
     position: relative;
     z-index: 2;
   }
@@ -96,15 +97,15 @@
   .module-options {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
-    gap: 20px;
-    max-width: 800px;
-    margin: 40px auto;
+    gap: 20px; /* Default gap */
+    max-width: 800px; /* Default max-width */
+    margin: 40px auto; /* Default margin */
   }
 
   .option-card {
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 15px;
-    padding: 30px 20px;
+    padding: 30px 20px; /* Default padding */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -112,7 +113,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1/1;
+    aspect-ratio: 1/1; /* Makes cards square by default */
   }
 
   .option-card:hover {
@@ -121,55 +122,57 @@
   }
 
   .option-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
+    font-size: 3rem; /* Default size */
+    margin-bottom: 15px; /* Default margin */
     color: #e93772;
   }
 
   .option-title {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Default size */
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Default margin */
     color: #a2165f;
     text-transform: uppercase;
     text-align: center;
   }
 
   .option-description {
-    font-size: 0.9rem;
+    font-size: 0.9rem; /* Default size */
     color: #666;
     font-style: italic;
     text-align: center;
   }
 
-  .header {
+  .header { /* This class is styled but not used in the provided HTML body */
     margin: 20px 0 40px 0;
   }
 
-  .logo {
+  .logo { /* This class is styled but not used in the provided HTML body */
     max-width: 200px;
     margin-bottom: 20px;
   }
 
   .title-container {
-    padding: 20px 20px 5px 20px;
+    padding: 20px 20px 5px 20px; /* Default padding */
   }
   
   .page-title {
     color: var(--primary-green);
-    font-size: 45px;
+    font-size: 45px; /* Default size, large */
     font-family: 'Dancing Script', cursive;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; /* Will be handled by media queries */
     text-align: center;
-    margin: 0;
+    margin: 0 auto 30px auto; /* Centering and bottom margin */
     text-transform: uppercase;
   }
   
   .title-underline {
     width: 100%;
+    max-width: 300px; /* Limit underline width for large titles */
+    margin: 5px auto 0 auto; /* Center the underline */
     height: 2px;
     background-color: var(--primary-green);
-    margin-top: 5px;
+   /* margin-top: 5px; /* Original */
   }
 
   
@@ -177,23 +180,23 @@
     display: none; 
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
-    padding: 30px;
-    max-width: 800px;
-    margin: 40px auto;
+    padding: 30px; /* Default padding */
+    max-width: 800px; /* Default max-width */
+    margin: 40px auto; /* Default margin */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   }
 
-  .back-button_options {
+  .back-button_options { /* Back button within content templates */
     background-color: #f9e7f0;
     color: #a2165f;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Default margin */
     border: none;
     border-radius: 20px;
-    padding: 0.4rem 1.5rem;
-    font-size: 1.1rem;
+    padding: 0.4rem 1.5rem; /* Default padding */
+    font-size: 1.1rem; /* Default size */
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
     display: inline-block;
   }
@@ -203,21 +206,22 @@
     color: white;
   }
   
-  .back-button {
+  .back-button { /* Main fixed back button */
     background-color: #f9e7f0;
     color: #a2165f;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; /* Not relevant for fixed */
     border: none;
     border-radius: 20px;
-    padding: 0.4rem 1.5rem;
-    font-size: 1.1rem;
+    padding: 0.4rem 1.5rem; /* Default padding */
+    font-size: 1.1rem; /* Default size */
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 20px; /* Default position */
+    right: 20px; /* Default position */
+    z-index: 1005; /* Ensure it's above other content */
   }
   
   .back-button:hover {
@@ -225,96 +229,109 @@
   }
 
   .content-title {
-    font-size: 2rem;
+    font-size: 2rem; /* Default size */
     color: #a2165f;
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Default margin */
   }
 
   .content-body {
     text-align: left;
-    line-height: 1.6;
-    color: #000;
+    line-height: 1.6; /* Good default */
+    color: #000; /* Default text color for content */
+  }
+  .content-body p, .content-body li { /* Ensure consistent styling for paragraphs and list items */
+      color: var(--dark-text); /* Using CSS variable for consistency */
+  }
+  .content-body ul {
+    padding-left: 25px; /* Default indentation for lists */
+    margin-bottom: 1em;
+  }
+  .content-body ul ul { /* Nested lists */
+    padding-left: 20px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
   }
 
   .content-section {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Default margin */
   }
 
   .section-title {
-    font-size: 1.4rem;
+    font-size: 1.4rem; /* Default size */
     color: #a2165f;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Default margin */
   }
 
-  .section-content {
-    color: #444;
+  .section-content { /* General content within a section */
+    color: #444; /* Default color */
   }
   
-  .section-content li {
-    color: #444;
-    margin-left: 20px;
+  .section-content li { /* List items within section-content (if any) */
+    color: #444; /* Ensure consistency */
+    margin-left: 20px; /* If not using ul padding directly */
   }
 
-  .resource-list {
+  .resource-list { /* This class is styled but not used in the provided HTML body */
     list-style-type: none;
     padding: 0;
   }
 
-  .resource-list li {
+  .resource-list li { /* This class is styled but not used in the provided HTML body */
     padding: 10px 0;
     border-bottom: 1px solid #eee;
   }
 
-  .resource-list li:last-child {
+  .resource-list li:last-child { /* This class is styled but not used in the provided HTML body */
     border-bottom: none;
   }
 
-  .photo-placeholder {
+  .photo-placeholder { /* Placeholder for general photos/videos if used */
     width: 100%;
-    height: 500px;
+    height: 500px; /* Default height */
     background-color: #ffceda;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #ffc9df;
     font-size: 20px;
-    margin: 15px 0;
+    margin: 15px 0; /* Default margin */
   }
   
-  .infographic-placeholder {
+  .infographic-placeholder { /* Container for infographics */
     width: 100%;
     background-color: #ffcad4;
-    border: 2px;
+    /* border: 2px; /* Needs style and color, e.g., border: 2px solid #ccc; */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    color: #f9b1e4;
-    margin: 20px 0;
+    font-size: 24px; /* For text if image fails */
+    color: #f9b1e4; /* For text if image fails */
+    margin: 20px 0; /* Default margin */
     overflow: hidden;
-    padding: 20px;
+    padding: 20px; /* Default padding */
   }
   
-  .infographic-wrapper {
+  .infographic-wrapper { /* Wrapper for the image inside placeholder */
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: 20px 0;
-    border: hidden;
+    /* overflow-x: hidden; /* Handled by placeholder */
+    /* overflow-y: auto; /* Not typically needed if image scales height */
+    padding: 20px 0; /* Default padding */
+    /* border: hidden; /* same as none */
   }
   
-  .infographic-wrapper img {
-    max-width: 90%;
-    height: auto;
+  .infographic-wrapper img { /* The infographic image itself */
+    max-width: 90%; /* Default max-width */
+    height: auto;   /* Key for responsive scaling */
     display: block;
-    margin: 0 auto;
+    margin: 0 auto; /* Center if not full width */
   }
 
   .centered-text {
     text-align: center;
+    margin-top: 10px; /* Space above the link */
   }
   
   .infographic-link {
@@ -330,38 +347,47 @@
   }
 
   
-  @media (max-width: 768px) {
+  @media (max-width: 768px) { /* Tablet portrait and larger phones */
+    .overlay {
+        padding: 15px;
+    }
+    .container {
+        padding: 15px;
+    }
     .module-options {
-      grid-template-columns: repeat(2, 1fr); 
-      max-width: 600px;
-      gap: 15px;
+      /* grid-template-columns: repeat(2, 1fr); /* Stays 2 columns */
+      max-width: 600px; /* Adjust max width */
+      gap: 15px; /* Adjust gap */
+      margin: 30px auto;
     }
       
     .option-card {
-      padding: 20px 15px;
+      padding: 20px 15px; /* Adjust padding */
     }
       
     .option-icon {
-      font-size: 2.5rem;
+      font-size: 2.5rem; /* Adjust size */
     }
       
     .option-title {
-      font-size: 1.3rem;
+      font-size: 1.3rem; /* Adjust size */
     }
       
-    .title {
-      font-size: 2.2rem;
-    }
+    /* .title { font-size: 2.2rem; } /* Unused class */
       
+    .content-template {
+        padding: 25px;
+        margin: 30px auto;
+    }
     .content-title {
-      font-size: 1.8rem;
+      font-size: 1.8rem; /* Adjust size */
     }
       
     .section-title {
-      font-size: 1.3rem;
+      font-size: 1.3rem; /* Adjust size */
     }
       
-    .back-button {
+    .back-button { /* Fixed back button */
       font-size: 1rem;
       padding: 0.35rem 1.2rem;
       top: 15px;
@@ -369,140 +395,227 @@
     }
       
     .infographic-placeholder {
-      height: auto;
-      font-size: 16px;
+      height: auto; /* Let content define height */
+      font-size: 16px; /* For placeholder text if image fails */
       margin: 15px 0;
+      padding: 15px;
     }
       
-    .photo-placeholder {
-      height: 200px;
+    .photo-placeholder { /* General photo/video container */
+      height: 200px; /* Fixed height */
     }
       
     .infographic-wrapper img {
-      max-width: 95%;
+      max-width: 95%; /* Allow image to be slightly wider */
+      /* height: auto !important; /* Ensure override of inline style */
+    }
+    .infographic-wrapper {
+        padding: 15px 0;
     }
   }
     
   
-  @media (max-width: 576px) {
+  @media (max-width: 576px) { /* Smaller phones */
+    .overlay {
+        padding: 10px;
+    }
     .container {
       padding: 10px;
     }
-    
-    .module-options {
-      grid-template-columns: repeat(2, 1fr); 
-      max-width: 100%;
-      gap: 10px;
-    }
-      
-    .title {
-      font-size: 1.8rem;
+    .page-title { /* Adjust page title for smaller screens */
+      font-size: 32px; 
+      line-height: 1.2;
       margin-bottom: 20px;
     }
-      
-    .header {
-      margin: 20px 0 20px 0;
+    .title-container {
+      padding: 15px 10px 5px 10px;
+    }
+    .title-underline {
+        max-width: 200px; /* Further limit underline width */
+    }
+    
+    .module-options {
+      /* grid-template-columns: repeat(2, 1fr); /* Still 2 columns, might be tight */
+      max-width: 100%; /* Full width */
+      gap: 10px; /* Smaller gap */
+      margin: 20px auto;
+    }
+    .option-card {
+        padding: 15px 10px; /* Further reduce padding */
+        /* aspect-ratio: unset; /* Consider removing aspect ratio if content is cramped */
+        /* min-height: 130px; /* Alternative to aspect ratio */
     }
       
+    /* .title { font-size: 1.8rem; margin-bottom: 20px; } /* Unused class */
+      
+    /* .header { margin: 20px 0 20px 0; } /* Unused class */
+      
     .option-icon {
-      font-size: 2rem;
+      font-size: 2rem; /* Smaller icon */
       margin-bottom: 10px;
     }
       
     .option-title {
-      font-size: 1rem;
+      font-size: 1rem; /* Smaller title */
       margin-bottom: 5px;
+      line-height: 1.3;
     }
       
     .option-description {
-      font-size: 0.8rem;
+      font-size: 0.8rem; /* Smaller description */
+      line-height: 1.3;
     }
       
     .content-template {
-      padding: 20px 15px;
+      padding: 20px 15px; /* Adjust padding */
       margin: 20px auto;
-      border-radius: 10px;
+      border-radius: 10px; /* Slightly smaller radius */
     }
       
     .content-title {
-      font-size: 1.5rem;
+      font-size: 1.5rem; /* Adjust size */
       margin-bottom: 15px;
     }
       
     .section-title {
-      font-size: 1.2rem;
+      font-size: 1.2rem; /* Adjust size */
     }
       
-    .section-content {
-      font-size: 0.95rem;
+    .section-content, .content-body p, .content-body li { /* Adjust content text size */
+      font-size: 0.9rem; 
+      line-height: 1.5;
     }
       
-    .back-button_options {
+    .back-button_options { /* Button inside content */
       font-size: 0.9rem;
       padding: 0.3rem 1.2rem;
     }
       
-    .back-button {
+    .back-button { /* Fixed back button */
       font-size: 0.9rem;
       padding: 0.3rem 1rem;
-      top: 20px;
-      right: 15px;
+      top: 10px; /* Adjust position */
+      right: 10px; /* Adjust position */
     }
       
     .infographic-wrapper {
-      padding: 10px 0;
+      padding: 10px 0; /* Adjust padding */
+    }
+    .infographic-placeholder {
+        padding: 10px;
+    }
+    .centered-text .infographic-link {
+        font-size: 0.9rem;
     }
   }
     
   
-  @media (max-width: 375px) {
-    .title {
-      font-size: 1.6rem;
+  @media (max-width: 375px) { /* Specific refinements for 360px viewport */
+    .page-title {
+      font-size: 26px; /* Further reduce */
+      margin-bottom: 15px;
     }
-      
+    .title-underline {
+        max-width: 150px;
+    }
+    /* .title { font-size: 1.6rem; } /* Unused class */
+    
+    .module-options {
+        gap: 8px; /* Slightly smaller gap */
+    }
     .option-card {
-      min-height: 120px;
-      padding: 15px 10px;
+      min-height: 130px; /* Ensure enough height, aspect-ratio might make them too small/wide */
+      padding: 10px 8px; /* Further reduce padding */
+      aspect-ratio: unset; /* Remove fixed aspect ratio to allow content to define height better */
     }
     
     .option-icon {
-      font-size: 1.8rem;
+      font-size: 1.6rem; /* Further reduce icon size */
       margin-bottom: 5px;
     }
       
     .option-title {
-      font-size: 0.9rem;
+      font-size: 0.8rem; /* Approx 12.8px */
       margin-bottom: 3px;
+      line-height: 1.2;
+    }
+    .option-description {
+      font-size: 0.7rem; /* Approx 11.2px */
+      line-height: 1.2;
     }
       
+    .content-template {
+        padding: 15px 10px;
+        margin: 15px auto;
+    }
     .content-title {
-      font-size: 1.3rem;
+      font-size: 1.2rem; /* Further reduce */
+      margin-bottom: 10px;
     }
       
     .section-title {
-      font-size: 1.1rem;
+      font-size: 1.0rem; /* Approx 16px */
+      margin-bottom: 5px;
     }
       
-    .section-content {
-      font-size: 0.9rem;
+    .section-content, .content-body p, .content-body li, .content-body i, .content-body em {
+      font-size: 0.8rem; /* Approx 12.8px - keep readable */
+      line-height: 1.4; /* Adjust for smaller font */
+    }
+    .content-body ul {
+        padding-left: 20px;
+    }
+    .content-body ul ul {
+        padding-left: 15px;
+    }
+
+    .back-button_options {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.8rem;
+        margin-bottom: 15px;
+    }
+    .back-button { /* Fixed button */
+        font-size: 0.8rem;
+        padding: 0.25rem 0.8rem;
+    }
+    
+    .infographic-placeholder {
+        margin: 10px 0;
+        padding: 5px;
+    }
+    .infographic-wrapper img {
+        max-width: 100%; /* Allow image to use full placeholder width if needed */
+        height: auto !important; /* CRUCIAL for responsive scaling, overrides inline img style */
+    }
+    .infographic-wrapper{
+        padding: 5px 0;
+    }
+    .centered-text .infographic-link {
+        font-size: 0.8rem;
+    }
+    
+    /* References section on main page */
+    .container > h2 { /* REFERENCES: heading */
+      font-size: 0.9rem; /* Approx 14.4px */
+    }
+    .container > p:last-of-type { /* Paragraph containing reference links */
+      word-break: break-word; 
+      font-size: 0.65rem; /* Approx 10.4px, very small, ensure legibility */
+      line-height: 1.3;
     }
   }
   </style>
   <title>NaviCare - Infant Care</title>
 </head>
 <body>
-  <!-- Gradient pink-white -->
   <div class="gradient-overlay-bottom"></div>
   <div class="overlay">
-    <!-- Main Content -->
     <div class="container">
-      <button class="back-button" onclick="goBack()">Back</button>
-      <div class="title-container">
+      <button class="back-button">Back</button> <div class="title-container">
         <h1 class="page-title">Infant <br> Care</h1>
         <div class="title-underline"></div>
       </div>
 
-      <!-- Module Options (First Template) -->
       <div class="module-options" id="main-options">
         <div class="option-card" onclick="showContent('newborn-care')">
           <div class="option-icon">👶</div>
@@ -529,7 +642,6 @@
         </div>
       </div>
 
-      <!-- Content Templates (Second Template) -->
       <div class="content-template" id="newborn-care">
         <div class="back-button_options" onclick="showMainOptions()">← Back to options</div>
         <h2 class="content-title"><i>Mga Pangunahing Pangangalaga sa Bagong Panganak na Sanggol</i></h2>
@@ -563,10 +675,9 @@
                 <div class="infographic-wrapper">
                    <img src="http://media.healthdirect.org.au/images/inline/w700/swaddling-infographic-185067.png" 
                     alt="Swaddling Infographic" 
-                    style="width: 100%; height: 100%; object-fit: cover;">
-                 </div>
-             </div>
-             
+                    style="width: 100%; object-fit: cover;"> </div>
+              </div>
+              
             <div class="centered-text">
              <a href="https://www.pregnancybirthbaby.org.au/swaddling-infographic" target="_blank" class="infographic-link">Click here for more information</a>
             </div>
@@ -646,8 +757,6 @@
       <div class="content-body">
         <div class="content-section">
         <h3 class="section-title"><i>Maging mapagmatyag sa mga sumusunod na babalang senyales:</i></h3>
-        <p class="section-content">
-        </p>
         <ul>
           <li><i>Lagnat: Rectal na temperatura na 37.2°C (99°F) o mas mataas</i></li>
           <li><i>Hypothermia: Mababa ang temperatura ng katawan na maaaring senyales ng impeksyon</i></li>
@@ -666,8 +775,6 @@
       <div class="content-body">
         <div class="content-section">
         <h3 class="section-title"><i>Gross Motor Skills (paggalaw ng malaking parte ng katawan)</i></h3>
-        <p class="section-content">
-        </p>
         <ul>
           <li><i><b>2 buwan:</b> Itinataas ang ulo kapag nakahiga sa tyan o nakakulob</i></li>
           <li><i><b>6 na buwan:</b> Gumugulong sa magkabilang direksyon, at nagsisimulang umupo nang walang suporta</i></li>
@@ -682,8 +789,6 @@
         
         <div class="content-section">
         <h3 class="section-title"><i>Fine Motor Skills (paggalaw ng mga kamay at daliri)</i></h3>
-        <p class="section-content">
-        </p>
         <ul>
           <li><i><b>4 na buwan:</b> Hinahawakan ang mga bagay na malapit sa kanya</i></li>
           <li><i><b>6 na buwan:</b> Pinapasa ang mga nahahawakang bagay mula sa isang kamay papunta sa kabilang kamay</i></li>
@@ -696,9 +801,8 @@
         <div class="infographic-placeholder">
           <div class="infographic-wrapper">
             <img src="http://www.betterfamilyhealth.org/images/xchild-early-development-milestones-AMDASG-66941661.jpg.pagespeed.ic.0hERztvWWI.webp" 
-              alt="Safe Sleep Infographic" 
-              style="width: 100%; height: 100%; object-fit: cover;">
-          </div>
+              alt="Child Development Milestones Infographic" 
+              style="width: 100%; object-fit: cover;"> </div>
         </div>
         <div class="centered-text">
           <a href="http://www.betterfamilyhealth.org/child-health.html" target="_blank" class="infographic-link">Click here for more information</a>
@@ -706,8 +810,6 @@
 
         <div class="content-section">
         <h3 class="section-title"><i>Wika at Komunikasyon</i></h3>
-        <p class="section-content">
-        </p>
         <ul>
           <li><i><b>2 buwan:</b> Humahagikgik </i></li>
           <li><i><b>6 na buwan:</b> Lumilkaingon kapag tinatawag ang sariling pangalan, at gumagawa ng mga tunog</i></li>
@@ -720,8 +822,6 @@
         
         <div class="content-section">
         <h3 class="section-title"><i>Pakikipagkapwa at Emosyonal</i></h3>
-        <p class="section-content">
-        </p>
         <ul>
           <li><i><b>2 buwan:</b> Ngumingiti sa ibang tao</i></li>
           <li><i><b>6 na buwan:</b> Kilala ang mga pamilyar na mukha, at mahilig makipaglaro sa ibang tao</i></li>
@@ -732,15 +832,12 @@
         </ul>
         <p>Para sa iba pang mga impormasyon, maaaring bisitahin ang mga sumusunod:</p>
         <div class="centered-text">
-            <a href="https://www.cdc.gov/ncbddd/actearly/milestones/index.html" target="_blank"class="infographic-link">LINK</a>
-            <a href="https://www.cdc.gov/ncbddd/actearly/pdf/LTSAE-Checklist_COMPLIANT_30MCorrection_508.pdf" target="_blank"class="infographic-link">LINK</a>
-      </div>
+            <a href="https://www.cdc.gov/ncbddd/actearly/milestones/index.html" target="_blank"class="infographic-link">LINK 1</a> <a href="https://www.cdc.gov/ncbddd/actearly/pdf/LTSAE-Checklist_COMPLIANT_30MCorrection_508.pdf" target="_blank"class="infographic-link">LINK 2</a> </div>
       <div class="infographic-placeholder">
         <div class="infographic-wrapper">
           <img src="https://scontent.fmnl37-2.fna.fbcdn.net/v/t39.30808-6/464910476_9106036496074188_847806882470281469_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=108&ccb=1-7&_nc_sid=0b6b33&_nc_eui2=AeGCTP0B_c5Ka3pqF3uAcBMBHFv1EwmjqmwcW_UTCaOqbJd6x3QUCgP6aSxOaZ2VZjnUWatLQ589-WssFZA82M57&_nc_ohc=Dw8-gl5iM9QQ7kNvwEbG83M&_nc_oc=Adlv6XaWkpU_h0TOB4O6jT0xWRenQGPQmI8PpyUtWSrapghZiHPX9I9287SzVSzQ4PL-8DwZrLZ1MjuTTMe68jze&_nc_zt=23&_nc_ht=scontent.fmnl37-2.fna&_nc_gid=K96hQno0JBmhH1VEImtymg&oh=00_AfKvgHj7Ww7d7ktxZUhhrOkMiKFh_JSKHOkueNyIVbB87w&oe=68233682" 
-            alt="Safe Sleep Infographic" 
-            style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
+            alt="Vaccination Schedule Infographic" 
+            style="width: 100%; object-fit: cover;"> </div>
       </div>
       <div class="centered-text">
         <a href="https://www.facebook.com/DOHgovPH/posts/sundin-ang-schedule-ng-pagbabakuna-ng-mga-batang-isang-taong-gulang-pababa-para-/1095440113800573/" target="_blank" class="infographic-link">Click here for more information</a>
@@ -754,8 +851,7 @@
       <h2 class="content-title"><i>Karaniwang Suliranin ng mga Sanggol</i></h2>
       <div class="content-body">
         <div class="content-section">
-        <h3 class="section-title"><i></i></h3>
-        <ul>
+        <h3 class="section-title"><i>Mga Karaniwang Isyu</i></h3> <ul>
           <li><i><b>Colic:</b> Matagal na pag-iyak ng sanggol kahit siya ay mukhang malusog. Maaaring mapagaan ito sa pamamagitan ng paghele, pagyakap, o pagtitiyak na hindi siya gutom,  hindi puno ang diaper, o hindi komportable.        </i></li>
           <li><i><b>Diaper Rash:</b> Pamumula at pamamaga ng balat sa bahagi ng diaper. Maiiwasan ito sa pamamagitan ng pagpapanatiling malinis at tuyo ang bahaging ito. Iwasan ang paglalagay ng mga chemical or produkto na maaaring makairita sa balat ng sanggol.</i></li>
           <li><i><b>Constipation:</b> Bihirang pagdumi o matitigas na dumi. Tiyakin na sapat ang likido or tubig na nakukuha ng sanggol at kumunsulta sa doktor kung magpatuloy ang problema.</i></li>
@@ -763,86 +859,113 @@
         </div>
       </div>
     </div>
-            </ul>
-            <h2>REFERENCES:</h2>
-            <p>
-            CDC. (2024, September 17). Providing Care for Babies to Sleep Safely. Sudden Unexpected Infant Death and Sudden Infant Death Syndrome.
-            <br>https://www.cdc.gov/sudden-infant-death/sleep-safely/index.html<br>
-            Centers for Disease Control and Prevention. (2024, May 8). CDC’s Developmental Milestones. Centers for Disease Control and Prevention.
-            <br>https://www.cdc.gov/ncbddd/actearly/milestones/index.html<br>
-            Common Newborn and Infant Health Conditions | Banner Health. (2025). Bannerhealth.com.
-            <br>https://www.bannerhealth.com/services/pediatrics/diseases-disorders/infant-conditions<br>
-            Dr. Sruthi M., MBBS. (2022, June 3). What Are the Danger Signs in Newborns? 14 Warning Symptoms. MedicineNet.
-            <br>http://medicinenet.com/what_are_the_danger_signs_in_newborns/article.html<br>
-            Lauren Brown West-Rosenthal. (2025). New Federal Safety Rules for Nursing Pillows Now in Effect to Protect Babies. Parents.
-            <br>https://www.parents.com/new-safety-rules-for-nursing-pillows-now-in-effect-11723483<br>
-            Moon, R., & Glassy, D. (2022, July 15). Swaddling: Is it Safe? HealthyChildren.org.
-            <br>https://www.healthychildren.org/English/ages-stages/baby/diapers-clothing/Pages/Swaddling-Is-it-Safe.aspx<br>
-            Pediatric Infectious Disease Society of the Philippines. (2024, November). 2025 PIDSP immunization calendar.
-            <br>https://www.pidsphil.org/home/wp-content/uploads/2024/11/2025-PIDSP-Immunization-Calendar.pdf<br>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-      <script>
-        // Function to handle the back button navigation
+          <h2>REFERENCES:</h2>
+          <p> CDC. (2024, September 17). Providing Care for Babies to Sleep Safely. Sudden Unexpected Infant Death and Sudden Infant Death Syndrome.
+          <br>https://www.cdc.gov/sudden-infant-death/sleep-safely/index.html<br>
+          Centers for Disease Control and Prevention. (2024, May 8). CDC’s Developmental Milestones. Centers for Disease Control and Prevention.
+          <br>https://www.cdc.gov/ncbddd/actearly/milestones/index.html<br>
+          Common Newborn and Infant Health Conditions | Banner Health. (2025). Bannerhealth.com.
+          <br>https://www.bannerhealth.com/services/pediatrics/diseases-disorders/infant-conditions<br>
+          Dr. Sruthi M., MBBS. (2022, June 3). What Are the Danger Signs in Newborns? 14 Warning Symptoms. MedicineNet.
+          <br>http://medicinenet.com/what_are_the_danger_signs_in_newborns/article.html<br>
+          Lauren Brown West-Rosenthal. (2025). New Federal Safety Rules for Nursing Pillows Now in Effect to Protect Babies. Parents.
+          <br>https://www.parents.com/new-safety-rules-for-nursing-pillows-now-in-effect-11723483<br>
+          Moon, R., & Glassy, D. (2022, July 15). Swaddling: Is it Safe? HealthyChildren.org.
+          <br>https://www.healthychildren.org/English/ages-stages/baby/diapers-clothing/Pages/Swaddling-Is-it-Safe.aspx<br>
+          Pediatric Infectious Disease Society of the Philippines. (2024, November). 2025 PIDSP immunization calendar.
+          <br>https://www.pidsphil.org/home/wp-content/uploads/2024/11/2025-PIDSP-Immunization-Calendar.pdf<br>
+          </p>
+        </div> </div> <script>
+      // Function to handle the back button navigation
 document.addEventListener('DOMContentLoaded', function() {
-    const backButton = document.querySelector('.back-button');
-    if (backButton) {
-      backButton.addEventListener('click', function(e) {
-        e.preventDefault();
+  const mainBackButton = document.querySelector('.container > .back-button'); // More specific selector
+  if (mainBackButton) {
+    mainBackButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Check if we are on a content page or main options page
+      const mainOptionsVisible = document.getElementById('main-options').style.display !== 'none';
+      
+      if (!mainOptionsVisible) {
+        // If on a content page, behavior is handled by showMainOptions() via inline onclick
+        // This button should primarily act as a browser back or app exit
+        // For this specific button, let's make it always try to go back in history or to index
         if (window.history.length > 1) {
           window.history.back();
         } else {
-          window.location.href = 'index.html';
+          window.location.href = 'index.html'; // Fallback to a main page
         }
-      });
-    }
-  
-    // Initialize - make sure main options are shown and content templates are hidden
-    showMainOptions();
+      } else {
+        // If on main options page, standard back behavior
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = 'index.html'; // Fallback to a main page
+        }
+      }
+    });
+  }
+
+  // Initialize - make sure main options are shown and content templates are hidden
+  showMainOptions();
+});
+
+// Function to show content template
+function showContent(contentId) {
+  // Hide all content templates first
+  const contentTemplates = document.querySelectorAll('.content-template');
+  contentTemplates.forEach(template => {
+    template.style.display = 'none';
   });
   
-  // Function to show content template
-  function showContent(contentId) {
-    // Hide all content templates first
-    const contentTemplates = document.querySelectorAll('.content-template');
-    contentTemplates.forEach(template => {
-      template.style.display = 'none';
-    });
-    
-    // Hide main options
-    document.getElementById('main-options').style.display = 'none';
-    
-    // Show selected content
-    const selectedContent = document.getElementById(contentId);
-    if (selectedContent) {
-      selectedContent.style.display = 'block';
-    }
+  // Hide main options
+  const mainOptions = document.getElementById('main-options');
+  if (mainOptions) {
+    mainOptions.style.display = 'none';
   }
   
-  // Function to return to main options
-  function showMainOptions() {
-    // Hide all content templates
-    const contentTemplates = document.querySelectorAll('.content-template');
-    contentTemplates.forEach(template => {
-      template.style.display = 'none';
-    });
-    
-    // Show main options
-    const mainOptions = document.getElementById('main-options');
-    if (mainOptions) {
-      mainOptions.style.display = 'grid';
-    }
-    
-    // Ensure the back button is visible when on the main options page
-    const backButton = document.querySelector('.back-button');
-    if (backButton) {
-      backButton.style.display = 'block';
-    }
+  // Show selected content
+  const selectedContent = document.getElementById(contentId);
+  if (selectedContent) {
+    selectedContent.style.display = 'block';
+    selectedContent.scrollTop = 0; // Scroll to top of content
   }
-      </script>
-    </div>
-  </div>
+
+  // Optionally hide the main fixed back button when viewing content,
+  // as there's an in-content back button.
+  const fixedBackButton = document.querySelector('.container > .back-button');
+  // if (fixedBackButton) fixedBackButton.style.display = 'none';
+}
+
+// Function to return to main options
+function showMainOptions() {
+  // Hide all content templates
+  const contentTemplates = document.querySelectorAll('.content-template');
+  contentTemplates.forEach(template => {
+    template.style.display = 'none';
+  });
+  
+  // Show main options
+  const mainOptions = document.getElementById('main-options');
+  if (mainOptions) {
+    mainOptions.style.display = 'grid'; // Use 'grid' as it's a grid container
+  }
+  
+  // Ensure the main fixed back button is visible
+  const fixedBackButton = document.querySelector('.container > .back-button');
+  // if (fixedBackButton) fixedBackButton.style.display = 'block'; // Or 'inline-block' depending on its default
+}
+
+// This global goBack might be for other pages, or a duplicate.
+// The specific main back button is handled above.
+// If you have other general back buttons using onclick="goBack()", ensure this function is defined globally.
+function goBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    // Fallback if no history, e.g., direct navigation
+    window.location.href = 'index.html'; // Or your desired homepage
+  }
+}
+    </script>
+  </body>
+</html>
