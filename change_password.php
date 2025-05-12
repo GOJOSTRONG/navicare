@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $message_type = 'success';
                     // Optional: Redirect after a short delay or provide a link back
                     // For immediate redirect:
-                    // header("Location: your_dashboard_page.php?password_changed=success");
+                    header("Location: admin_dashboard.php?password_changed=success");
                     // exit;
                     // For this example, we'll show message and let user click back or use JS redirect.
                     echo "<script>
@@ -235,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="action-buttons">
                 <button type="submit">Update Password</button>
-                <a href="index.php" class="cancel-btn">Cancel</a>
+                <a href="admin_dashboard.php" class="cancel-btn">Cancel</a>
             </div>
         </form>
     </div>
