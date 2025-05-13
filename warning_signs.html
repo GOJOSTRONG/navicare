@@ -11,7 +11,7 @@
       box-sizing: border-box;
     }
     
-    :root { /* ADDED: CSS Variable Definitions */
+    :root { 
       --primary-green: #4CAF50;
       --primary-magenta: #D81B60;
       --light-yellow: #FFF9C4;
@@ -34,8 +34,8 @@
       background: url('res/school_bg.jpg') no-repeat center center fixed;
       background-size: cover;
       background-position: center center;
-      color: #a2165f; /* Default text color for body */
-      font-size: 1rem; /* use rem for scalable typography */
+      color: #a2165f; 
+      font-size: 1rem; 
       overflow-x: hidden;
       display: flex;
       flex-direction: column;
@@ -57,10 +57,10 @@
       width: 100%;
       min-height: 100vh;
       height: auto;
-      padding: 20px; /* Default padding */
+      padding: 20px; 
       position: relative;
       z-index: 1;
-      flex-grow: 1; /* Ensure overlay takes available space */
+      flex-grow: 1; 
     }
     
     .container {
@@ -68,50 +68,50 @@
       max-width: 1200px;
       margin: 0 auto;
       text-align: center;
-      padding: 20px; /* Default padding */
+      padding: 20px; 
       position: relative;
       z-index: 2;
     }
 
     .title-container {
-      padding: 20px 20px 5px 20px; /* Default padding */
+      padding: 20px 20px 5px 20px; 
     }
     
     .page-title {
-      color: var(--primary-green); /* Using CSS variable */
-      font-size: 45px; /* Default size */
+      color: var(--primary-green); 
+      font-size: 45px; 
       font-family: 'Dancing Script', cursive;
-      margin: 0 auto 30px auto; /* Centering and bottom margin */
+      margin: 0 auto 30px auto; 
       text-align: center;
       text-transform: uppercase;
     }
     
     .title-underline {
       width: 100%;
-      max-width: 250px; /* Limit width for aesthetics */
+      max-width: 250px; 
       height: 2px;
-      background-color: var(--primary-green); /* Using CSS variable */
-      margin: 5px auto 0 auto; /* Center the underline */
+      background-color: var(--primary-green); 
+      margin: 5px auto 0 auto; 
     }
 
     .topics-container {
-      padding: 10px 20px; /* Default padding */
+      padding: 10px 20px; 
       display: flex;
       flex-direction: column;
-      gap: 10px; /* Default gap */
-      margin-top: 20px; /* Default margin */
+      gap: 10px; 
+      margin-top: 20px; 
     }
     
     .header-banner {
-      background-color: rgba(255, 237, 196, 0.8); /* Example: var(--light-yellow) with alpha */
-      border-radius: 30px; /* Default radius */
-      padding: 15px 20px; /* Default padding */
-      margin-bottom: 20px; /* Default margin */
+      background-color: rgba(255, 237, 196, 0.8); 
+      border-radius: 30px; 
+      padding: 15px 20px; 
+      margin-bottom: 20px; 
     }
     
     .header-banner h2 {
-      color: var(--primary-magenta); /* Using CSS variable */
-      font-size: 1.125rem; /* Approx 18px */
+      color: var(--primary-magenta); 
+      font-size: 1.125rem; 
       text-align: left;
       margin: 0;
       text-transform: uppercase;
@@ -120,15 +120,15 @@
     .topic-button {
       display: flex;
       justify-content: space-between;
-      align-items: center; /* Vertically align items */
-      background-color: rgba(255, 230, 190, 0.8); /* Example: lighter shade of light-yellow */
-      border-radius: 25px; /* Default radius */
-      padding: 16px 28px; /* Default padding */
+      align-items: center; 
+      background-color: rgba(255, 230, 190, 0.8); 
+      border-radius: 25px; 
+      padding: 16px 28px; 
       cursor: pointer;
       border: none;
       transition: all 0.3s ease;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 1px; /* Slight space between buttons */
+      margin-bottom: 1px; 
     }
     
     .topic-button:hover {
@@ -137,8 +137,8 @@
     }
     
     .topic-button h3 {
-      color: var(--primary-magenta); /* Using CSS variable */
-      font-size: 1rem; /* Approx 16px */
+      color: var(--primary-magenta); 
+      font-size: 1rem; 
       margin: 0;
       font-weight: bold;
       text-transform: uppercase;
@@ -146,8 +146,8 @@
     }
     
     .plus-icon {
-      color: var(--light-text); /* Using CSS variable (White) */
-      font-size: 1.5rem; /* Approx 24px */
+      color: var(--light-text); 
+      font-size: 1.5rem; 
       font-weight: bold;
     }
     
@@ -165,38 +165,38 @@
     
     .modal-header {
       background: linear-gradient(to bottom, rgb(255, 199, 199), rgba(255, 255, 255, 0.7));
-      padding: 20px; /* Default padding */
+      padding: 20px; 
     }
     
-    .modal-title { /* e.g. "Warning Signs" - though not used in these specific modals */
+    .modal-title { 
       color: var(--primary-green); 
-      font-size: 1.5rem; /* Approx 24px */
+      font-size: 1.5rem; 
       text-transform: uppercase;
       text-align: center;
       margin: 0;
     }
     
-    .modal-subtitle { /* e.g. "Warning Signs of Hemorrhage" */
+    .modal-subtitle { 
       color: var(--primary-magenta);
-      font-size: 1.3rem; /* Approx 20-21px */
-      margin: 15px 0 10px 0; /* Adjusted bottom margin */
+      font-size: 1.3rem; 
+      margin: 15px 0 10px 0; 
       text-transform: uppercase;
       text-align: center;
       line-height: 1.3;
     }
     
     .modal-content {
-      padding: 20px; /* Default padding */
-      line-height: 1.6; /* Good default line height */
+      padding: 20px; 
+      line-height: 1.6; 
     }
     
     .modal-content p, .modal-content li {
-      color: var(--dark-text); /* Using CSS variable */
+      color: var(--dark-text); 
       margin-bottom: 0.8em;
-      font-size: 1rem; /* Approx 16px, will be adjusted by media queries */
-      text-align: justify; /* Justify text within modal content */
+      font-size: 1rem; 
+      text-align: justify; 
     }
-     .modal-content h3 { /* For subheadings within modal content */
+     .modal-content h3 { 
         color: var(--primary-magenta);
         font-size: 1.1rem;
         margin-top: 1em;
@@ -209,116 +209,116 @@
     }
     .modal-content ul li {
         margin-bottom: 0.5em;
-        text-align: left; /* Align list item text to left for readability */
+        text-align: left; 
     }
-    .modal-content ul li p { /* If p is used inside li */
-        margin-bottom: 0; /* Avoid double margin */
+    .modal-content ul li p { 
+        margin-bottom: 0; 
         text-align: left;
     }
 
     
-    .photo-placeholder { /* Used for text-only placeholders in infection/anxiety modals */
+    .photo-placeholder { 
       width: 100%;
-      height: 300px; /* Default height */
-      background-color: rgba(255, 206, 218, 0.7); /* Lighter pink, var(--light-pink) with alpha */
+      height: 300px; 
+      background-color: rgba(255, 206, 218, 0.7); 
       display: flex;
       justify-content: center;
       align-items: center;
-      color: var(--primary-magenta); /* Text color for placeholder */
-      font-size: 1.25rem; /* Approx 20px */
-      margin: 15px 0; /* Default margin */
-      padding: 15px; /* Padding for text */
+      color: var(--primary-magenta); 
+      font-size: 1.25rem; 
+      margin: 15px 0; 
+      padding: 15px; 
       text-align: center;
       border-radius: 10px;
     }
     
     .back-button, .back-button2 {
-      background-color: #f9e7f0; /* var(--light-pink) slightly darker */
-      color: #a2165f; /* var(--primary-magenta) darker shade */
+      background-color: #f9e7f0; 
+      color: #a2165f; 
       border: none;
       border-radius: 20px;
-      padding: 0.4rem 1.5rem; /* Default padding */
-      font-size: 1.1rem; /* Default size */
+      padding: 0.4rem 1.5rem; 
+      font-size: 1.1rem; 
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-      z-index: 1005; /* Ensure buttons are on top */
+      z-index: 1005; 
     }
     
-    .back-button { /* Main page back button */
+    .back-button { 
       position: absolute;
       top: 20px;
       right: 20px;
     }
     
     .back-button:hover, .back-button2:hover {
-      background-color: #f8d7e1; /* Slightly different hover */
+      background-color: #f8d7e1; 
     }
     
-    .modal .back-button2 { /* Modal back button */
+    .modal .back-button2 { 
       position: absolute;
       top: 20px;
       right: 20px; 
-      /* left: auto; /* Ensure no conflicting left rule */
+      
     }
     
-    .infographic-placeholder { /* Used in hemorrhage-modal for image */
+    .infographic-placeholder { 
       width: 100%;
-      background-color: rgba(255, 202, 212, 0.5); /* var(--light-pink) with more alpha */
-      /* border: 2px; /* Needs style and color */
+      background-color: rgba(255, 202, 212, 0.5); 
+      
       display: flex;
-      flex-direction: column; /* Stack image and link */
+      flex-direction: column; 
       justify-content: center;
       align-items: center;
-      font-size: 1rem; /* For placeholder text if image fails */
+      font-size: 1rem; 
       color: var(--primary-magenta);
-      margin: 20px 0; /* Default margin */
+      margin: 20px 0; 
       overflow: hidden;
-      padding: 10px; /* Padding around the image/wrapper */
+      padding: 10px; 
       border-radius: 10px;
     }
     
-    .infographic-wrapper { /* Not strictly needed if img is direct child, but kept if structure exists */
+    .infographic-wrapper { 
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      /* padding: 20px 0; /* Padding can be on placeholder */
+      
     }
     
-    .infographic-wrapper img, .infographic-placeholder > img { /* Target img directly in placeholder or in wrapper */
-      max-width: 100%; /* Use full width of placeholder if needed */
+    .infographic-wrapper img, .infographic-placeholder > img { 
+      max-width: 100%; 
       height: auto;
       display: block;
-      margin: 0 auto; /* Center image */
-      border-radius: 5px; /* Optional: slightly rounded corners for image */
+      margin: 0 auto; 
+      border-radius: 5px; 
     }
 
     .centered-text {
       text-align: center;
-      margin-top: 10px; /* Space above link */
+      margin-top: 10px; 
     }
     
     .infographic-link {
-      color: #a2165f; /* var(--primary-magenta) darker shade */
+      color: #a2165f; 
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s ease;
     }
     
     .infographic-link:hover {
-      color: #e93772; /* Lighter magenta for hover */
+      color: #e93772; 
       text-decoration: underline;
     }
 
-    @media (max-width: 768px) { /* Tablet portrait and larger phones */
+    @media (max-width: 768px) { 
       .overlay, .container {
         padding: 15px;
       }
       .page-title {
-        font-size: 32px; /* From original media query */
-        /* margin-bottom: 25px; /* Let auto margin handle */
+        font-size: 32px; 
+        
       }
       .title-underline {
         max-width: 200px;
@@ -329,14 +329,14 @@
           border-radius: 25px;
       }
       .header-banner h2 {
-          font-size: 1rem; /* Approx 16px */
+          font-size: 1rem; 
       }
       .topic-button {
           padding: 14px 22px;
           border-radius: 20px;
       }
       .topic-button h3 {
-        font-size: 0.9rem; /* Approx 14.4px (was 14px) */
+        font-size: 0.9rem; 
       }
       .plus-icon {
           font-size: 1.3rem;
@@ -348,23 +348,23 @@
       .modal-content p, .modal-content li { font-size: 0.9rem; }
       .modal-content h3 { font-size: 1rem; }
 
-      .photo-placeholder { /* For text-only placeholders */
-        height: auto; /* Let content define height */
-        min-height: 150px; /* Adjust min height */
-        font-size: 1.1rem; /* Adjust text size */
+      .photo-placeholder { 
+        height: auto; 
+        min-height: 150px; 
+        font-size: 1.1rem; 
         padding: 15px;
       }
-      /* .infographic-placeholder already has good responsive base */
+      
       
       .back-button, .modal .back-button2 {
-        font-size: 1rem; /* From original */
-        padding: 0.35rem 1.2rem; /* From original */
-        top: 15px; /* Consistent top */
-        right: 15px; /* Consistent right */
+        font-size: 1rem; 
+        padding: 0.35rem 1.2rem; 
+        top: 15px; 
+        right: 15px; 
       }
     }
     
-    @media (max-width: 400px) { /* Smartphones in portrait (360px wide focus) */
+    @media (max-width: 400px) { 
         .overlay, .container {
             padding: 10px;
         }
@@ -377,7 +377,7 @@
             max-width: 150px;
         }
         .topics-container {
-            padding: 10px 5px; /* Reduce horizontal padding */
+            padding: 10px 5px; 
             margin-top: 15px;
         }
         .header-banner {
@@ -386,41 +386,41 @@
             border-radius: 20px;
         }
         .header-banner h2 {
-            font-size: 0.9rem; /* Approx 14.4px */
+            font-size: 0.9rem; 
             line-height: 1.3;
         }
         .topic-button {
-            padding: 12px 18px; /* Reduce padding */
+            padding: 12px 18px; 
             border-radius: 20px;
-            gap: 8px; /* Space between h3 and icon */
+            gap: 8px; 
         }
         .topic-button h3 {
-            font-size: 0.8rem; /* Approx 12.8px */
+            font-size: 0.8rem; 
             line-height: 1.3;
         }
         .plus-icon {
-            font-size: 1.1rem; /* Approx 17.6px */
+            font-size: 1.1rem; 
         }
 
         .modal-header { padding: 10px; }
         .modal-subtitle { font-size: 1rem; margin: 8px 0; }
         .modal-content { padding: 10px; }
-        .modal-content p, .modal-content li { font-size: 0.8rem; line-height: 1.5; } /* Approx 12.8px */
+        .modal-content p, .modal-content li { font-size: 0.8rem; line-height: 1.5; } 
         .modal-content h3 { font-size: 0.9rem; }
         .modal-content ul { padding-left: 20px; }
 
 
-        .photo-placeholder { /* For text-only placeholders */
+        .photo-placeholder { 
             min-height: 80px; 
             padding: 10px;
-            font-size: 0.85rem; /* Smaller placeholder text */
+            font-size: 0.85rem; 
         }
         .infographic-placeholder {
             padding: 10px;
             margin: 15px 0;
         }
         .infographic-wrapper img, .infographic-placeholder > img {
-            max-width: 100%; /* Ensure it can use full width if needed */
+            max-width: 100%; 
         }
         .centered-text .infographic-link {
             font-size: 0.8rem;
@@ -432,14 +432,14 @@
             top: 10px;
             right: 10px;
         }
-        .container > h2 { /* REFERENCES heading */
+        .container > h2 { 
             font-size: 0.9rem;
             margin-top: 15px;
             margin-bottom: 5px;
         }
-        .container > p.references-text { /* Class added to reference paragraph */
+        .container > p.references-text { 
             word-break: break-word; 
-            font-size: 0.7rem; /* Approx 11.2px */
+            font-size: 0.7rem; 
             line-height: 1.4;
             text-align: left; 
         }
@@ -517,50 +517,77 @@
             <li><i>Habang naghihintay ng tulong, humiga at itaas ang iyong mga binti upang mapabuti ang daloy ng dugo.</i></li>
             <li><i>Huwag subukang magmaneho sa iyong sarili; tumawag sa mga serbisyong pang-emergency.</i></li>
       </ul>
-    </div> </div> <div id="infection-modal" class="modal">
+      
+    </div> </div>
+    
+    <div id="infection-modal" class="modal">
     <button class="back-button2">Back</button>
     <div class="modal-header">
-      <h3 class="modal-subtitle">Warning Signs of Infection</h3>
+      <h3 class="modal-subtitle">Warning Signs of Infection<br> <i>(Mga senyales ng babala ng pagdurugo)</i></h3>
     </div>
     <div class="modal-content">
-      <p>Postpartum infections can occur in the uterus, urinary tract, or at incision sites. Watch for these warning signs:</p>
-      
-      <div class="photo-placeholder"> <i>Illustration: Infection Warning Signs (Visual Aid Placeholder)</i>
+
+            <div class="infographic-placeholder">
+          <img src="http://priorygroup.com/media/1m3lon4n/postpartum-depression-symptoms.jpg" alt="Urgent Warning Signs Infographic">
+          <div class="centered-text">
+            <p>For more information, visit <a href="http://priorygroup.com/mental-health/depression-treatment/postnatal-depression" target="_blank" class="infographic-link">Urgent Warning Signs</a></p>
+          </div>
       </div>
+
+      <p>
+        <i>
+    <h2><i>Kahulugan:</i></h2>
+    <p><i>Ang mga impeksyon sa postpartum ay maaaring mangyari sa matris, urinary tract, suso, o sa mga lugar ng operasyon, na posibleng humantong sa mga seryosong komplikasyon tulad ng sepsis.</i></p>
+
+    <h2><i>Mga Palatandaan ng Babala:</i></h2>
+    <ul>
+      <li><i>Lagnat na may init ng katawan naaabot sa ≥38°C (100.4°F)</i></li>
+      <li><i>Mabahong discharge sa ari</i></li>
+      <li><i>Pamumula, pamamaga, o nana sa incision o perineal area</i></li>
+      <li><i>Matinding pananakit ng tiyan o pelvic</i></li>
+      <li><i>Masakit na pag-ihi</i></li>
+      <li><i>Panginginig o pananakit ng katawan</i></li>
+    </ul>
+
+    <h2><i>Tugon:</i></h2>
+    <ul>
+      <li><i>Makipag-ugnayan kaagad sa iyong healthcare provider.</i></li>
+      <li><i>Kung lumala ang mga sintomas, o hindi mo maabot ang iyong provider, pumunta sa pinakamalapit na emergency department.</i></li>
+      <li><i>Ang maagang paggamot na may mga antibiotic ay mahalaga upang maiwasan ang pagkalat ng impeksiyon.</i></li>
+    </ul>
+  </i>
+      </p>
       
-      <ul>
-        <li>Fever of 100.4°F (38°C) or higher</li>
-        <li>Chills or feeling unusually hot</li>
-        <li>Severe abdominal pain or tenderness</li>
-        <li>Foul-smelling vaginal discharge</li>
-        <li>Pain, redness, or discharge from a C-section incision</li>
-        <li>Burning sensation when urinating</li>
-        <li>Breast pain, redness, or warmth (signs of mastitis)</li>
-      </ul>
-      
-      <p>Early treatment of infections is important. Contact your healthcare provider if you notice any of these symptoms.</p>
     </div> </div> <div id="anxiety-modal" class="modal">
     <button class="back-button2">Back</button>
     <div class="modal-header">
-      <h3 class="modal-subtitle">Postpartum Anxiety and Depression</h3>
+      <h3 class="modal-subtitle">Postpartum Anxiety and Depression<br> <i>Pagkabalisa at Depresyon sa Postpartum</i></h3>
     </div>
     <div class="modal-content">
-      <p>Postpartum mood disorders are common and treatable. Be aware of these symptoms:</p>
+      <p>
+          <i>
+    <h2><i>Kahulugan:</i></h2>
+    <p><i>Ang postpartum depression (PPD) at postpartum anxiety (PPA) ay mga mood disorder na maaaring makaapekto sa kababaihan pagkatapos ng panganganak, na nakakaapekto sa kanilang kakayahang pangalagaan ang kanilang sarili at ang kanilang sanggol.</i></p>
+
+    <h2><i>Mga Palatandaan ng Babala:</i></h2>
+    <ul>
+      <li><i>Patuloy na kalungkutan o kawalan ng pag-asa</i></li>
+      <li><i>Sobrang pag-aalala o panic attack</i></li>
+      <li><i>Pagkawala ng interes sa mga aktibidad</i></li>
+      <li><i>Mga pagbabago sa gana sa pagkain o mga pattern ng pagtulog</i></li>
+      <li><i>Ang hirap makipag-bonding sa baby</i></li>
+      <li><i>Mga pag-iisip ng pananakit sa sarili o pananakit sa sanggol</i></li>
+    </ul>
+
+    <h2><i>Tugon:</i></h2>
+    <ul>
+      <li><i>Makipag-ugnayan sa iyong tagapagbigay ng pangangalagang pangkalusugan upang talakayin ang iyong mga nararamdaman.</i></li>
+      <li><i>Ang therapy, mga grupo ng suporta, at mga gamot ay mabisang paggamot.</i></li>
+      <li><i>Sa mga kaso ng pag-iisip ng pagpapakamatay o pag-iisip ng pinsala sa sanggol, humingi kaagad ng emerhensiyang medikal na atensyon</i></li>
+    </ul>
+  </i>
+      </p>
       
-      <div class="photo-placeholder"> <i>Illustration: Mental Health Warning Signs (Visual Aid Placeholder)</i>
-      </div>
-      
-      <ul>
-        <li>Feeling sad, hopeless, or overwhelmed for more than two weeks</li>
-        <li>Loss of interest in activities you used to enjoy</li>
-        <li>Difficulty bonding with your baby</li>
-        <li>Changes in appetite or sleep patterns</li>
-        <li>Excessive worry or racing thoughts</li>
-        <li>Panic attacks or constant anxiety</li>
-        <li>Thoughts of harming yourself or your baby</li>
-      </ul>
-      
-      <p>If you're experiencing any of these symptoms, reach out to your healthcare provider. Postpartum mood disorders are not a sign of weakness and can be effectively treated with proper support.</p>
     </div> </div> <script>
     document.addEventListener('DOMContentLoaded', function () {
       const mainBackButton = document.querySelector('.container > .back-button');

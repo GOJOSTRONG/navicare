@@ -53,7 +53,7 @@
       z-index: 1;
     }
     
-    .container { /* Combined duplicate .container rules */
+    .container { 
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
@@ -65,34 +65,34 @@
     
     .section-divider {
       width: 100%;
-      /* height: 50%; Consider if this height is necessary or if 'auto' is better with responsive images */
-      height: auto; /* Allowing content (image) to define height */
+      
+      height: auto; 
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 24px; /* This font-size might be for fallback text if image doesn't load */
+      font-size: 24px; 
       color: #f9b1e4;
       margin: 20px 0;
       overflow: hidden;
       padding: 20px;
     }
-    .section-divider img { /* Ensure images within section-divider are responsive */
+    .section-divider img { 
         max-width: 100%;
         height: auto;
         display: block;
     }
 
-    .modal h2 { /* This is a general style for h2 within .modal, could be modal-title or other h2s */
+    .modal h2 { 
       color: #e93772;
       font-size: 2rem;
     }
-    .container h2 { /* For "REFERENCES:" heading */
+    .container h2 { 
       text-align: center;
-      font-size: 1.5em; /* Approx 24px */
+      font-size: 1.5em; 
     }
-    h3 { /* General h3 styling */
+    h3 { 
       color: #a74161;
-      font-size: 1.5rem; /* Approx 24px */
+      font-size: 1.5rem; 
       text-align: left;
     }
     
@@ -104,7 +104,7 @@
     .page-title {
       color: #4CAF50;
       font-size: 45px;
-      font-family: 'Dancing Script', cursive; /* Ensure this font is available */
+      font-family: 'Dancing Script', cursive; 
       margin-bottom: 30px;
       text-align: center;
       margin: 0;
@@ -142,7 +142,7 @@
     }
     
     .topic-button h3 {
-      color: #ffffff; /* Note: original h3 color is #a74161. This overrides it. */
+      color: #ffffff; 
       font-size: 24px;
       margin: 0;
       font-weight: bold;
@@ -177,19 +177,19 @@
     .modal-header {
       background: linear-gradient(to bottom, rgb(255, 199, 199), rgba(255, 255, 255, 0.7));
       padding: 20px;
-      /* Added position relative for z-index context if needed for back button, though back button is absolutely positioned to modal */
+      
       position: relative; 
     }
     
-    .modal-title { /* This is the h2 in .modal-header with class .modal-title */
+    .modal-title { 
       color: #4CAF50;
-      font-size: 24px; /* This will be overridden by .modal h2 if not more specific */
+      font-size: 24px; 
       text-transform: uppercase;
       text-align: center;
       margin: 0;
     }
     
-    .modal-subtitle { /* This is an h3 in .modal-header */
+    .modal-subtitle { 
       color: #D81B60;
       font-size: 25px;
       margin: 15px 0;
@@ -200,10 +200,8 @@
     .modal-content {
       padding: 20px;
       line-height: 1.6;
-      /* If all text in modal-content (except explicit overrides) should be italic, apply here: 
+      
          font-style: italic; 
-         Currently, your HTML uses <i> tags extensively but sometimes incorrectly.
-      */
     }
     
     .modal-content p {
@@ -211,33 +209,32 @@
       margin-bottom: 10px;
       font-size: 18px;
       text-align: justify;
-      /* Note: <p> cannot contain <div> or <h2>. Browser will auto-correct, 
-         potentially leading to unexpected styling if selectors rely on invalid nesting. */
+      
     }
-    .modal-content h2 { /* For <h2> elements directly within .modal-content */
-        color: #a74161; /* Example color, adjust as needed */
-        font-size: 1.6rem; /* Approx 25.6px */
+    .modal-content h2 { 
+        color: #a74161; 
+        font-size: 1.6rem; 
         margin-top: 20px;
         margin-bottom: 10px;
-        text-align: left; /* Assuming these are section headers */
+        text-align: left; 
     }
-    .modal-content h2 i, .modal-content h3 i { /* If <i> is just for italic, not structure */
+    .modal-content h2 i, .modal-content h3 i { 
         font-style: italic; 
     }
-    .modal-content h3 { /* For <h3> elements directly within .modal-content (e.g., "Kaltsyum") */
-        color: #a74161; /* Example color */
-        font-size: 1.4rem; /* Approx 22.4px */
+    .modal-content h3 { 
+        color: #a74161; 
+        font-size: 1.4rem; 
         margin-top: 15px;
         margin-bottom: 5px;
         text-align: left;
     }
     .modal-content ul {
-        list-style-position: inside; /* Or outside, depending on preference */
-        padding-left: 20px; /* Add some padding for bullets */
+        list-style-position: inside; 
+        padding-left: 20px; 
         margin-bottom: 10px;
     }
-    .modal-content ul li p { /* If <p> are inside <li> */
-        margin-bottom: 5px; /* Adjust spacing for list item paragraphs */
+    .modal-content ul li p { 
+        margin-bottom: 5px; 
     }
     
     .photo-placeholder {
@@ -279,26 +276,26 @@
       position: absolute;
       top: 20px;
       right: 20px;
-      z-index: 1001; /* Ensure it's above modal-header content if overlapping */
+      z-index: 1001; 
     }
     
-    .topic-content { /* This class is on a div inside .topic-button */
-      color: #333; /* Default color, but .topic-button h3 overrides for the heading */
+    .topic-content { 
+      color: #333; 
       text-align: left;
     }
     
-    .centered-text { /* As defined in your original CSS */
+    .centered-text { 
       text-align: center;
       font-size: 30px;
     }
-    /* For the source link in the modal, which has a typo in its class name in HTML */
+    
     .modal-content .centererd-text { 
         text-align: center;
-        font-size: 1rem; /* Adjust size as needed for small screens */
+        font-size: 1rem; 
         margin: 10px 0;
     }
     .modal-content .centererd-text a {
-        color: #d81b60; /* Example link color */
+        color: #d81b60; 
         text-decoration: underline;
     }
 
@@ -308,12 +305,12 @@
       min-height: 500px;
       max-height: 100%;
       background-color: #ffcad4;
-      border: 2px; /* This is incomplete, should be e.g. border: 2px solid #color; or border: none; */
+      border: 2px; 
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 24px;
-      color: #f9b1e4; /* For placeholder text if image doesn't load */
+      color: #f9b1e4; 
       margin: 20px 0;
       overflow: hidden;
       padding: 20px;
@@ -324,10 +321,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow-x: hidden; /* Should not be needed if img is responsive */
-      overflow-y: auto; /* If image can be taller than placeholder */
+      overflow-x: hidden; 
+      overflow-y: auto; 
       padding: 20px 0;
-      border: hidden; /* 'hidden' is not a standard value for 'border'. Use 'none' or a full border definition. */
+      border: hidden; 
     }
     
     .infographic-wrapper img {
@@ -337,13 +334,13 @@
       margin: 0 auto;
     }
     
-    /* Styles for screens up to 768px wide */
+    
     @media (max-width: 768px) {
       .page-title {
         font-size: 32px;
         text-align: left;
-        /* margin: 0; /* Already set in base .page-title */
-        /* text-transform: uppercase; /* Already set in base .page-title */
+        
+        
       }
       .topic-button h3 {
         font-size: 20px;
@@ -356,27 +353,27 @@
       .back-button, .modal .back-button2 {
         font-size: 1rem;
         padding: 0.35rem 1.2rem;
-        top: 10px; /* Adjust position for smaller screens */
+        top: 10px; 
         right: 10px;
       }
-      .container p { /* References text */
+      .container p { 
         font-size: 0.9rem;
         line-height: 1.6;
       }
       .modal-content p {
         font-size: 16px;
       }
-      .modal-title { /* h2 in modal header */
-        font-size: 1.8rem; /* Approx 28.8px */
+      .modal-title { 
+        font-size: 1.8rem; 
       }
-      .modal h2 { /* General h2 in modal, if not .modal-title */
+      .modal h2 { 
         font-size: 1.8rem;
       }
-       .modal .modal-header h2.modal-title { /* More specific for the modal header title */
+       .modal .modal-header h2.modal-title { 
         font-size: 1.8rem; 
        }
-      .modal-subtitle { /* h3 in modal header */
-        font-size: 1.5rem; /* Approx 24px */
+      .modal-subtitle { 
+        font-size: 1.5rem; 
       }
       .infographic-placeholder {
         min-height: 400px;
@@ -384,27 +381,27 @@
       }
     }
 
-    /* Styles for screens up to 360px wide (like 360x800) */
+    
     @media (max-width: 360px) {
       .overlay {
-        padding: 10px; /* Reduce overall padding */
+        padding: 10px; 
       }
       .container {
-        padding: 10px; /* Reduce container padding */
+        padding: 10px; 
       }
       .title-container {
         padding: 15px 10px 5px 10px;
         margin-bottom: 15px;
       }
       .page-title {
-        font-size: 24px; /* Further reduce page title */
+        font-size: 24px; 
       }
 
       .topic-button {
-        padding: 15px; /* Reduce padding */
+        padding: 15px; 
       }
       .topic-button h3 {
-        font-size: 15px; /* Further reduce topic button heading */
+        font-size: 15px; 
       }
       .plus-icon {
         font-size: 24px;
@@ -417,83 +414,83 @@
         margin: 10px 0;
       }
       
-      .container h2 { /* "REFERENCES:" heading */
-        font-size: 1.1em; /* Approx 17.6px */
+      .container h2 { 
+        font-size: 1.1em; 
       }
-      .container p { /* References text itself */
-        font-size: 0.8rem; /* Approx 12.8px */
+      .container p { 
+        font-size: 0.8rem; 
         line-height: 1.4;
       }
 
-      /* Modal specific adjustments for 360px */
+      
       .modal-header {
         padding: 15px;
       }
-      .modal .modal-header h2.modal-title { /* Title in modal header */
-        font-size: 1.4rem; /* Approx 22.4px */
+      .modal .modal-header h2.modal-title { 
+        font-size: 1.4rem; 
       }
-      .modal-subtitle { /* Subtitle in modal header */
-        font-size: 1.1rem; /* Approx 17.6px */
+      .modal-subtitle { 
+        font-size: 1.1rem; 
         margin: 8px 0;
       }
       .modal-content {
         padding: 15px;
       }
       .modal-content p {
-        font-size: 14px; /* Text in modal */
+        font-size: 14px; 
       }
-      .modal-content h2 { /* Headings like "1. Tumaas na Nutritional Needs" */
-        font-size: 1.2rem; /* Approx 19.2px */
+      .modal-content h2 { 
+        font-size: 1.2rem; 
         margin-top: 15px;
         margin-bottom: 8px;
       }
-      .modal-content h3 { /* Sub-headings like "Kaltsyum" */
-        font-size: 1.0rem; /* Approx 16px */
+      .modal-content h3 { 
+        font-size: 1.0rem; 
         margin-top: 10px;
         margin-bottom: 5px;
       }
       .modal-content ul {
-        padding-left: 15px; /* Adjust list padding */
+        padding-left: 15px; 
       }
-      .modal-content ul li { /* Text inside list items */
+      .modal-content ul li { 
         font-size: 13px; 
       }
-       .modal-content .centererd-text { /* Typo class for source link */
-        font-size: 0.85rem; /* Approx 13.6px */
+       .modal-content .centererd-text { 
+        font-size: 0.85rem; 
        }
 
 
       .photo-placeholder {
-        height: 120px; /* Further reduce height */
+        height: 120px; 
         font-size: 14px;
         margin: 10px 0;
       }
       
       .infographic-placeholder {
-        min-height: 250px; /* Or 'auto' if content varies significantly */
+        min-height: 250px; 
         padding: 10px;
         font-size: 16px;
         margin: 15px 0;
       }
       .infographic-wrapper img {
-        max-width: 100%; /* Use full available width within wrapper */
+        max-width: 100%; 
       }
       .infographic-wrapper {
-        padding: 10px 0; /* Reduce padding for wrapper */
+        padding: 10px 0; 
       }
 
       .back-button, .modal .back-button2 {
-        font-size: 0.85rem; /* Approx 13.6px */
+        font-size: 0.85rem; 
         padding: 0.3rem 0.8rem;
-        top: 10px; /* Adjust position for smaller screens */
+        top: 10px; 
         right: 10px;
       }
       .modal .back-button2 {
-        top: 10px; /* Ensure consistency */
+        top: 10px; 
         right: 10px;
       }
 
-      .centered-text { /* General .centered-text if used elsewhere */
+      .centered-text { 
         font-size: 20px;
       }
     }
@@ -607,32 +604,68 @@
       <p><i>Iwasan ang alak, limitahan ang caffeine, at iwasan ang high-mercury fish (hal., pating, swordfish).</i></p>
       <p><i>Tiyakin ang kaligtasan ng pagkain upang maiwasan ang kontaminasyon.</i></p>
       <p><i>Kung ang isang sanggol ay lumilitaw na mas maselan o magagalitin pagkatapos kumain ang ina ng mataas na halaga ng caffeine, dapat niyang isaalang-alang na bawasan ang kanyang paggamit. Ang mga preterm at mas batang bagong panganak na sanggol ay mas mabagal na bumabagsak ng caffeine, kaya maaaring isaalang-alang ng mga ina ng mga sanggol na ito ang pagkonsumo ng mas kaunting caffeine.</i></p>
-      <ul>
-        <li><i>Ang mga karaniwang pinagmumulan ng caffeine sa pagkain ay kinabibilangan ng:</i></li> <li><i>• Kape</i></li>
-        <li><i>• Mga soda</i></li>
-        <li><i>• Tsaa</i></li>
-        <li><i>• Tsokolate</i></li>
-        <li><i>• Mga inumin na enerhiya</i></li>
-      </ul>
+     <i>
+    <p><i>Ang mga karaniwang pinagmumulan ng caffeine sa pagkain ay kinabibilangan ng:</i></p>
+    <ul>
+      <li><i>kape</i></li>
+      <li><i>Mga soda</i></li>
+      <li><i>Mga inuming enerhiya</i></li>
+      <li><i>tsaa</i></li>
+      <li><i>tsokolate</i></li>
+    </ul>
+  </i>
     </div>
   </div>
 
   <div id="infection-modal" class="modal">
     <button class="back-button2">Back</button>
     <div class="modal-header">
-      <h2 class="modal-title">POSTPARTUM NUTRITION</h2> <h3 class="modal-subtitle">Return to Work</h3>
+      <h2 class="modal-title">Return to Work</h2> <h3 class="modal-subtitle"><i>Pagbabalik sa Trabaho</i>  </h3>
     </div>
     <div class="modal-content">
-      <p>Returning to work after childbirth can be a big transition. Here are some tips to help you manage your nutrition, health, and well-being as you go back to work:</p>
+      <h3><i>Pagbabalik sa Trabaho Pagkatapos ng Panganganak: Ang Kailangan Mong Malaman</i></h3>
       
-      <div class="photo-placeholder">Returning to Work Illustration</div>
+            <div class="infographic-placeholder">
+        <div class="infographic-wrapper">
+            <img src="https://scontent.fceb1-1.fna.fbcdn.net/v/t39.30808-6/491998230_23863344069929961_7579757976659026104_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=105&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeHKwVNiiAFXiKcOnxKm9Jf-VR_8PbmoLGBVH_w9uagsYK9n25qRzY4EKkGzCx_7rXP8vuKJm0Gb6p0SQBwstQU8&_nc_ohc=Qq5IEHrRg-4Q7kNvwGNdjfg&_nc_oc=AdlRYYBeavcY6vRqL2V_Vz1WXp-zpsz_CfKvydXQwNoFS1cni9DB5issPHwYf85LGkg&_nc_zt=23&_nc_ht=scontent.fceb1-1.fna&_nc_gid=YeVbZ5Glo-jogtldM9K0cg&oh=00_AfJOOK0FC1Tm28RbnYL2TLgLvXgKnhFql2rbPvpzACR2Aw&oe=682948E6" 
+            alt="Postpartum Nutrition Infographic (Pinggang Pinoy)" 
+            style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+      </div>
+      <div class="centererd-text"><a href="https://web.facebook.com/PCWgovph/posts/informedagad-republic-act-11210tanong-ano-ang-expanded-maternity-leave-o-eml-law/5931242896900020/?_rdc=1&_rdr#" target="_blank">Source</a></div>
       
-      <p>• Prepare healthy snacks and meals in advance to ensure you have nutritious options during your workday.</p>
-      <p>• Stay hydrated by keeping a water bottle at your desk or in your bag.</p>
-      <p>• If you are breastfeeding, plan for pumping breaks and safe milk storage at work. Communicate with your employer about your needs.</p>
-      <p>• Try to maintain a regular sleep schedule and rest when possible, as adjusting to work and caring for your baby can be tiring.</p>
-      <p>• Ask for support from family, friends, or coworkers when needed.</p>
-      <p>• Listen to your body and don’t hesitate to reach out to your healthcare provider if you have concerns about your recovery or well-being.</p>
+      <i>
+    <h2><i>1. Maternity Leave: Ang Iyong Karapatan na Magpahinga at Magpagaling</i></h2>
+
+    <h3><i>Bakit mahalaga ang maternity leave?</i></h3>
+    <ul>
+      <li><i>Ang iyong katawan ay nangangailangan ng oras upang gumaling pagkatapos ng panganganak.</i></li>
+      <li><i>Kailangan mo ng oras upang makipag-bonding sa iyong sanggol at simulan ang pagpapasuso.</i></li>
+      <li><i>Nakakatulong ito na protektahan ang iyong pisikal at mental na kagalingan.</i></li>
+    </ul>
+
+    <h3><i>Magkano ang maternity leave mo?</i></h3>
+    <p><i>Ayon sa WHO (World Health Organization):</i></p>
+    <ul>
+      <li><i>Inirerekomenda ang hindi bababa sa 14 na linggo (98 araw) na bakasyon.</i></li>
+      <li><i>6 na linggo ay dapat pagkatapos ng panganganak.</i></li>
+    </ul>
+
+    <p><i>Ayon sa Batas ng Pilipinas (RA 11210):</i></p>
+    <ul>
+      <li><i>105 araw na may bayad na maternity leave para sa lahat ng nagtatrabahong ina.</i></li>
+      <li><i>Extra 15 days kung solo mother ka.</i></li>
+      <li><i>Opsyonal 30 pang araw na walang bayad kung kinakailangan.</i></li>
+      <li><i>Maaaring gamitin bago o pagkatapos ng panganganak (batay sa payo ng doktor).</i></li>
+    </ul>
+
+    <h3><i>Mahahalagang Paalala:</i></h3>
+    <ul>
+      <li><i>Kumuha ng medical certificate mula sa iyong healthcare provider bago bumalik sa trabaho.</i></li>
+      <li><i>Ipaalam sa iyong employer ang tungkol sa iyong mga plano sa bakasyon nang maaga.</i></li>
+      <li><i>Gamitin ang iyong bakasyon para magpahinga, gumaling, at tumuon sa iyong sanggol.</i></li>
+    </ul>
+  </i>
     </div>
   </div>
 

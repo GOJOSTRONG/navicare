@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NaviCare - Feeding Support</title>
   <style>
-  /* Removed misplaced .topic-title rule that was here */
+  
   * {
     margin: 0;
     padding: 0;
@@ -15,7 +15,7 @@
   html {
     width: 100%;
     min-height: 100%;
-    font-size: 100%; /* enables rem scaling based on browser */
+    font-size: 100%; 
   }
   
   body {
@@ -27,13 +27,13 @@
     background-size: cover;
     background-position: center center;
     color: #a2165f;
-    font-size: 1rem; /* use rem for scalable typography */
+    font-size: 1rem; 
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
   }
   
-  .zoom-scroll-container { /* Styled but not used in this HTML page's body */
+  .zoom-scroll-container { 
     width: 100%;
     max-width: 500px;
     height: auto;
@@ -42,7 +42,7 @@
     overflow: hidden;
   }
   
-  .zoom-scroll { /* Styled but not used in this HTML page's body */
+  .zoom-scroll { 
     width: 100%;
     height: 100%;
     background-image: url('res/school_bg.png');
@@ -51,7 +51,7 @@
     transition: transform 0.5s ease;
   }
   
-  .zoom-scroll:hover { /* Styled but not used in this HTML page's body */
+  .zoom-scroll:hover { 
     transform: scale(1.5);
   }
       
@@ -63,7 +63,7 @@
     padding: 20px;
     position: relative;
     z-index: 1;
-    flex-grow: 1; /* Ensure overlay takes available space */
+    flex-grow: 1; 
   }
   
   .gradient-overlay-bottom {
@@ -82,7 +82,7 @@
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    padding: 20px; /* Default padding */
+    padding: 20px; 
     position: relative;
     z-index: 2;
   }
@@ -104,17 +104,17 @@
     color: var(--primary-green);
     font-size: 45px;
     font-family: 'Dancing Script', cursive;
-    margin: 0 auto 30px auto; /* Centering and bottom margin */
+    margin: 0 auto 30px auto; 
     text-align: center;
     text-transform: uppercase;
   }
   
   .title-underline {
     width: 100%;
-    max-width: 250px; /* Limit width for aesthetics */
+    max-width: 250px; 
     height: 2px;
     background-color: var(--primary-green);
-    margin: 5px auto 0 auto; /* Center the underline */
+    margin: 5px auto 0 auto; 
   }
   
   .topics-container {
@@ -124,20 +124,20 @@
     gap: 10px;
   }
   
-  .topic-title-container { /* Container for the "EDUKASYON SA GATAS..." heading */
+  .topic-title-container { 
     background-color: rgba(255, 249, 196, 0.8);
     border-radius: 10px;
     padding: 15px 20px;
-    margin-bottom: 5px; /* Space below this title, before buttons */
+    margin-bottom: 5px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
-  .topic-title { /* For the "EDUKASYON SA GATAS..." heading */
+  .topic-title { 
     color: var(--primary-magenta);
-    font-size: 18px; /* Default size */
+    font-size: 18px; 
     margin: 0;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     text-transform: uppercase;
   }
   
@@ -159,9 +159,9 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   }
   
-  .topic-button h3 { /* Text inside clickable topic buttons */
+  .topic-button h3 { 
     color: var(--primary-magenta);
-    font-size: 1rem; /* Approx 16px */
+    font-size: 1rem; 
     margin: 0;
     font-weight: bold;
     text-align: left;
@@ -169,12 +169,12 @@
   }
   
   .plus-icon {
-    color: var(--light-text); /* White by default */
-    font-size: 1.5rem; /* Approx 24px */
+    color: var(--light-text); 
+    font-size: 1.5rem; 
     font-weight: bold;
   }
   
-  /* Modal styles */
+  
   .modal {
     display: none;
     position: fixed;
@@ -189,37 +189,37 @@
   
   .modal-header {
     background: linear-gradient(to bottom, rgb(255, 199, 199), rgba(255, 255, 255, 0.7));
-    padding: 20px; /* Default padding */
+    padding: 20px; 
   }
   
-  .modal-title { /* Main title in modal header, e.g., "Feeding Support" */
+  .modal-title { 
     color: var(--primary-green);
-    font-size: 1.5rem; /* Approx 24px */
+    font-size: 1.5rem; 
     text-transform: uppercase;
     text-align: center;
     margin: 0;
   }
   
-  .modal-subtitle { /* Subtitle in modal header, e.g., "Advantages of Breastfeeding" */
+  .modal-subtitle { 
     color: var(--primary-magenta);
-    font-size: 1.3rem; /* Approx 20-21px */
-    margin: 15px 0 10px 0; /* Adjusted bottom margin */
+    font-size: 1.3rem; 
+    margin: 15px 0 10px 0; 
     text-transform: uppercase;
     text-align: center;
   }
   
   .modal-content {
-    padding: 20px; /* Default padding */
+    padding: 20px; 
     line-height: 1.6;
   }
   
   .modal-content p, .modal-content li {
     color: var(--dark-text);
-    margin-bottom: 0.8em; /* Use em for spacing relative to font size */
-    font-size: 1rem; /* Approx 16px, will be adjusted in media queries */
+    margin-bottom: 0.8em; 
+    font-size: 1rem; 
     text-align: justify;
   }
-  .modal-content h2, .modal-content h3, .modal-content h4 { /* Styling for headings within modal content */
+  .modal-content h2, .modal-content h3, .modal-content h4 { 
       color: var(--primary-magenta);
       margin-top: 1em;
       margin-bottom: 0.5em;
@@ -230,73 +230,73 @@
   .modal-content h4 { font-size: 1rem; font-weight: bold; }
 
   .modal-content ul {
-      padding-left: 25px; /* Indentation for lists */
+      padding-left: 25px; 
       list-style-position: outside;
   }
   .modal-content ul li {
       margin-bottom: 0.5em;
   }
   
-  .video-row { /* Styled but not used in this HTML page's body */
+  .video-row { 
     display: flex;
     gap: 10px; 
   }
   
-  .photo-placeholder { /* Used in techniques-modal for images */
+  .photo-placeholder { 
     width: 100%;
-    height: auto; /* Let content (image) define height */
-    /* background-color: #ffceda; /* Only if no image */
+    height: auto; 
+    
     display: flex;
-    flex-direction: column; /* Stack image and link if any */
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
-    /* color: #ffc9df; */
-    /* font-size: 20px; */
+    
+    
     margin: 15px 0;
   }
-  .modal .photo-placeholder img { /* Images inside photo-placeholder */
+  .modal .photo-placeholder img { 
       max-width: 100%;
       height: auto;
       display: block;
-      margin-bottom: 5px; /* Space if there's a link below */
+      margin-bottom: 5px; 
   }
   
-  .infographic-placeholder { /* Used for larger infographic sections */
+  .infographic-placeholder { 
     width: 100%;
     height: auto; 
-    min-height: 300px; /* Default min-height */
-    max-height: 600px; /* Default max-height */
-    background-color: rgba(255, 202, 212, 0.5); /* Lighter placeholder color */
-    /* border: 2px; /* Needs style and color */
+    min-height: 300px; 
+    max-height: 600px; 
+    background-color: rgba(255, 202, 212, 0.5); 
+    
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1rem; /* For text if image fails */
+    font-size: 1rem; 
     color: var(--primary-magenta);
     margin: 20px 0;
-    overflow: hidden; /* To contain image if needed */
-    padding: 10px; /* Reduced padding */
+    overflow: hidden; 
+    padding: 10px; 
   }
   .centered-text {
     text-align: center;
     margin-top: 0.5em;
   }
-  .infographic-wrapper { /* Wrapper for the image itself */
+  .infographic-wrapper { 
     width: 100%;
-    height: 100%; /* Fill the placeholder */
+    height: 100%; 
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: auto; /* Allow scrolling if image is taller than max-height */
-    /* padding: 20px 0; /* Padding can be on placeholder or wrapper */
+    overflow-y: auto; 
+    
   }
   
   .infographic-wrapper img {
     max-width: 100%;
     height: auto;
-    max-height: inherit; /* Inherit max-height from wrapper/placeholder */
+    max-height: inherit; 
     display: block;
-    object-fit: contain; /* Ensure whole image is visible */
+    object-fit: contain; 
   }
   
   .back-button, .back-button2 {
@@ -310,11 +310,11 @@
     cursor: pointer;
     transition: all 0.2s;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    z-index: 1001; /* Ensure buttons are on top */
+    z-index: 1001; 
   }
   
-  .back-button { /* Main page back button */
-    position: absolute; /* Changed from fixed to be within .container flow if needed, or keep fixed if global */
+  .back-button { 
+    position: absolute; 
     top: 20px;
     right: 15px; 
   }
@@ -323,15 +323,15 @@
     background-color: #f8d7e1;
   }
   
-  .modal .back-button2 { /* Modal back button specific positioning */
+  .modal .back-button2 { 
     position: absolute;
     top: 20px;
-    /* left: 90%; /* Will be overridden by media query */
-    right: 15px; /* Default to right for consistency */
+    
+    right: 15px; 
     left: auto; 
   }
   
-  @media (max-width: 768px) { /* Tablets and larger phones */
+  @media (max-width: 768px) { 
     .overlay, .container {
         padding: 15px;
     }
@@ -346,7 +346,7 @@
         padding: 12px 15px;
     }
     .topic-title {
-        font-size: 1rem; /* Approx 16px */
+        font-size: 1rem; 
     }
     .topic-button h3 {
         font-size: 0.9rem;
@@ -368,18 +368,11 @@
         max-height: 500px;
         padding: 10px;
     }
-    .infographic-wrapper img {
-        /* max-height: inherit; */
-    }
-    .photo-placeholder { /* General photo/video container if used differently */
-        /* height: auto; /* This was set in original, good for responsive content */
-        /* margin: 40px 0; /* Reduced margin from 80px */
-    }
   }
 
-  @media (max-width: 567px) { /* Small phones */
+  @media (max-width: 567px) { 
     .overlay, .container {
-        padding: 10px;
+        padding: 25px;
     }
     .page-title {
       font-size: 30px;
@@ -393,19 +386,19 @@
         margin-bottom: 8px;
     }
     .topic-title {
-        font-size: 0.9rem; /* Approx 14.4px */
+        font-size: 0.9rem; 
     }
     .topic-button {
         padding: 12px 15px;
     }
     .topic-button h3 {
-        font-size: 0.8rem; /* Approx 12.8px */
+        font-size: 0.8rem; 
     }
     .plus-icon {
-        font-size: 1.2rem; /* Approx 19.2px */
+        font-size: 1.2rem; 
     }
 
-    .modal { /* Modal adjustments for small screens */
+    .modal { 
         padding: 0;
         background: linear-gradient(to bottom, rgb(255, 194, 194) 90%, rgba(255,205,210,0.85) 120%);
     }
@@ -417,12 +410,12 @@
     .modal-content h2 { font-size: 1rem; }
     .modal-content h3 { font-size: 0.9rem; }
 
-    .back-button, .modal .back-button2 { /* Combined rule for positioning and sizing */
-      font-size: 0.9rem; /* Unified size */
-      padding: 0.3rem 1rem; /* Unified padding */
-      top: 10px; /* Unified top */
-      right: 10px; /* Unified right */
-      left: auto; /* CRITICAL: Override any fixed left values */
+    .back-button, .modal .back-button2 { 
+      font-size: 0.9rem; 
+      padding: 0.3rem 1rem; 
+      top: 10px; 
+      right: 10px; 
+      left: auto; 
     }
     
     .infographic-placeholder {
@@ -431,20 +424,11 @@
         margin: 15px 0;
         padding: 5px;
     }
-    /* .infographic-wrapper {
-        min-height: 200px;
-        max-height: 400px;
-    } */
-    .infographic-wrapper img {
-        /* max-height: 400px; */
-    }
-    .photo-placeholder {
-        margin: 10px 0;
-    }
+
   }
 
-  /* ------------- NEW STYLES FOR 360PX COMPATIBILITY (refining 567px or adding specifics) ------------- */
-  @media (max-width: 400px) { 
+  
+  @media (max-width: 420px) { 
     .page-title {
         font-size: 26px; 
         line-height: 1.2;
@@ -456,26 +440,26 @@
         padding: 8px 10px;
     }
     .topic-title {
-        font-size: 0.8rem; /* Approx 12.8px */
+        font-size: 0.8rem; 
         line-height: 1.3;
     }
     .topic-button {
         padding: 10px 12px;
     }
     .topic-button h3 {
-        font-size: 0.75rem; /* Approx 12px */
+        font-size: 0.75rem; 
         line-height: 1.3;
     }
     .plus-icon {
-        font-size: 1rem; /* Approx 16px */
+        font-size: 1rem; 
     }
 
     .modal-header { padding: 8px; }
     .modal-title { font-size: 1rem; }
     .modal-subtitle { font-size: 0.9rem; margin: 5px 0; }
     .modal-content { padding: 8px; }
-    .modal-content p, .modal-content li { font-size: 0.75rem; line-height: 1.45; } /* Approx 12px */
-    .modal-content i { font-size: inherit; } /* Ensure italics inherit parent font size */
+    .modal-content p, .modal-content li { font-size: 0.75rem; line-height: 1.45; } 
+    .modal-content i { font-size: inherit; } 
     .modal-content h2 { font-size: 0.9rem; }
     .modal-content h3 { font-size: 0.8rem; }
     .modal-content ul { padding-left: 20px; }
@@ -486,36 +470,30 @@
         max-height: 350px;
         margin: 10px 0;
     }
-    /* .infographic-wrapper {
-        min-height: 150px;
-        max-height: 350px;
-    } */
-    .infographic-wrapper img {
-        /* max-height: 350px; */
-    }
+
     .photo-placeholder {
-        margin: 10px 0; /* Consistent margin */
+        margin: 10px 0; 
     }
     .modal .photo-placeholder img {
-        margin-bottom: 3px; /* Reduce space for smaller links */
+        margin-bottom: 3px; 
     }
     .centered-text .infographic-link {
-        font-size: 0.7rem; /* Smaller link text */
+        font-size: 0.7rem; 
     }
     
-    .container > h2 { /* REFERENCES heading */
+    .container > h2 { 
         font-size: 0.9rem;
         margin-top: 15px;
         margin-bottom: 5px;
     }
-    .container > p.references-text { /* Class added to reference paragraph */
+    .container > p.references-text { 
         word-break: break-word; 
         font-size: 0.65rem; 
         line-height: 1.3;
         text-align: left; 
     }
   }
-  /* ------------- END OF NEW STYLES FOR 360PX COMPATIBILITY ------------- */
+  
   </style>
 </head>
 <body>
@@ -532,7 +510,7 @@
         
         <div class="topics-container">
             <div class="topic-title-container">
-            <h2 class="topic-title">EDUKASYON SA GATAS NG BREAST AT MGA TEKNIK SA PAGPAPAKAIN</h2>
+            <h2 class="topic-title">BREAST MILK EDUCATION AND FEEDING TECHNIQUES </h2>
             </div>
           
           <button class="topic-button" data-topic="advantages">
@@ -588,11 +566,11 @@
       </div> </div> <div id="advantages-modal" class="modal">
       <button class="back-button2">Back</button>
       <div class="modal-header">
-        <h2 class="modal-title">Feeding Support</h2>
-        <h3 class="modal-subtitle">Advantages of Breastfeeding</h3>
+        <h2 class="modal-title">Advantages of Breastfeeding</h2>
+        <h3 class="modal-subtitle"><i>Mga Benepisyo ng Pagpapasuso</i></h3>
       </div>
       <div class="modal-content">
-          <h2><i>INFORMATION</i></h2>
+          <h2><i>IMPORMASYON</i></h2>
           <p><i>Ano ang pagpapasuso ay isang natural na paraan ng pagpapakain sa iyong sanggol (pagsasalin) kapag ang mga sanggol ay kumapit o idikit ang kanilang bibig sa iyong suso at, sa pamamagitan ng pagsuso, uminom ng gatas na ginawa ng iyong katawan. (pagsasalin)</i></p>
         
           <h3><i>Kailan tayo magpapasuso?</i></h3>
@@ -655,8 +633,8 @@
       </div> </div> <div id="techniques-modal" class="modal">
       <button class="back-button2">Back</button>
       <div class="modal-header">
-        <h2 class="modal-title">Feeding Support</h2>
-        <h3 class="modal-subtitle">Mga Diskarte sa Pagpapasuso</h3>
+        <h2 class="modal-title">Breastfeeding Techniques</h2>
+        <i><h3 class="modal-subtitle">Mga Diskarte sa Pagpapasuso</h3></i>
       </div>
     <div class="modal-content">
       <h3><i>Mga Diskarte sa Pagpapasuso</i></h3>
@@ -760,57 +738,249 @@
     </div> </div> <div id="challenges-modal" class="modal">
       <button class="back-button2">Back</button>
       <div class="modal-header">
-        <h2 class="modal-title">Feeding Support</h2>
-        <h3 class="modal-subtitle">Common Breastfeeding Challenges and Solutions</h3>
+        <h2 class="modal-title">Common Breastfeeding Challenges and Solutions</h2>
+        <h3 class="modal-subtitle"><i>Mga Karaniwang Hamon at Solusyon sa Pagpapasuso</i></h3>
       </div>
       <div class="modal-content">
-        <p>Many mothers face challenges with breastfeeding. Sore nipples can be addressed by improving latch technique and applying expressed milk to soothe irritation. Engorgement can be relieved with warm compresses before feeding and cold compresses after.</p>
+        <p>
+            <i>
+    <h2>Mga Problema:</h2>
+    <ul>
+      <li>
+        <h3>Masakit na Nipples</h3>
+        <p><i>Kapag nagsimula ang pagpapasuso, ang mga ina ay maaaring makaranas ng masakit o sensitibong mga utong. Ito ay napakakaraniwan sa unang linggo ng pagpapasuso, at kadalasan ay dahil ang sanggol ay hindi nakakapit (nakadikit) nang maayos sa suso.</i></p>
+      </li>
+      <li>
+        <h3>Pagkainggit</h3>
+        <p><i>Ang pamamaga ay nailalarawan sa pamamagitan ng namamaga, matatag, bukol, at sensitibong mga suso, na humahantong sa kakulangan sa ginhawa at lambot. Bilang karagdagan, ang mga ugat sa mga suso ay maaaring maging kitang-kita. Nangyayari ito dahil sa pagtaas ng daloy ng dugo at produksyon ng gatas, karaniwan sa mga unang araw pagkatapos ng panganganak.</i></p>
+      </li>
+      <li>
+        <h3>Nakabara sa Milk Ducts</h3>
+        <p><i>Ang baradong milk duct (tinatawag ding plugged ducts o blocked ducts) ay nangyayari kapag ang milk duct ay nabara o nakaharang, na pumipigil sa pag-agos ng gatas ng ina sa utong.</i></p>
+        <p><i>Maaaring mabuo ang isang bukol kung saan may bara at ang lugar ay makaramdam ng pananakit.</i></p>
+      </li>
+      <li>
+        <h3>Mababang Supply ng Gatas</h3>
+        <p><i>Ang iyong supply ng gatas ay gatas ng ina na ginagawa upang matugunan ang mga pangangailangan ng iyong sanggol. Maraming mga ina ang nag-aalala tungkol sa kanilang suplay ng gatas sa mga unang yugto ng pagpapasuso.</i></p>
+      </li>
+    </ul>
+
+    <h2>Mga Solusyon:</h2>
+    <ul>
+      <li>
+        <h3>Pagwawasto sa Trangka</h3>
+        <p><i>Ang mabisang pagdikit ay mahalaga sa matagumpay na pagpapasuso dahil pinipigilan nito ang pananakit ng mga utong, tinitiyak ang sapat na suplay ng gatas, at pinasisigla ang maraming produksyon ng gatas.</i></p>
+      </li>
+      <li>
+        <h3>Pagmasahe ng Dibdib</h3>
+        <p><i>Ang masahe ay isang epektibo at mababang panganib na pagpipilian sa paggamot para sa pagtataguyod ng pagtatago ng gatas (Hossain & Rahman, 2021).</i></p>
+        <p><i>Ang reverse pressure softening ay natuklasan ng lactation consultant na si Jean Cotterman nang matuklasan niya na ang paglambot sa areola (ang madilim na bahagi ng iyong suso na nakapalibot sa iyong utong) ay nakatulong sa pag-latch ng sanggol at nadagdagan ang paglipat ng gatas kapag lumaki.</i></p>
+        <p><i>Gumagana ang Reverse Pressure Softening sa pamamagitan ng paggamit ng iyong mga kamay upang ilipat ang likido sa iyong mga suso pabalik, na hinuhubog ang hugis ng iyong dibdib at tinutulungan ang iyong utong na nakausli upang gawing mas madali ang pag-latch at pumping.</i></p>
+        <p><i>Paano gawin ang reverse pressure softening:</i></p>
+        <ul>
+          <li><i>Pindutin ang iyong mga daliri sa paligid ng base ng iyong utong (maaaring gamitin ang anumang kumbinasyon ng daliri)</i></li>
+          <li><i>Mahigpit ngunit malumanay, ilapat ang matatag na presyon</i></li>
+          <li><i>Pagkalipas ng 30 segundo o higit pa, i-drag ang iyong mga daliri palayo sa iyong utong, patuloy na idiin</i></li>
+          <li><i>Ipagpatuloy ang parehong proseso na nagpapalit-palit ng mga posisyon sa paligid ng iyong utong</i></li>
+          <li><i>Ulitin hanggang lumambot ang iyong areola</i></li>
+          <li><i>I-latch ang iyong sanggol o mag-express ng gatas kaagad</i></li>
+        </ul>
+      </li>
+      <li>
+        <h3>Paglalapat ng Warm Compresses</h3>
+        <p><i>Ang mainit na compress bago ang pagpapasuso o pagsipsip ay maaaring mapadali ang paglabas ng gatas mula sa suso.</i></p>
+        <p><i>Mag-breastfeed sa gilid na may barado na milk duct nang madalas tuwing dalawang oras.</i></p>
+        <p><i>Makakatulong ito na maluwag ang plug at panatilihing malayang gumagalaw ang gatas ng ina.</i></p>
+      </li>
+    </ul>
+  </i>
+        </p>
         
-        <div class="photo-placeholder"> <i>Solutions for Common Challenges Illustration (Placeholder)</i>
+      <div class="photo-placeholder">
+        <img src="https://images.squarespace-cdn.com/content/v1/59a1c491bebafbe040f31aa2/1590039068551-PEBZQALLV9QYAEB2EBDH/reverse-pressure-softening.jpg" alt="Nipple Care">
+        <div class="centered-text">
+            <a href="https://milkology.org/content/reverse-pressure-softening" class="infographic-link">Pindotin ito para sa iba pang impormasyon</a>
         </div>
+      </div>
         
-        <p>Low milk supply concerns can often be resolved by increasing feeding frequency, ensuring proper latch, staying well-hydrated, and getting adequate rest. Mastitis symptoms include breast pain, swelling, redness, and flu-like symptoms, requiring prompt medical attention.</p>
-        
-        <div class="infographic-placeholder"> <i>Troubleshooting Guide Infographic (Placeholder)</i>
-        </div>
       </div>
     </div>
 
     <div id="pumping-modal" class="modal">
       <button class="back-button2">Back</button>
       <div class="modal-header">
-        <h2 class="modal-title">Feeding Support</h2>
-        <h3 class="modal-subtitle">Pumping and Storing Breast Milk</h3>
+        <h2 class="modal-title">Pumping and Storing Breast Milk</h2>
+        <h3 class="modal-subtitle"><i>Pagbomba at Pag-iimbak ng Gatas ng Suso</i></h3>
       </div>
       <div class="modal-content">
-        <p>Pumping can help maintain milk supply when you're away from your baby or if you're experiencing difficulties with direct breastfeeding. Electric pumps are efficient for regular use, while manual pumps are portable and quieter.</p>
+        <p>
+            <i>
+    <p><i>Ang breast pumping ay ipinahiwatig kapag ang isang ina ay hiwalay sa kanyang sanggol, kailangan na magtatag o magpanatili ng supply ng gatas, mapawi ang paglaki, tugunan ang latch o paghihirap sa pagsuso, pamahalaan ang patag o baligtad na mga utong, mag-imbak ng gatas para magamit sa hinaharap, pansamantalang ihinto ang pagpapasuso dahil sa mga gamot, feed multiple, o mas gusto ang eksklusibong pumping.</i></p>
+
+    <h2><i>1. Paano ilabas ang gatas ng ina sa pamamagitan ng kamay</i></h2>
+    <ul>
+      <li><i>Masusing kalinisan ng kamay.</i></li>
+      <li><i>Umupo o tumayo nang kumportable at hawakan ang lalagyan malapit sa kanyang dibdib.</i></li>
+      <li><i>Inilalagay ang kanyang hinlalaki sa kanyang dibdib sa itaas ng utong at areola, at ang kanyang unang daliri o unang dalawang daliri sa dibdib sa ibaba ng utong at areola, sa tapat ng hinlalaki. Sinusuportahan niya ang dibdib gamit ang iba pang mga daliri.</i></li>
+      <li><i>Pinindot nang bahagya ang kanyang hinlalaki at unang daliri o unang dalawang daliri papasok patungo sa dingding ng dibdib. Dapat niyang iwasan ang pagpindot nang napakalayo, o maaari niyang harangan ang mga daluyan ng gatas.</i></li>
+      <li><i>Idiniin ang kanyang dibdib sa likod ng utong at areola sa pagitan ng kanyang unang daliri o unang dalawang daliri at hinlalaki. Dapat niyang pindutin ang mas malalaking duct sa ilalim ng areola. Minsan sa isang lactating na suso, posibleng maramdaman ang mga duct. Ang mga ito ay tulad ng mga pods, o mani. Kung nararamdaman niya ang mga ito, maaari niyang pindutin ang mga ito.</i></li>
+      <li><i>Pindutin at bitawan, pindutin at bitawan. Kung masakit, mali ang pamamaraan. Sa una ay walang gatas na maaaring dumating, pagkatapos ay ang gatas ay nagsisimulang tumulo. Maaari itong dumaloy sa mga batis kung aktibo ang oxytocin reflex.</i></li>
+      <li><i>Pindutin sa parehong paraan mula sa mga gilid, upang matiyak na ang gatas ay ipinalabas mula sa lahat ng mga bahagi ng dibdib.</i></li>
+      <li><i>Iwasang kuskusin o i-slide ang kanyang mga daliri sa balat. Ang paggalaw ng mga daliri ay dapat na mas katulad ng pag-ikot.</i></li>
+      <li><i>Iwasan ang pagpisil malapit sa nipple press sa likod nito. Ang pagpindot o paghila sa mismong utong ay hindi makapaglalabas ng gatas. Ito ay katulad ng pagsipsip lamang ng sanggol sa utong.</i></li>
+      <li><i>Ilabas ang isang dibdib nang hindi bababa sa tatlo hanggang limang minuto hanggang sa bumagal ang daloy; pagkatapos ay ipahayag ang kabilang panig; at pagkatapos ay ulitin ang magkabilang panig. Maaari niyang gamitin ang alinmang kamay para sa alinmang dibdib o magpalit kapag sila ay napapagod.</i></li>
+      <li><i>Ipaliwanag na ang sapat na pagpapalabas ng gatas ng ina ay tumatagal ng 20-30 minuto, lalo na sa mga unang araw kung kailan kakaunti lamang ang gatas na maaaring makuha. Mahalagang huwag subukang ipahayag sa mas maikling panahon.</i></li>
+    </ul>
+
+    <h2><i>Paano Maghanda ng lalagyan para sa pinalabas na gatas ng ina</i></h2>
+    <ul>
+      <li><i>Pumili ng isang maliit na tasa, pitsel o garapon na may malawak na bibig.</i></li>
+      <li><i>Hugasan ang tasa sa sabon at tubig.</i></li>
+      <li><i>Ibuhos ang tubig na kumukulo sa tasa at iwanan ito ng ilang minuto.</i></li>
+      <li><i>Kapag handa nang maglabas ng gatas, ibuhos ang tubig mula sa tasa.</i></li>
+      <li><i>Gumamit ng isang maliit na hiringgilya (nang walang karayom) o isang kutsara kung ang colostrum ay ipinalabas. Kung ang isang ina ay makakapagpahayag lamang ng ilang patak, maaaring mahirap itong kolektahin sa isang tasa. Maaaring kolektahin ito ng isang katulong gamit ang isang syringe nang direkta mula sa utong at maaari itong ibigay sa sanggol nang direkta mula sa hiringgilya.</i></li>
+    </ul>
+
+    <h2><i>2. Tinatayang Dami ng Gatas ng Suso na Kailangan ayon sa Edad</i></h2>
+    <ul>
+      <li>
+        <i>Bagong panganak (0–5 araw):</i>
+        <ul>
+          <li><i>Bawat pagpapakain: 5–15 mL (1–3 kutsarita)</i></li>
+          <li><i>Kabuuan bawat araw: ~30–60 mL (Araw -1), tumataas sa 300–500 mL sa Ika-5 Araw</i></li>
+        </ul>
+      </li>
+      <li>
+        <i>1 hanggang 6 na Buwan:</i>
+        <ul>
+          <li><i>Bawat pagpapakain: 60–120 mL (2–4 oz)</i></li>
+          <li><i>Kabuuan bawat araw: 750–900 mL (25–30 oz)</i></li>
+        </ul>
+      </li>
+      <li>
+        <i>6 hanggang 12 Buwan (may solidong pagkain):</i>
+        <ul>
+          <li><i>Bawat pagpapakain: 90–150 mL (3–5 oz)</i></li>
+          <li><i>Kabuuan bawat araw: 600–800 mL (20–27 oz), unti-unting bumababa sa solidong paggamit</i></li>
+        </ul>
+      </li>
+    </ul>
+    <p><i>Tip: Mag-imbak ng gatas sa maliliit na bahagi (60–120 mL) upang mabawasan ang basura at bigyang-daan ang flexibility para sa mga pangangailangan sa pagpapakain.</i></p>
+
+    <h2><i>3. Mga Alituntunin sa Pag-iimbak ng Gatas ng Ina</i></h2>
+    <ul>
+      <li>
+        <i>Mga Lalagyan ng Imbakan:</i>
+        <ul>
+          <li><i>Gumamit ng malinis, walang BPA, food-grade na lalagyan na may masikip na takip.</i></li>
+        </ul>
+      </li>
+      <li>
+        <i>Tagal ng Storage:</i>
+        <ul>
+          <li><i>Temperatura ng Kwarto (hanggang 25°C): Hanggang 4 na oras</i></li>
+          <li><i>Refrigerator (4°C o mas mababa): Hanggang 3 araw</i></li>
+          <li><i>Freezer (-18°C o mas mababa): Hanggang 6 na buwan</i></li>
+        </ul>
+      </li>
+      <li>
+        <i>Pag-label:</i>
+        <ul>
+          <li><i>Lagyan ng label ang bawat lalagyan ng petsa at oras ng pagpapahayag.</i></li>
+          <li><i>Palaging gamitin muna ang pinakamatandang gatas (“first in, first out” method).</i></li>
+        </ul>
+      </li>
+      <li>
+        <i>Pagtunaw ng Frozen na Gatas:</i>
+        <ul>
+          <li><i>I-thaw sa refrigerator magdamag o sa isang mangkok ng maligamgam na tubig.</i></li>
+          <li><i>Huwag kailanman i-refreeze ang lasaw na gatas.</i></li>
+          <li><i>Gumamit ng lasaw na gatas sa loob ng 24 na oras.</i></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2><i>4. Mga Tip sa Kalinisan at Pangkaligtasan</i></h2>
+    <ul>
+      <li><i>Maghugas ng kamay bago maglabas o humawak ng gatas.</i></li>
+      <li><i>I-sterilize ang kagamitan at lalagyan pagkatapos ng bawat paggamit.</i></li>
+      <li><i>Iwasan ang pag-microwave ng gatas ng ina—gumamit ng maligamgam na tubig na paliguan sa halip upang mapanatili ang mga sustansya at maiwasan ang mga hot spot.</i></li>
+    </ul>
+  </i>
+        </p>
         
-        <div class="photo-placeholder"> <i>Pumping Equipment Guide Illustration (Placeholder)</i>
+      <div class="photo-placeholder">
+        <embed src="https://www.cdc.gov/breastfeeding/pdf/preparation-of-breast-milk_H.pdf" width="500" height="375" 
+                        type="application/pdf">
+        <div class="centered-text">
+            <a href="https://www.cdc.gov/breastfeeding/breast-milk-preparation-and-storage/handling-breastmilk.html" class="infographic-link">Pindotin ito para sa iba pang impormasyon</a>
         </div>
-        
-        <p>Freshly expressed milk can be stored at room temperature for up to 4 hours, in the refrigerator for up to 4 days, and in the freezer for 6-12 months. Always use clean containers designed for milk storage and label them with the date.</p>
-        
-        <div class="infographic-placeholder"> <i>Breast Milk Storage Guidelines Infographic (Placeholder)</i>
-        </div>
+      </div>
+
       </div>
     </div>
 
     <div id="formula-modal" class="modal">
       <button class="back-button2">Back</button>
       <div class="modal-header">
-        <h2 class="modal-title">Feeding Support</h2>
-        <h3 class="modal-subtitle">Tips for Mixed or Formula Feeding</h3>
+        <h2 class="modal-title">Tips for Mixed or Formula Feeding</h2>
+        <h3 class="modal-subtitle"><i>Mga Tip para sa Mixed o Formula Feeding</i></h3>
       </div>
       <div class="modal-content">
-        <p>Formula feeding or combining breast milk and formula can be a good option for many families. When preparing formula, always wash your hands thoroughly, use clean bottles and nipples, and follow the manufacturer's instructions for mixing ratios.</p>
+        <p>
+           <i>
+    <ul>
+      <li>
+        <h3><i>1. Piliin ang Tamang Formula</i></h3>
+        <p><i>Gumamit ng iron-fortified infant formula na partikular na idinisenyo para sa mga sanggol na wala pang 12 buwan. Iwasan ang gatas ng baka, mga inuming pambata, o mga pormula sa bahay, dahil maaaring kulang ang mga ito ng mahahalagang sustansya.</i></p>
+      </li>
+      <li>
+        <h3><i>2. Magsanay ng Responsive Feeding</i></h3>
+        <p><i>Pakainin ang iyong sanggol nang dahan-dahan at matiyaga. Hikayatin silang kumain ngunit huwag pilitin. Makipag-ugnayan sa iyong sanggol habang nagpapakain sa pamamagitan ng pakikipag-usap at pagpapanatili ng pakikipag-ugnay sa mata.</i></p>
+      </li>
+      <li>
+        <h3><i>3. Tiyakin ang Ligtas na Paghahanda at Kalinisan</i></h3>
+        <ul>
+          <li><i>Palaging hugasan ang iyong mga kamay bago maghanda ng formula.</i></li>
+          <li><i>Gumamit ng malinis, isterilisadong bote at utong.</i></li>
+          <li><i>Maghanda ng formula ayon sa mga tagubilin ng tagagawa.</i></li>
+          <li><i>Itapon ang anumang natitirang formula pagkatapos ng pagpapakain upang maiwasan ang paglaki ng bacterial.</i></li>
+        </ul>
+      </li>
+      <li>
+        <h3><i>4. Subaybayan ang Mga Halaga ng Pagpapakain</i></h3>
+        <ul>
+          <li><i>Mga bagong silang (0-2 linggo): Magsimula sa 30-60 mL (1-2 oz) bawat pagpapakain tuwing 2-3 oras.</i></li>
+          <li><i>2-4 na buwan: Taasan sa 120-180 mL (4-6 oz) bawat pagpapakain tuwing 3-4 na oras.</i></li>
+          <li><i>4-6 na buwan: Mag-alok ng 180-210 mL (6-7 oz) bawat pagpapakain, 4-5 beses sa isang araw.</i></li>
+        </ul>
+        <p><i>Ayusin ang mga halaga batay sa mga pahiwatig ng gutom at mga pattern ng paglaki ng iyong sanggol.</i></p>
+      </li>
+      <li>
+        <h3><i>5. Ipakilala ang Mga Komplementaryong Pagkain sa 6 na Buwan</i></h3>
+        <p><i>Magsimula sa maliit na halaga ng mga pagkaing mayaman sa sustansya habang nagpapatuloy sa pagpapakain ng formula.</i></p>
+        <p><i>Unti-unting dagdagan ang pagkakaiba-iba at dami ng mga pagkain habang lumalaki ang iyong sanggol.</i></p>
+      </li>
+      <li>
+        <h3><i>6. Iwasan ang Ilang Mga Pagkain at Gawi</i></h3>
+        <ul>
+          <li><i>Huwag magdagdag ng mga cereal o iba pang solid sa bote.</i></li>
+          <li><i>Iwasan ang pagbibigay ng pulot sa mga sanggol na wala pang 12 buwan dahil sa panganib ng botulism.</i></li>
+          <li><i>Limitahan o iwasan ang mga matatamis na inumin at mga pagkaing naproseso</i></li>
+        </ul>
+      </li>
+    </ul>
+  </i>
+        </p>
         
-        <div class="photo-placeholder"> <i>Formula Preparation Guide Illustration (Placeholder)</i>
+      <div class="photo-placeholder">
+        <embed src="https://www.cdc.gov/nutrition/downloads/prepare-store-powered-infant-formula-508.pdf" width="500" height="575" 
+                        type="application/pdf">
+        <div class="centered-text">
+            <a href="https://www.cdc.gov/nutrition/downloads/prepare-store-powered-infant-formula-508.pdf" class="infographic-link">Pindotin ito para sa iba pang impormasyon</a>
         </div>
-        
-        <p>If you're combining breast and formula feeding, it's often helpful to establish breastfeeding first before introducing bottles. This can help prevent nipple confusion and ensure your milk supply develops properly.</p>
-        
-        <div class="infographic-placeholder"> <i>Mixed Feeding Schedule Infographic (Placeholder)</i>
-        </div>
+       </div>
+
       </div>
     </div>
 

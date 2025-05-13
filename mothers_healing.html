@@ -62,7 +62,7 @@
     padding: 20px;
     position: relative;
     z-index: 1;
-    flex-grow: 1; /* Ensure overlay takes available space */
+    flex-grow: 1; 
   }
   
   .gradient-overlay-bottom {
@@ -81,7 +81,7 @@
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    padding: 20px; /* Default padding */
+    padding: 20px; 
     position: relative;
     z-index: 2;
   }
@@ -104,7 +104,7 @@
     font-family: cursive;
     margin-bottom: 30px;
     text-align: center;
-    margin: 0; /* Reset margin if margin-bottom is primary spacing */
+    margin: 0; 
     text-transform: uppercase;
 }
   .title-underline {
@@ -121,11 +121,11 @@
     gap: 10px;
   }
 
-  @media (max-width: 576px) { /* Covers iPad portrait and smaller mobiles */
+  @media (max-width: 576px) { 
     .container {
-        padding: 10px; /* Reduced padding for smaller screens */
+        padding: 10px; 
     }
-    .overlay { /* Reduce overlay padding on smaller screens */
+    .overlay { 
         padding: 10px;
     }
   }
@@ -158,8 +158,8 @@
   }
   
   .plus-icon {
-    color: var(--light-text); /* This color is white, it might be hard to see on light yellow bg */
-                               /* Consider changing to var(--primary-magenta) or var(--primary-green) for better visibility */
+    color: var(--light-text); 
+                               
     font-size: 24px;
     font-weight: bold;
   }
@@ -177,9 +177,9 @@
     overflow-y: auto;
 }
 
-@media (max-width: 567px) { /* Specific adjustments for very small screens like 360px width */
+@media (max-width: 567px) { 
     .modal {
-        padding: 0; /* Modal itself takes full screen */
+        padding: 0; 
         background: linear-gradient(to bottom, rgb(255, 194, 194) 90%, rgba(255,205,210,0.85) 120%);
         min-width: 100vw;
         min-height: 100vh;
@@ -191,7 +191,7 @@
     padding: 20px;
   }
   
-  .modal-title { /* Used in template modal */
+  .modal-title { 
     color: var(--primary-green);
     font-size: 24px;
     text-transform: uppercase;
@@ -199,8 +199,8 @@
     margin: 0;
   }
   
-  .modal-subtitle { /* Used in actual topic modals */
-    color: var(--primary-magenta); /* Changed from green to magenta to match screenshot if intended */
+  .modal-subtitle { 
+    color: var(--primary-magenta); 
     font-size: 25px;
     margin: 15px 0;
     text-transform: uppercase;
@@ -209,7 +209,7 @@
   
   .modal-content {
     padding: 20px;
-    line-height: 1.6; /* Good default line height */
+    line-height: 1.6; 
   }
   
   .modal-content p {
@@ -225,20 +225,20 @@
   }
   .photo-placeholder {
     width: 100%;
-    height: 500px; /* Default height */
-    background-color: #ffceda; /* Default background */
+    height: 500px; 
+    background-color: #ffceda; 
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ffc9df; /* Default text color */
+    color: #ffc9df; 
     font-size: 20px;
-    margin: 15px 0; /* Default margin */
+    margin: 15px 0; 
   }
   .infographic-placeholder {
     width: 100%;
-    /* height: auto; /* Default height, will be overridden by media query */
+    
     background-color: #ffcad4;
-    border: 2px; /* This likely needs a style and color e.g., border: 2px solid #color; */
+    border: 2px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -246,59 +246,45 @@
     color: #f9b1e4;
     margin: 20px 0;
     overflow: hidden;
-    padding: 20px; /* Padding for the placeholder itself */
+    padding: 20px; 
 }
 .infographic-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* overflow-x: hidden; /* Already on placeholder */
-    /* overflow-y: auto; /* Should allow scrolling if content exceeds placeholder height */
-    /* padding: 20px 0; /* This padding is on the wrapper, inside the placeholder */
-    /* border: hidden; /* This is equivalent to border: none; */
-    height: 100%; /* Make wrapper take full height of placeholder */
+    
+    
+    
+    
+    height: 100%; 
   }
   
   .infographic-wrapper img {
-    /* max-width: 50%; /* This is likely too small and overridden by inline styles */
-    max-width: 100%; /* Allow image to be wider if not for inline style */
-    height: auto;   /* Allow image to scale with aspect ratio if not for inline style */
+    
+    max-width: 100%; 
+    height: auto;   
     display: block;
-    /* Inline styles in HTML (width: 100%; height: 100%; object-fit: cover;) will take precedence. */
-    /* The inline styles will make the image fill the placeholder and crop. */
+    
+    
   }
 
-@media (max-width: 768px) { /* Applied for tablets and large phones */
+@media (max-width: 768px) { 
     .infographic-placeholder {
-        height: 250px; /* Fixed height for infographic area */
+        height: 250px; 
         font-size: 16px;
         margin: 15px 0;
-        padding: 10px; /* Adjust padding for placeholder */
+        padding: 10px; 
     }
-    .photo-placeholder { /* For videos/images */
+    .photo-placeholder { 
         width: 100%;
-        height: 200px; /* Fixed height for video/photo area */
-        /* background-color: #e0e0e0; /* Overrides default if uncommented */
-        /* color: #757575; /* Overrides default if uncommented */
-        font-size: 20px; /* Keep or adjust as needed */
-        margin: 20px 0; /* Reduced margin from 80px for better spacing */
+        height: 200px; 
+        
+        
+        font-size: 20px; 
+        margin: 20px 0; 
     }
 }
-  /* This rule was duplicated, consolidating */
-  /* @media (max-width: 768px) {
-    .photo-placeholder {
-        width: 100%;
-        height: 200px;
-        background-color: #e0e0e0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #757575;
-        font-size: 20px;
-        margin: 80px 0; 
-    }
-  } */
 
   .back-button, .back-button2 {
     background-color: #f9e7f0;
@@ -312,7 +298,7 @@
     transition: all 0.2s;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
   }
-  .back-button { /* Main page back button */
+  .back-button { 
     position: absolute;
     top: 20px;
     left: 90%; 
@@ -323,30 +309,27 @@
   }
   
   
-  .modal .back-button2 { /* Modal back button */
+  .modal .back-button2 { 
     position: absolute;
     top: 20px;
-    left: 90%; /* Will be overridden by media query below */
-    z-index: 1001; /* Ensure it's above modal header content if overlapping */
+    left: 90%; 
+    z-index: 1001; 
   }
   
-  @media (max-width: 567px) { /* Further adjustments for very small screens */
-    .back-button, .modal .back-button2 { /* Combined rule for both back buttons */
+  @media (max-width: 567px) { 
+    .back-button, .modal .back-button2 { 
       font-size: 1rem;
-      padding: 0.35rem 1rem; /* Slightly smaller padding */
-      top: 15px; /* Adjust position slightly */
+      padding: 0.35rem 1rem; 
+      top: 15px; 
       right: 15px; 
-      left: auto; /* Important to override previous 'left: 90%' */
-    }
-    .modal .back-button2 {
-        /* z-index: 1001; /* Already set */
+      left: auto; 
     }
   }
 
-  /* ------------- NEW STYLES FOR 360PX COMPATIBILITY ------------- */
-  @media (max-width: 400px) { /* Targeting 360px width and similar */
+  
+  @media (max-width: 400px) { 
     .page-title {
-        font-size: 28px; /* Further reduce from 45px */
+        font-size: 28px; 
         margin-bottom: 15px;
         line-height: 1.2;
     }
@@ -356,7 +339,7 @@
     }
 
     .topics-container {
-        padding: 10px 5px; /* Reduce horizontal padding */
+        padding: 10px 5px; 
     }
 
     .topic-button {
@@ -364,65 +347,65 @@
     }
 
     .topic-button h3 {
-        font-size: 0.8rem; /* Approx 12.8px, was 16px */
+        font-size: 0.8rem; 
     }
 
     .plus-icon {
-        font-size: 18px; /* Was 24px */
-    }
-
-    .modal-header {
-        padding: 10px; /* Reduce padding */
-    }
-
-    .modal .modal-title { /* For template modal */
         font-size: 18px; 
     }
 
-    .modal-subtitle { /* For actual modals */
-        font-size: 1rem; /* Approx 16px, was 25px */
+    .modal-header {
+        padding: 10px; 
+    }
+
+    .modal .modal-title { 
+        font-size: 18px; 
+    }
+
+    .modal-subtitle { 
+        font-size: 1rem; 
         margin: 10px 0;
     }
 
     .modal-content {
-        padding: 10px; /* Further reduce padding */
+        padding: 10px; 
     }
 
     .modal-content p,
     .modal-content li,
-    .modal-content em, /* Target emphasis tag too */
-    .modal-content i {  /* Target italic tag too */
-        font-size: 0.8rem; /* Approx 12.8px, was 18px for p */
-        /* line-height: 1.5; /* Good for readability, inherits 1.6 from .modal-content */
+    .modal-content em, 
+    .modal-content i {  
+        font-size: 0.8rem; 
+        
     }
     
-    .modal-content h2 { /* e.g., "Lochia" */
-        font-size: 0.95rem; /* Approx 15.2px */
+    .modal-content h2 { 
+        font-size: 0.95rem; 
         margin-top: 12px;
         margin-bottom: 5px;
     }
     
     .modal-content ul {
-        padding-left: 18px; /* Adjust list indentation */
+        padding-left: 18px; 
         margin-bottom: 8px;
     }
 
     .video-row {
-        flex-direction: column; /* Stack videos */
+        flex-direction: column; 
         gap: 10px; 
     }
 
     .video-row .photo-placeholder {
-        margin: 10px 0; /* Adjusted margin for stacked videos */
-        height: 180px; /* Adjust height if 200px from 768px query is too tall */
+        margin: 10px 0; 
+        height: 180px; 
     }
     
-    .modal-header > .photo-placeholder { /* Single video placeholder */
+    .modal-header > .photo-placeholder { 
          margin: 10px 0;
-         height: 180px; /* Consistent height */
+         height: 180px; 
     }
 
-    /* Ensure iframes fill their container (photo-placeholder) */
+    
     .modal iframe {
         width: 100% !important; 
         height: 100% !important;
@@ -430,25 +413,25 @@
     }
 
     .infographic-placeholder {
-         height: 180px; /* Adjust height from 250px (768px query) or 220px */
+         height: 180px; 
          margin: 10px 0;
-         padding: 5px; /* Reduce padding of the placeholder */
+         padding: 5px; 
     }
 
-    /* References section on main page */
+    
     .container > h2 { 
-        font-size: 1rem; /* Approx 16px */
+        font-size: 1rem; 
         margin-top: 15px;
         margin-bottom: 5px;
     }
-    .container > p { /* Paragraph containing reference links */
+    .container > p { 
         word-break: break-word; 
-        font-size: 0.7rem; /* Approx 11.2px, make them small but readable */
+        font-size: 0.7rem; 
         line-height: 1.4;
-        text-align: left; /* Ensure left alignment for readability */
+        text-align: left; 
     }
   }
-  /* ------------- END OF NEW STYLES FOR 360PX COMPATIBILITY ------------- */
+  
 
 </style>
 </head>
