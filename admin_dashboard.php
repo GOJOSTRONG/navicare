@@ -286,7 +286,6 @@ if ($userGender == 'male') {
                     <option value="not_specified" <?php if($userType == 'not_specified') echo 'selected'; ?>>Not Specified</option>
                     <option value="student" <?php if($userType == 'student') echo 'selected'; ?>>Student</option>
                     <option value="faculty" <?php if($userType == 'faculty') echo 'selected'; ?>>Faculty</option>
-                    <option value="admin" <?php if($userType == 'admin') echo 'selected'; ?>>Admin</option>
                 </select>
             </div>
             <div class="setting-item">

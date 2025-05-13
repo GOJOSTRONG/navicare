@@ -5,7 +5,6 @@ session_start();
 // Set content type to JSON for the response
 header('Content-Type: application/json');
 
-// Database connection details (same as your registration script)
 $host = 'localhost';
 $db   = 'navicare';
 $user = 'root';
@@ -50,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve and validate user_type
     $newUserType = $_POST['user_type'] ?? null;
     // Ensure these values match your ENUM definition in the 'users' table
-    $allowedUserTypes = ['student', 'faculty', 'admin', 'not_specified'];
+    $allowedUserTypes = ['student', 'faculty'];
     if ($newUserType === null || !in_array($newUserType, $allowedUserTypes, true)) {
         $response['message'] = 'Invalid or missing user type value provided.';
         echo json_encode($response);
@@ -98,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     $response['message'] = 'Invalid request method.';
+    //yogg talaka
 }
 
 // Send the JSON response
