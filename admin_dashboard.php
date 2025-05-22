@@ -244,12 +244,12 @@ if ($userGender == 'male') {
       <div class="select service">
         <p class="select-service">How can we help? </p>
         <div class="service-types">
-          <a href="res/nav_for_wvsu.html" class="Navigate-Hospital">
+          <a href="navigateStudent.html" class="Navigate-Hospital">
             <img src="res/nav_for_wvsu.png" alt="Navigate Hospital Button">
             <p>Navigate WVSU Affiliated Hospitals</p>
           </a>
-          <a href="care_for_your_health.html" class="Care-for-Your-Health">
-            <img src="res/guest_icon .png" alt="Care for Your Health Button">
+          <a href="Nurselabs-main/NurseHub/MainTab/MainTab.html" class="Care-for-Your-Health">
+            <img src="res/guest_icon .png" alt="Learn Nursing Care Button">
             <p>Learn Nursing Care </p>
           </a>
         </div>

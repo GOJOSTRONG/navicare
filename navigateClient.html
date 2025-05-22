@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>navigait</title>
+
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <link rel="stylesheet" href="style.css">
+
+
+
+  <style>
+    /* FONTS */
+    @font-face {
+      font-family: 'Glacial Indifference';
+      src: url('fonts/glacial-indifference.regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Glacial Indifference';
+      src: url('fonts/glacial-indifference.bold.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+
+
+    /*BACKGROUND*/
+
+    body {
+      margin: 0;
+      background-color: pink;
+      display: flex;
+      justify-content: center;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 1920px;
+      min-height: 100vh;
+      max-height: 100vh;
+      position: relative;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      background:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5)),
+        linear-gradient(to top, #e93772, rgba(255, 255, 255, 0)),
+        url('res/school_bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /*CARDS*/
+
+    .scrollableSection {
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      padding-top: 20px;
+    }
+
+    .scrollableSection::-webkit-scrollbar {
+      display: none;
+    }
+
+    .buttonCard {
+      width: 90%;
+      max-width: 500px;
+      background-color: #fef9e5;
+      color: #8a004f;
+      border: 1px solid #2d9900;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin: 10px 0;
+      margin-left: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease-out forwards;
+      animation-delay: var(--fade-delay, 0s);
+    }
+
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+
+    .buttonCard:hover {
+      transform: scale(1.01);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .buttonCard img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-right: 20px;
+      border: 2px solid #a8d58d;
+    }
+
+    .textContent {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .placeName {
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Glacial Indifference';
+      color: #a1004f;
+      margin-bottom: 8px;
+    }
+
+    .placeDescription {
+      font-size: 14px;
+      font-family: 'Glacial Indifference';
+      color: #6c0042;
+      opacity: 0.85;
+    }
+
+
+    #map {
+      width: 90%;
+      max-width: 700px;
+      height: 400px;
+      margin: 20px 0;
+      border: 2px;
+      border-radius: 10px;
+    }
+
+    /* MAP */
+    .map-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      height: 70vh;
+      max-width: 600px;
+      max-height: 80vh;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      overflow: hidden;
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+    .map-popup.hidden {
+      display: none;
+    }
+
+    .map-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    .map-toggle-btn {
+      position: fixed;
+      bottom: clamp(10px, 5vw, 20px);
+      right: clamp(10px, 5vw, 20px);
+      width: clamp(40px, 12vw, 50px);
+      height: clamp(40px, 12vw, 50px);
+      z-index: 1100;
+      cursor: pointer;
+      border-radius: 20%;
+      background-color: #4CAF50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .map-toggle-btn::before {
+      content: '\1F5FA';
+      font-size: 24px;
+      color: white;
+    }
+
+    .map-toggle-btn.highlight {
+      background-color: #ffcc00;
+      border: 2px solid #ff9900;
+      box-shadow: 0 2px 8px rgba(255, 165, 0, 0.6);
+      transform: scale(1.7);
+      transition: all 0.3s ease;
+    }
+
+    @media screen and (max-width: 600px) {
+      .map-popup {
+        width: 95vw;
+        height: 65vh;
+        border-radius: 10px;
+      }
+
+      #map {
+        border-radius: 8px;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .map-popup {
+        width: 98vw;
+        height: 60vh;
+        border-radius: 8px;
+      }
+    }
+
+    /*Hospital Infos*/
+
+    .info-popup {
+      font-family: 'Glacial Indifference';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 500px;
+      background-color: #fef9e5;
+      border-radius: 20px;
+      padding: 15px;
+      z-index: 2000;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      overflow-y: auto;
+      max-height: 85vh;
+      border: 1px solid #2d9900;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      opacity: 1;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .info-popup::-webkit-scrollbar {
+      display: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-popup.hidden {
+      opacity: 0;
+      transform: translate(-50%, -45%);
+      pointer-events: none;
+      display: block !important;
+    }
+
+    .info-header {
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .welcome-image-container {
+      width: calc(100% + 30px);
+      height: auto;
+      max-height: 160px;
+      overflow: hidden;
+      border-radius: 20px 20px 0 0;
+      margin: -15px -15px 0 -15px;
+      position: relative;
+    }
+
+    .popup-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hospital-title {
+      font-family: 'Glacial Indifference';
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: bold;
+      color: #b81e63;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    .about-section {
+      font-family: 'Glacial Indifference';
+      margin-top: 15px;
+    }
+
+    .about-title {
+      font-family: 'Glacial Indifference';
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #b81e63;
+    }
+
+    .about-description {
+      font-family: 'Glacial Indifference';
+      background-color: transparent;
+      color: #b81e63;
+      padding: 10px;
+      border-radius: 20px;
+      font-size: clamp(14px, 3.5vw, 16px);
+    }
+
+    .services-section {
+      font-family: 'Glacial Indifference';
+      margin-top: 15px;
+    }
+
+    .about-title,
+    .services-title {
+      font-family: 'Glacial Indifference';
+      font-size: clamp(16px, 4.5vw, 20px);
+      font-family: 'Glacial Indifference', sans-serif;
+      font-style: italic;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .service-btn {
+      background-color: #cb4d7a;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      width: 100%;
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: clamp(14px, 3.5vw, 16px);
+      transition: background-color 0.3s ease;
+      border-radius: 20px;
+    }
+
+    .service-btn.active {
+      background-color: rgb(48, 158, 48);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .arrow {
+      font-size: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .service-description {
+      font-family: 'Glacial Indifference';
+      background-color: rgb(48, 158, 48);
+      color: white;
+      padding: 0;
+      border-radius: 0 0 20px 20px;
+      margin-bottom: 8px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+      font-size: clamp(13px, 3.5vw, 15px);
+    }
+
+    .service-description.active {
+      max-height: 2000px;
+      opacity: 1;
+      padding: 8px 10px;
+      overflow-y: auto;
+    }
+
+    .service-description ul {
+      font-family: 'Glacial Indifference';
+      margin: 0.5em 0;
+      padding-left: 2em;
+    }
+
+    .service-description li {
+      font-family: 'Glacial Indifference';
+      margin-bottom: 0.25em;
+    }
+
+    .service-description p {
+      font-family: 'Glacial Indifference';
+      margin: 0.75em 0;
+    }
+
+    .service-description strong {
+      font-family: 'Glacial Indifference';
+      display: inline-block;
+      margin-top: 0.75em;
+    }
+
+    .service-description p strong {
+      font-family: 'Glacial Indifference';
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    /* service group container to keep button and description together */
+    .service-group {
+      margin-bottom: 8px;
+    }
+
+    .service-group:last-child {
+      margin-bottom: 0;
+    }
+
+    /* different screen sizes */
+    @media screen and (max-width: 480px) {
+      .info-popup {
+        width: 95%;
+        padding: 12px;
+        border-radius: 15px;
+        max-height: 80vh;
+      }
+
+      .welcome-image-container {
+        width: calc(100% + 24px);
+        max-height: 120px;
+        margin: -12px -12px 0 -12px;
+        border-radius: 15px 15px 0 0;
+      }
+
+      .close-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 14px;
+        top: 8px;
+        right: 10px;
+      }
+
+      .service-btn {
+        padding: 6px 10px;
+      }
+
+      .service-description.active {
+        padding: 6px 10px;
+      }
+
+      .service-group {
+        margin-bottom: 6px;
+      }
+    }
+
+    /* screens */
+    @media screen and (max-width: 320px) {
+      .info-popup {
+        width: 98%;
+        padding: 10px;
+        border-radius: 12px;
+      }
+
+      .welcome-image-container {
+        width: calc(100% + 20px);
+        max-height: 100px;
+        margin: -10px -10px 0 -10px;
+        border-radius: 12px 12px 0 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cards = document.querySelectorAll('.buttonCard');
+      cards.forEach((card, index) => {
+        card.style.setProperty('--fade-delay', `${index * 0.1}s`);
+      });
+    });
+  </script>
+
+  <div class="content">
+    <div id="mapPopup" class="map-popup hidden">
+      <div id="map" class="map-container"></div>
+    </div>
+
+    <button class="back-button" onclick="backToGuestLogin()">Back</button>
+
+    <img src="Navigate/Images/MapIcon.jpeg" alt="Toggle Map" class="map-toggle-btn" onclick="toggleMapPopup()">
+    <div class="scrollableSection">
+      <button class="buttonCard" onclick="showMap(0); showHospitalInfo(0);">
+        <img src="Navigate/Images/DoneJose.jpg" alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">DON JOSE S. MONFORT MEDICAL CENTER</div>
+          <div class="placeDescription">A government hospital in Barotac Nuevo, Iloilo offering secondary healthcare
+            services with emergency, surgical, and outpatient care.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(1); showHospitalInfo(1);">
+        <img src="Navigate/Images/RamonD.jpg" alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">RAMON D. DUREMDES DISCTRICT HOSPITAL</div>
+          <div class="placeDescription">Located in Dumangas, Iloilo, this district hospital provides basic medical,
+            surgical, and maternity services to sorrounding communities.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(2); showHospitalInfo(2);">
+        <img src="https://lh5.googleusercontent.com/p/AF1QipNyCH7pUfMm4DRwCYOS0yLvPAspG207boiQ_ltD=w800-h500-k-no"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">WESTERN VISAYAS MEDICAL CENTER</div>
+          <div class="placeDescription">A tertiary goverment hospital in Iloilo City with advanced medical services,
+            specialty departments, and training programs for health.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(3); showHospitalInfo(3);">
+        <img
+          src="https://dailyguardian.com.ph/wp-content/uploads/2023/10/West-Visayas-State-University-Medical-Center.jpg"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">WEST VISAYAS STATE UNVERSITY MEDICAL CENTER</div>
+          <div class="placeDescription">Located in Jaro, Iloilo City, WVSUMC is a tertiary-level teaching hospital
+            providing comprehensive medical services and serves as a training ground for medical and allied health
+            students.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(4); showHospitalInfo(4);">
+        <img src="https://iloilo.gov.ph/sites/default/files/inline-images/ALEOSAN-hosp-Building.jpg"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">ALEOSAN DISTRICT HOSPITAL</div>
+          <div class="placeDescription">Situated in Barangay Bancal, Alimodian, Aleosan District Hospital serves with
+            general surgery, OB-Gyne, pediatrics, and diagnostic services. </div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(5); showHospitalInfo(5);">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3eoru7UHoZh63UFvR-Mf3uaBjh4h33mWXZw&s"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">REP. PEDRO G. TRONO MEMORIAL HOSPITAL</div>
+          <div class="placeDescription">A district hospital in Guimbal, Iloilo providing essential healthcare services
+            including pediatrics, OB-GYN, and emergency care.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(6); showHospitalInfo(6);">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrcQSMAfjeWXlf14ZJSqod8jsmY3na29Y-ng&s"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">ILOILO PROVINCIAL HOSPITAL</div>
+          <div class="placeDescription">A government-run Level II hospital in Pototan, Iloilo, providing essential
+            medical services to the province and nearby areas.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(7); showHospitalInfo(7);">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg2K_UNRZcJy5tejgduO2_NO5QhkeLmReoWA&s"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">FEDERICO ROMAN TIRADOR SR. MEMORIAL DISTRICT HOSPITAL</div>
+          <div class="placeDescription">a local government-run healthcare facility located in Janiuay, Iloilo, serving
+            the medical needs of the surrounding communities in Western Visayas.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(8); showHospitalInfo(8);">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuk0EYLzfAvBJCCwnvddDCNY2BxLd27N9h6g&s"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">FAMILY PLANNING ORGANIZATION OF THE PHILIPPINES (FPOP)</div>
+          <div class="placeDescription">PLACEHOLDER</div>
+        </div>
+      </button>
+
+    </div>
+
+    <div id="infoPopup" class="info-popup hidden">
+      <button class="close-btn" onclick="closeInfoPopup()">&times;</button>
+
+      <div class="welcome-image-container">
+        <img src="hospital-image.jpg" alt="Hospital Image" class="popup-image">
+      </div>
+
+      <div class="info-header">
+        <h2 id="popupHospitalName" class="hospital-title">Hospital Name</h2>
+      </div>
+
+      <div class="about-section">
+        <div class="about-title">About</div>
+        <div id="popupHospitalDesc" class="about-description">
+          Hospital description
+        </div>
+      </div>
+
+      <div class="services-section">
+        <div class="services-title" style="color: #b81e63;">SERVICES OFFERED:</div>
+        <div id="servicesList">
+
+          <div class="service-group">
+            <button class="service-btn">
+              Service Title <span class="arrow">▼</span>
+            </button>
+            <div class="service-description">
+              Service description content
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet library to use OpenStreetMap-->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+  <script>
+
+    //lat = latitude(north, south), lng = longitude(east, west) 
+    const hospitals = [
+      {
+        name: "DON JOSE S. MONFORT MEDICAL CENTER",
+        description: "<b>Address:</b> Tabucan, Barotac Nuevo, Iloilo <br> <b>Contact:</b> (033) 361 2010 | omcc@djsmmc.doh.gov.ph <br><br> Don Jose S. Monfort Medical Center is a Level III, government-run tertiary hospital with an authorized bed capacity of 300, serving patients primarily from Barotac Nuevo and nearby municipalities in Iloilo. <br><br> <b>Medical Center Chief</b>: Dr. Mariano S. Hembra <br><br><b>Chief Nurse</b>: Ma. Cecilia G. Montero",
+        image: "Navigate/Images/DoneJose.jpg",
+        services: [
+          {
+            title: "Emergency Medical Services (EMS)",
+            description: "Provides immediate care for urgent and life-threatening conditions such as trauma, heart attacks, and strokes."
+          },
+          {
+            title: "Outpatient Services",
+            description: "Offers consultations, minor procedures, and follow-up care for patients not needing hospital admission."
+          },
+          {
+            title: "Inpatient Services",
+            description: "Provides 24-hour medical care for patients requiring hospitalization and monitoring."
+          },
+          {
+            title: "Operating Room (OR) Services",
+            description: "Performs surgical procedures for various medical and emergency conditions in a sterile environment."
+          },
+          {
+            title: "Delivery Room (DR) Services",
+            description: "Facilitates labor and childbirth, including post-delivery care for mothers and newborns."
+          },
+          {
+            title: "Medical Ward",
+            description: "Manages patients with non-surgical conditions such as infections, chronic diseases, and systemic illnesses."
+          },
+          {
+            title: "Surgical Ward",
+            description: "Offers care before and after surgeries, including pain management, wound care, and recovery monitoring."
+          },
+          {
+            title: "OB-Gyne Ward",
+            description: "Delivers care for pregnant and postpartum women, and manages female reproductive health concerns."
+          },
+          {
+            title: "Pediatric Ward",
+            description: "Specializes in the treatment and care of infants, children, and adolescents with various medical conditions."
+          },
+          {
+            title: "Intensive Care Unit (ICU)",
+            description: "Offers continuous monitoring and advanced life support for critically ill or unstable patients."
+          },
+          {
+            title: "Neonatal Intensive Care Unit (NICU)",
+            description: "Provides specialized care for premature and medically fragile newborns requiring intensive treatment."
+          },
+          {
+            title: "Laboratory and Pathology Services",
+            description: "Conducts tests on blood, urine, and other specimens to support diagnosis and monitor disease progression."
+          },
+          {
+            title: "Radiology and Imaging Services",
+            description: "Uses imaging technologies like X-rays and ultrasound to visualize and diagnose internal conditions."
+          },
+          {
+            title: "Pharmacy Services",
+            description: "Dispenses medications, ensures proper drug use, and provides patient education on prescriptions."
+          },
+          {
+            title: "Dialysis Unit (Hemodialysis)",
+            description: "Offers kidney support services by removing waste products and fluids from patients with renal failure."
+          },
+          {
+            title: "Dental Services",
+            description: "Provides oral health care including tooth extractions, cleanings, fillings, and treatment of dental conditions."
+          },
+          {
+            title: "Physical Medicine and Rehabilitation",
+            description: "Helps patients regain strength and mobility through therapy after injury or surgery."
+          },
+          {
+            title: "Psychiatry and Mental Health Services",
+            description: "Offers assessment, counseling, and medication management for mental and behavioral health conditions."
+          },
+          {
+            title: "Family Medicine",
+            description: "Provides holistic care for individuals and families, managing both acute illnesses and chronic diseases across all age groups."
+          },
+          {
+            title: "Medical Social Services",
+            description: "Assists patients and families with social, financial, and emotional support during hospital care."
+          },
+          {
+            title: "Nutrition and Dietetics Services",
+            description: "Develops patient-specific meal plans and nutritional counseling to support recovery and disease management."
+          },
+          {
+            title: "Training and Education",
+            description: "Acts as a clinical training ground for student nurses and healthcare trainees, enhancing their skills in real hospital settings."
+          }
+
+        ]
+      },
+      {
+        name: "DUMANGAS DISTRICT HOSPITAL, Dumangas, Iloilo",
+        description: "<b>Address:</b> Ilaya 1st, Dumangas, Iloilo <br> <b>Contact:</b> +6333 522 8211 | rtmdh@iloilo.gov.ph <br><br> Ramon D. Duremdes District Hospital is a government district hospital in Dumangas, Iloilo, offering 24-hour medical services and sustainable healthcare initiatives to communities in central Iloilo. <br><br> <b>Medical Center Chief</b>: Dr. Dennise Roy M. Pasadilla <br><br><b>Chief Nurse</b>: Anmi Flores",
+        image: "Navigate/Images/RamonD.jpg",
+        services: [
+          {
+            title: "Emergency Medical Services (EMS)",
+            description: "Provides immediate care for urgent and life-threatening conditions such as trauma, heart attacks, and strokes."
+          },
+          {
+            title: "Outpatient Services",
+            description: "Offers consultations, minor procedures, and follow-up care for patients not needing hospital admission."
+          },
+          {
+            title: "Inpatient Services",
+            description: "Provides 24-hour medical care for patients requiring hospitalization and monitoring."
+          },
+          {
+            title: "Operating Room (OR) Services",
+            description: "Performs surgical procedures for various medical and emergency conditions in a sterile environment."
+          },
+          {
+            title: "Delivery Room (DR) Services",
+            description: "Facilitates labor and childbirth, including post-delivery care for mothers and newborns."
+          },
+          {
+            title: "Medical Ward",
+            description: "Manages patients with non-surgical conditions such as infections, chronic diseases, and systemic illnesses."
+          },
+          {
+            title: "Surgical Ward",
+            description: "Offers care before and after surgeries, including pain management, wound care, and recovery monitoring."
+          },
+          {
+            title: "OB-Gyne Ward",
+            description: "Delivers care for pregnant and postpartum women, and manages female reproductive health concerns."
+          },
+          {
+            title: "Pediatric Ward",
+            description: "Specializes in the treatment and care of infants, children, and adolescents with various medical conditions."
+          },
+          {
+            title: "Intensive Care Unit (ICU)",
+            description: "Offers continuous monitoring and advanced life support for critically ill or unstable patients."
+          },
+          {
+            title: "Neonatal Intensive Care Unit (NICU)",
+            description: "Provides specialized care for premature and medically fragile newborns requiring intensive treatment."
+          },
+          {
+            title: "Laboratory and Pathology Services",
+            description: "Conducts tests on blood, urine, and other specimens to support diagnosis and monitor disease progression."
+          },
+          {
+            title: "Radiology and Imaging Services",
+            description: "Uses imaging technologies like X-rays and ultrasound to visualize and diagnose internal conditions."
+          },
+          {
+            title: "Pharmacy Services",
+            description: "Dispenses medications, ensures proper drug use, and provides patient education on prescriptions."
+          },
+          {
+            title: "Dialysis Unit (Hemodialysis)",
+            description: "Offers kidney support services by removing waste products and fluids from patients with renal failure."
+          },
+          {
+            title: "Dental Services",
+            description: "Provides oral health care including tooth extractions, cleanings, fillings, and treatment of dental conditions."
+          },
+          {
+            title: "Physical Medicine and Rehabilitation",
+            description: "Helps patients regain strength and mobility through therapy after injury or surgery."
+          },
+          {
+            title: "Psychiatry and Mental Health Services",
+            description: "Offers assessment, counseling, and medication management for mental and behavioral health conditions."
+          },
+          {
+            title: "Family Medicine",
+            description: "Provides holistic care for individuals and families, managing both acute illnesses and chronic diseases across all age groups."
+          },
+          {
+            title: "Medical Social Services",
+            description: "Assists patients and families with social, financial, and emotional support during hospital care."
+          },
+          {
+            title: "Nutrition and Dietetics Services",
+            description: "Develops patient-specific meal plans and nutritional counseling to support recovery and disease management."
+          },
+          {
+            title: "Training and Education",
+            description: "Acts as a clinical training ground for student nurses and healthcare trainees, enhancing their skills in real hospital settings."
+          }
+        ]
+
+      },
+      {
+        name: "WESTERN VISAYAS MEDICAL CENTER, Iloilo City",
+        description: "<b>Address:</b> Q. Abeto Street, Mandurriao, Iloilo City <br> <b>Contact:</b> (033) 330-7700 | wvmciloilo@gmail.com <br><br> WVMC is a Level III, teaching and training hospital under the Department of Health, offering comprehensive medical services including Internal Medicine, Surgery, OB-Gyne, Pediatrics, Psychiatry, Orthopedics, Emergency Care and more. It also serves patients from the five (5) provinces and the City of Iloilo in Panay Island. <br><br> <b>Medical Center Chief</b>: Dr. Joseph Dean L. Nicolo <br><br><b>Chief Nurse</b>: Robyniel A. Alba",
+        image: "Navigate/Images/WVMC.jpg",
+        services: [
+          {
+            title: "Emergency Medical Services (EMS)",
+            description: "<p>Provides immediate medical attention and life-saving care to patients with acute illnesses or injuries, including trauma, cardiac events, and emergencies.</p>"
+          },
+          {
+            title: "Outpatient Services",
+            description: "<p>Offers consultations, diagnostic tests, and minor procedures to patients who do not require hospital admission.</p>"
+          },
+          {
+            title: "Inpatient Services",
+            description: "<p>Delivers comprehensive care to patients who are admitted for monitoring, treatment, or recovery in hospital wards.</p>"
+          },
+          {
+            title: "Operating Room (OR) Services",
+            description: "<p>Conducts sterile surgical procedures under anesthesia for a variety of medical conditions including elective and emergency surgeries.</p>"
+          },
+          {
+            title: "Delivery Room (DR) Services",
+            description: "<p>Manages labor and childbirth, provides care for mothers during delivery, and ensures immediate newborn assessment and care.</p>"
+          },
+          { title: "Medical Ward" },
+          {
+            title: "Surgical Ward",
+            description: "<p>Provides pre- and post-operative care for patients undergoing surgical procedures, including wound management and recovery support.</p>"
+          },
+          {
+            title: "OB-Gyne Ward",
+            description: "<p>Specializes in caring for pregnant women, postpartum mothers, and patients with gynecological conditions.</p>"
+          },
+          {
+            title: "Pediatric Ward",
+            description: "<p>Focuses on the medical care of infants, children, and adolescents, addressing developmental, infectious, and chronic health issues.</p>"
+          },
+          {
+            title: "Intensive Care Unit (ICU)",
+            description: "<p>Offers advanced monitoring and treatment for critically ill patients requiring life support and continuous observation.</p>"
+          },
+          {
+            title: "Neonatal Intensive Care Unit (NICU)",
+            description: "<p>Delivers specialized care for premature or medically fragile newborns, including respiratory and feeding support.</p>"
+          },
+          {
+            title: "Laboratory and Pathology Services",
+            description: "<p>Analyzes blood, tissue, and other samples to assist in the diagnosis, monitoring, and treatment of diseases.</p>"
+          },
+          {
+            title: "Radiology and Imaging Services (X-ray, Ultrasound, CT Scan, etc.)",
+            description: "<p>Provides diagnostic imaging such as X-rays, ultrasound, and CT scans to detect and evaluate internal health conditions.</p>"
+          },
+          {
+            title: "Heart and Lung Center (Cardiology & Pulmonology, including interventional procedures)",
+            description: "<p>Offers specialized cardiovascular and pulmonary care, including diagnostic, medical, and interventional procedures for heart and lung conditions.</p>"
+          },
+          {
+            title: "Pharmacy Services (including Satellite Pharmacies)",
+            description: "<p>Dispenses medications, ensures proper drug administration, and provides guidance on safe and effective medication use.</p>"
+          },
+          {
+            title: "Dialysis Unit (Hemodialysis)",
+            description: "<p>Provides life-sustaining treatment for patients with kidney failure by removing waste and excess fluid from the blood.</p>"
+          },
+          {
+            title: "Dental Services",
+            description: "<p>Delivers preventive and therapeutic oral care including tooth extraction, cleaning, and management of oral infections.</p>"
+          },
+          {
+            title: "Physical Medicine and Rehabilitation (Rehab Med)",
+            description: "<p>Helps patients recover and regain function after illness or injury through physical therapy and rehabilitation exercises.</p>"
+          },
+          {
+            title: "Psychiatry and Mental Health Services",
+            description: "<p>Addresses mental health issues through psychiatric evaluation, medication management, and psychological counseling.</p>"
+          },
+          {
+            title: "Family Medicine",
+            description: "<p>Provides holistic and continuous healthcare for individuals and families across all ages, managing both acute and chronic conditions.</p>"
+          },
+          {
+            title: "Biomedical Services (Equipment Maintenance)",
+            description: "<p>Ensures the maintenance, calibration, and repair of medical equipment to support safe clinical operations.</p>"
+          },
+          {
+            title: "Medical Social Services",
+            description: "<p>Offers counseling, patient advocacy, and assistance with healthcare access and financial support for patients and families.</p>"
+          },
+          {
+            title: "Nutrition and Dietetics Services",
+            description: "<p>Designs therapeutic diets and provides nutritional counseling to support recovery and improve patient outcomes.</p>"
+          },
+          {
+            title: "Training and Education (for student nurses, interns, and residents)",
+            description: "<p>Provides hands-on clinical training and academic instruction to nursing students, medical interns, and residents to enhance professional competencies.</p>"
+          }
+
+        ]
+      },
+      {
+        name: "WEST VISAYAS STATE UNIVERSITY MEDICAL CENTER, Iloilo City",
+        description: "<b>Address:</b> E Lopez St, Jaro, Iloilo City, 500 <br> <b>Contact:</b> (033) 320 2431 | medcenter@wvsu.edu.ph | rtmdh@iloilo.gov.ph <br><br> WVSU-MC is a Level III government teaching and training hospital in Iloilo City, offering advanced medical care, specialized services, and clinical education affiliated with West Visayas State University. <br><br> <b>Medical Center Chief</b>: Dr. Dave Endel R. Gelito III <br><br><b>Chief Nurse</b>: Mr. Cesar Q. Tronco",
+        image: "Navigate/Images/WVSUMC.jpg",
+        services: [
+          {
+            title: "Out-Patient Consultation",
+            description: "Provides general and subspecialty consultations, including diabetic and pain clinics, as well as routine laboratory and X-ray procedures."
+          },
+          {
+            title: "Surgical and Orthopedic Wards",
+            description: "Offers inpatient care for surgical and orthopedic conditions, including post-operative monitoring and rehabilitation."
+          },
+          {
+            title: "Male and Female Medical Wards",
+            description: "Delivers comprehensive medical care for male and female patients with various health conditions requiring hospitalization."
+          },
+          {
+            title: "Pediatric Wards",
+            description: "Provides specialized inpatient care for infants, children, and adolescents, addressing their unique medical needs."
+          },
+          {
+            title: "Psychiatric Ward",
+            description: "Offers mental health services, including assessment, treatment, and rehabilitation for patients with psychiatric disorders."
+          },
+          {
+            title: "OB-Gyne Ward",
+            description: "Delivers obstetric and gynecological care, including prenatal, delivery, and postnatal services for women."
+          },
+          {
+            title: "Operating Room Complex with Six Theaters",
+            description: "Equipped with six operating theaters to perform a wide range of surgical procedures, ensuring patient safety and efficiency."
+          },
+          {
+            title: "Emergency Room Complex",
+            description: "Provides 24/7 emergency medical services, including trauma care and urgent interventions."
+          },
+          {
+            title: "Dental Unit",
+            description: "Offers preventive and therapeutic dental services, including tooth extractions, fillings, and oral prophylaxis."
+          },
+          {
+            title: "Laboratory",
+            description: "Conducts diagnostic tests such as complete blood count, urinalysis, and X-rays to support accurate diagnosis and treatment."
+          },
+          {
+            title: "Rehabilitation Medicine for Physical and Occupational Therapy",
+            description: "Provides physical and occupational therapy services to aid in recovery and improve mobility and function."
+          },
+          {
+            title: "Pulmonary Unit",
+            description: "Specializes in the diagnosis and treatment of respiratory conditions, offering services like pulmonary function tests and respiratory therapy."
+          },
+          {
+            title: "Pharmacy",
+            description: "Dispenses prescribed medications and provides counseling on proper drug usage to ensure patient safety and efficacy."
+          }
+
+        ]
+      },
+      {
+        name: "ALEOSAN DISTRICT HOSPITAL, Alimodian, Iloilo",
+        description: "<b>Address:</b> Brgy. Bancal, Alimodian, Iloilo <br> <b>Contact:</b> +6333 331 0602 /+6333 331 1033 | aleosan.disthospital@iloilo.gov.ph <br><br> ADH is a PHIC-accredited healthcare provider and the only public hospital serving the 2nd District of Iloilo. <br><br> <b>Medical Center Chief</b>: Dr. Cherubim C. Estrellanes <br><br><b>Chief Nurse</b>: Ms. Ma Azucena Amantillo Lamigo",
+        image: "Navigate/Images/Aleosan.jpg",
+        services: [
+          {
+            title: "Out-Patient Consultation",
+            description: "Provides accessible medical consultations for patients not requiring admission."
+          },
+          {
+            title: "General Surgery",
+            description: "Offers surgical procedures for a variety of conditions, including minor and major operations."
+          },
+          {
+            title: "OB-Gyne",
+            description: "Delivers comprehensive obstetric and gynecological care, including prenatal, delivery, and postnatal services."
+          },
+          {
+            title: "Medical",
+            description: "Provides general medical care for adults, including diagnosis and treatment of various health conditions."
+          },
+          {
+            title: "Pediatrics",
+            description: "Offers healthcare services for infants, children, and adolescents, focusing on growth, development, and disease prevention."
+          },
+          {
+            title: "Pharmacy",
+            description: "Dispenses prescribed medications and provides counseling on proper drug usage."
+          },
+          {
+            title: "Dental",
+            description: "Delivers preventive and therapeutic oral health care to patients of all ages."
+          },
+          {
+            title: "Clinical Laboratory",
+            description: "Conducts diagnostic tests such as blood, urine, and other specimen analyses to aid in medical diagnosis and treatment."
+          },
+          {
+            title: "X-ray, ECG, Ultrasound",
+            description: "Provides imaging services for diagnostic purposes, including radiographic, electrocardiographic, and ultrasound examinations."
+          },
+          {
+            title: "Family Planning",
+            description: "Offers counseling and services related to birth control and reproductive health."
+          },
+          {
+            title: "Diabetes Education",
+            description: "Provides information and support to individuals with diabetes to manage their condition effectively."
+          },
+          {
+            title: "Animal Bite Treatment Center",
+            description: "Delivers medical care for individuals who have been bitten by animals, including rabies prevention."
+          },
+          {
+            title: "Mothers’ Class",
+            description: "Conducts educational sessions for expectant and new mothers on childbirth, infant care, and breastfeeding."
+          },
+          {
+            title: "Orthopedic",
+            description: "Offers diagnosis and treatment for musculoskeletal conditions, including fractures and joint disorders."
+          }
+        ]
+      },
+      {
+        name: "PEDRO G. TRONO MEMORIAL HOSPITAL, Guimbal, Iloilo",
+        description: "<b>Address:</b> Garriel Street, Guimbal, Iloilo <br> <b>Contact:</b> +6333 327 0188 | rpgtmd@iloilo.gov.ph <br><br> Rep. Pedro G. Trono Memorial Hospital is a district hospital located in Guimbal, Iloilo, providing essential medical services to residents of Guimbal and surrounding towns in southern Iloilo. <br><br> <b>Medical Center Chief</b>: Dr. Lily Ann C. Eslabra <br><br><b>Chief Nurse</b>: Josenia S. Curtom",
+        image: "Navigate/Images/PEDRO.jpeg",
+        services: [
+          {
+            title: "Emergency Medical Services (EMS)",
+            description: "Provides immediate care for urgent and life-threatening conditions such as trauma, heart attacks, and strokes."
+          },
+          {
+            title: "Outpatient Services",
+            description: "Offers consultations, minor procedures, and follow-up care for patients not needing hospital admission."
+          },
+          {
+            title: "Inpatient Services",
+            description: "Provides 24-hour medical care for patients requiring hospitalization and monitoring."
+          },
+          {
+            title: "Operating Room (OR) Services",
+            description: "Performs surgical procedures for various medical and emergency conditions in a sterile environment."
+          },
+          {
+            title: "Delivery Room (DR) Services",
+            description: "Facilitates labor and childbirth, including post-delivery care for mothers and newborns."
+          },
+          {
+            title: "Medical Ward",
+            description: "Manages patients with non-surgical conditions such as infections, chronic diseases, and systemic illnesses."
+          },
+          {
+            title: "Surgical Ward",
+            description: "Offers care before and after surgeries, including pain management, wound care, and recovery monitoring."
+          },
+          {
+            title: "OB-Gyne Ward",
+            description: "Delivers care for pregnant and postpartum women, and manages female reproductive health concerns."
+          },
+          {
+            title: "Pediatric Ward",
+            description: "Specializes in the treatment and care of infants, children, and adolescents with various medical conditions."
+          },
+          {
+            title: "Intensive Care Unit (ICU)",
+            description: "Offers continuous monitoring and advanced life support for critically ill or unstable patients."
+          },
+          {
+            title: "Neonatal Intensive Care Unit (NICU)",
+            description: "Provides specialized care for premature and medically fragile newborns requiring intensive treatment."
+          },
+          {
+            title: "Laboratory and Pathology Services",
+            description: "Conducts tests on blood, urine, and other specimens to support diagnosis and monitor disease progression."
+          },
+          {
+            title: "Radiology and Imaging Services",
+            description: "Uses imaging technologies like X-rays and ultrasound to visualize and diagnose internal conditions."
+          },
+          {
+            title: "Pharmacy Services",
+            description: "Dispenses medications, ensures proper drug use, and provides patient education on prescriptions."
+          },
+          {
+            title: "Dialysis Unit (Hemodialysis)",
+            description: "Offers kidney support services by removing waste products and fluids from patients with renal failure."
+          },
+          {
+            title: "Dental Services",
+            description: "Provides oral health care including tooth extractions, cleanings, fillings, and treatment of dental conditions."
+          },
+          {
+            title: "Physical Medicine and Rehabilitation",
+            description: "Helps patients regain strength and mobility through therapy after injury or surgery."
+          },
+          {
+            title: "Psychiatry and Mental Health Services",
+            description: "Offers assessment, counseling, and medication management for mental and behavioral health conditions."
+          },
+          {
+            title: "Family Medicine",
+            description: "Provides holistic care for individuals and families, managing both acute illnesses and chronic diseases across all age groups."
+          },
+          {
+            title: "Medical Social Services",
+            description: "Assists patients and families with social, financial, and emotional support during hospital care."
+          },
+          {
+            title: "Nutrition and Dietetics Services",
+            description: "Develops patient-specific meal plans and nutritional counseling to support recovery and disease management."
+          },
+          {
+            title: "Training and Education",
+            description: "Acts as a clinical training ground for student nurses and healthcare trainees, enhancing their skills in real hospital settings."
+          }
+
+        ]
+      },
+      {
+        name: "ILOILO PROVINCIAL HOSPITAL, Pototan, Iloilo",
+        description: "<b>Address:</b> Brgy. Rumbang, Pototan, Iloilo <br> <b>Contact:</b> +6333 529 7496 | provincial_hospital@iloilo.gov.ph <br><br> IPH is a government-run Level II hospital providing essential medical and surgical services to communities across the province. <br><br> <b>Medical Center Chief</b>: Dr. Albert S. Cordero <br><br><b>Chief Nurse</b>: Dr. Jurel A. Pio",
+        image: "Navigate/Images/ILOILO.jpeg",
+        services: [
+          {
+            title: "Outpatient Consultation",
+            description: "Provides medical assessment and treatment for patients who do not require hospital admission."
+          },
+          {
+            title: "Surgery/Orthopedics",
+            description: "Offers surgical procedures and care for bone, joint, and muscle conditions."
+          },
+          {
+            title: "Pediatric Ward",
+            description: "Delivers inpatient care for infants, children, and adolescents with various medical conditions."
+          },
+          {
+            title: "Ob-Gyne Ward",
+            description: "Specializes in the care of women during pregnancy, childbirth, and reproductive health concerns."
+          },
+          {
+            title: "Internal Medicine",
+            description: "Manages and treats adult patients with a wide range of complex medical illnesses."
+          },
+          {
+            title: "Anesthesia",
+            description: "Administers anesthesia and monitors vital signs during surgical and medical procedures."
+          },
+          {
+            title: "Radiology Department",
+            description: "Provides diagnostic imaging services such as X-rays, ultrasound, and CT scans."
+          },
+          {
+            title: "Intensive Care Unit (ICU)",
+            description: "Offers critical care and continuous monitoring for severely ill or unstable patients."
+          },
+          {
+            title: "Neonatal Intensive Care Unit (NICU)",
+            description: "Delivers specialized care for premature or critically ill newborns."
+          },
+          {
+            title: "Level III Clinical Laboratory",
+            description: "Conducts comprehensive laboratory tests for accurate diagnosis and treatment planning."
+          },
+          {
+            title: "Respiratory Units",
+            description: "Manages respiratory conditions and provides therapy such as oxygen support and nebulization."
+          }
+        ]
+      },
+      {
+        name: "Federico Roman Tirador Sr. Memorial Hospital",
+        description: "<b>Address:</b> Brgy. Jibolo, Janiuay, Iloilo <br> <b>Contact:</b> +6333 531 8506 | frtmdh@iloilo.gov.ph <br><br> FRTSMDH is a public healthcare facility offering a comprehensive range of medical services, dedicated to providing accessible and quality healthcare to the local community. <br><br> <b>Medical Center Chief</b>: Dr. Jeseryl S. Villa <br><br><b>Chief Nurse</b>: Mr. Roland M. Lujan",
+        image: "Navigate/Images/FRED.jpeg",
+        services: [
+          {
+            title: "Outpatient Department (OPD) Consultation",
+            description: "Provides accessible medical consultations for patients not requiring admission."
+          },
+          {
+            title: "Laboratory Service",
+            description: "Offers diagnostic testing, including hematology, chemistry, and microbiology, to support accurate diagnosis and treatment."
+          },
+          {
+            title: "Pharmacy Service",
+            description: "Dispenses prescribed medications and provides counseling on proper drug usage."
+          },
+          {
+            title: "X-Ray Service",
+            description: "Conducts radiographic imaging to assist in diagnosing various medical conditions."
+          },
+          {
+            title: "Dental Service",
+            description: "Delivers preventive and therapeutic oral health care to patients of all ages."
+          },
+          {
+            title: "Ambulance Service",
+            description: "Provides emergency medical transport to patients in critical condition."
+          },
+          {
+            title: "Rehabilitation Service",
+            description: "Offers physical therapy services to aid in recovery and improve mobility."
+          },
+          {
+            title: "Medical Service (In-Patient)",
+            description: "Delivers comprehensive care for patients admitted to the hospital for treatment and observation."
+          }
+
+        ]
+      },
+      {
+        name: "FPOP Community Health Care Birthing Center and Laboratory",
+        description: "<b>Address:</b> 2F Dulalia Blg. Rizal St. Brgy. Maria Clara, City Proper, Iloilo City <br> <b>Contact:</b> (033) 329 5033/ +6333 329 5033| fpop_iloilo@yahoo.com <br><br> A one stop shop service-oriented organization providing sexual and reproductive services to all the Filipinos, especially the poor, marginalized, socially excluded and underserved. <br><br> <b>Executive Director:</b>: Nandy A. Senoc <br><br><b>Primary Care Nurse:</b>: Christine S. Gicole",
+        image: "Navigate/Images/FPOP.jpeg",
+        services: [
+          {
+            title: "Family Planning Services",
+            description: "Provides guidance and information to help individuals or couples choose the best contraceptive method and plan their families according to their health, needs, and goals."
+          },
+          {
+            title: "HIV Primary Care Clinic",
+            description: "Offers comprehensive care and support services for people living with HIV, including antiretroviral therapy, medical consultations, laboratory monitoring, and counseling to manage and improve their health and well-being."
+          },
+          {
+            title: "Maternal Health",
+            description: "Provides complete maternal and women’s health care, including pre-natal and post-natal checkups, normal delivery, maternal immunizations (Hepa B, Tetanus Toxoid), gynecological services, and treatment for common medical conditions like hypertension and urinary tract infections."
+          },
+          {
+            title: "Child Health",
+            description: "Offers comprehensive child health care, including well-baby and sick child consultations, complete immunizations, treatment for common illnesses, and additional services such as Vitamin A supplementation, nebulization, ear piercing, and circumcision."
+          },
+          {
+            title: "Medical",
+            description: "Provides general medical consultations, minor surgical procedures, and basic ophthalmology care for the diagnosis and treatment of various health conditions."
+          },
+          {
+            title: "Secondary Laboratory",
+            description: "Offers a wide range of diagnostic procedures including pregnancy testing, urinalysis, fecalysis, CBC, blood chemistry, fasting blood sugar, ultrasound, Pap smear reading, X-rays, ECG, biopsy, STD screening, and more."
+          },
+          {
+            title: "Reproductive Health",
+            description: "Provides comprehensive care for both women and men, including pelvic and breast examinations, Pap smear, infertility and impotence consultation and management, UTI and RTI treatment, urological and STD screenings, and routine blood pressure monitoring."
+          },
+          {
+            title: "TB DOTS",
+            description: "Provides accessible services that ensure early detection, diagnosis, and complete treatment of tuberculosis under supervised care to prevent transmission and promote community health."
+          },
+          {
+            title: "Konsulta Provider (Philhealth)",
+            description: "Accredited PhilHealth Konsulta Provider, offering comprehensive outpatient primary care services including medical consultations, health screenings, laboratory diagnostics, and essential medications."
+          },
+          {
+            title: "TransHealth (Mango Clinic)",
+            description: "A transgender-focused health facility that offers comprehensive services including Gender Affirming Hormone Therapy (GAHT), HIV and STI screening, mental health support, and general medical consultations."
+          },
+          {
+            title: "Halfway Home (Balay Kaalwan)",
+            description: "A transitional shelter offering short-term accommodation and psychosocial support for individuals recovering from trauma, illness, or unstable living conditions."
+          },
+          {
+            title: "Candy Lounge (Safe space for the youth)",
+            description: "A youth-friendly space that promotes mental health, peer support, and access to sexual and reproductive health services in a non-judgmental environment."
+          },
+          {
+            title: "Rajah Community Center",
+            description: "A hub for community-based health services, outreach, and education, especially for key populations at higher risk of HIV and other STIs."
+          },
+          {
+            title: "PrEP (pre-exposure prophylaxis)",
+            description: "A preventive medication program for individuals at high risk of HIV, helping reduce the chance of infection when taken consistently."
+          },
+          {
+            title: "SelfCare (HIV Self-screening Kits)",
+            description: "Provides discreet, accessible HIV test kits for individuals to screen themselves in private, empowering early detection and linkage to care."
+          }
+        ]
+      },
+    ];
+
+    let map = L.map('map', {
+      zoomControl: true,
+      dragging: true,
+      scrollWheelZoom: true,
+      doubleClickZoom: false,
+      boxZoom: false,
+      keyboard: false,
+      tap: false,
+      touchZoom: true,
+      attributionControl: true
+    }).setView([10.7, 122.5], 10);
+
+    map.off('click');
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      interactive: false
+    }).addTo(map);
+
+
+    let routeControl = null;
+
+    function toggleMapPopup() {
+      const popup = document.getElementById("mapPopup");
+      popup.classList.toggle("hidden");
+
+      if (!popup.classList.contains("hidden")) {
+        setTimeout(() => {
+          map.invalidateSize();
+        }, 200);
+      }
+    }
+
+    function showMap(index) {
+      const hospital = hospitals[index];
+
+      if (routeControl) {
+        map.removeControl(routeControl);
+      }
+
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(hospital.name)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (!data.length) {
+            alert("Could not find location for " + hospital.name);
+            return;
+          }
+
+          const lat = parseFloat(data[0].lat);
+          const lon = parseFloat(data[0].lon);
+
+          map.setView([lat, lon], 13);
+
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+              const userLatLng = L.latLng(position.coords.latitude, position.coords.longitude);
+              const hospitalLatLng = L.latLng(lat, lon);
+
+              routeControl = L.Routing.control({
+                waypoints: [userLatLng, hospitalLatLng],
+                routeWhileDragging: false,
+                showAlternatives: false,
+                addWaypoints: false,
+                draggableWaypoints: false,
+                fitSelectedRoutes: true,
+                createMarker: (i, waypoint, n) => {
+                  return L.marker(waypoint.latLng).bindPopup(i === 0 ? "You are here" : hospital.name);
+                }
+              }).addTo(map);
+
+              const mapToggleButton = document.querySelector(".map-toggle-btn");
+              mapToggleButton.classList.add("highlight");
+
+              setTimeout(() => {
+                mapToggleButton.classList.remove("highlight");
+              }, 5000);
+            }, () => {
+              alert("Unable to retrieve your location.");
+            }, {
+              enableHighAccuracy: true,
+              timeout: 10000,
+              maximumAge: 0
+            });
+          } else {
+            alert("Geolocation is not supported by your browser.");
+          }
+        })
+        .catch(error => {
+          console.error("Geocoding error:", error);
+          alert("An error occurred while finding the hospital location.");
+        });
+    }
+
+    function showHospitalInfo(index) {
+      const hospital = hospitals[index];
+      const popup = document.getElementById("infoPopup");
+
+      document.getElementById("popupHospitalName").textContent = hospital.name;
+      document.getElementById("popupHospitalDesc").innerHTML = hospital.description;
+
+      const popupImage = document.querySelector("#infoPopup .popup-image");
+      popupImage.src = hospital.image;
+
+      const servicesList = document.getElementById("servicesList");
+      servicesList.innerHTML = "";
+
+      let toggleIndex = 0;
+
+      (hospital.services || []).forEach((service) => {
+        const serviceGroup = document.createElement("div");
+        serviceGroup.className = "service-group";
+
+        const button = document.createElement("button");
+        button.className = "service-btn";
+        const arrow = `<span class="arrow">▼</span>`;
+
+        if (service.description && service.description.trim() !== "") {
+          const currentIndex = toggleIndex;
+          button.innerHTML = `${service.title} ${arrow}`;
+          button.onclick = () => toggleService(currentIndex);
+
+          const desc = document.createElement("div");
+          desc.className = "service-description";
+          desc.id = `service-desc-${currentIndex}`;
+          desc.innerHTML = service.description;
+
+          serviceGroup.appendChild(button);
+          serviceGroup.appendChild(desc);
+          servicesList.appendChild(serviceGroup);
+          toggleIndex++;
+        } else {
+          button.innerHTML = `${service.title} ${arrow}`;
+
+          button.querySelector(".arrow").style.opacity = "0.5";
+          serviceGroup.appendChild(button);
+          servicesList.appendChild(serviceGroup);
+        }
+      });
+
+      popup.classList.remove("hidden");
+
+      void popup.offsetWidth;
+
+      popup.classList.add("popup-visible");
+    }
+
+    function closeInfoPopup() {
+      const popup = document.getElementById("infoPopup");
+
+      popup.classList.remove("popup-visible");
+
+      setTimeout(() => {
+        popup.classList.add("hidden");
+      }, 300);
+    }
+
+    function toggleService(index) {
+      const all = document.querySelectorAll(".service-description");
+      const allButtons = document.querySelectorAll(".service-btn");
+
+      all.forEach((el, i) => {
+        if (i === index) {
+          el.classList.toggle("active");
+
+          const button = el.previousElementSibling;
+          button.classList.toggle("active");
+          const arrow = button.querySelector(".arrow");
+
+          if (el.classList.contains("active")) {
+            arrow.style.transform = "rotate(180deg)";
+          } else {
+            arrow.style.transform = "rotate(0deg)";
+          }
+        } else {
+          el.classList.remove("active");
+
+          const correspondingButton = all[i].previousElementSibling;
+          if (correspondingButton) {
+            correspondingButton.classList.remove("active");
+
+            const arrow = correspondingButton.querySelector(".arrow");
+            if (arrow) {
+              arrow.style.transform = "rotate(0deg)";
+            }
+          }
+        }
+      });
+    }
+  </script>
+
+  <script src="script.js"></script>
+
+
+
+</body>
+
+</html>

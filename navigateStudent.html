@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>navigait</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <link rel="stylesheet" href="style.css">
+
+
+  <style>
+    /* FONTS */
+    @font-face {
+      font-family: 'Glacial Indifference';
+      src: url('fonts/glacial-indifference.regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Glacial Indifference';
+      src: url('fonts/glacial-indifference.bold.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+
+
+    /*BACKGROUND*/
+
+    body {
+      margin: 0;
+      background-color: pink;
+      display: flex;
+      justify-content: center;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 1920px;
+      min-height: 100vh;
+      max-height: 100vh;
+      position: relative;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      background:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5)),
+        linear-gradient(to top, #e93772, rgba(255, 255, 255, 0)),
+        url('res/school_bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+
+    /*CARDS*/
+
+    .scrollableSection {
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      padding-top: 20px;
+    }
+
+    .scrollableSection::-webkit-scrollbar {
+      display: none;
+    }
+
+    .buttonCard {
+      width: 90%;
+      max-width: 500px;
+      background-color: #fef9e5;
+      color: #8a004f;
+      border: 1px solid #2d9900;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin: 10px 0;
+      margin-left: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease-out forwards;
+      animation-delay: var(--fade-delay, 0s);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .buttonCard:hover {
+      transform: scale(1.01);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .buttonCard img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-right: 20px;
+      border: 2px solid #a8d58d;
+    }
+
+    .textContent {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .placeName {
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Glacial Indifference';
+      color: #a1004f;
+      margin-bottom: 8px;
+    }
+
+    .placeDescription {
+      font-size: 14px;
+      font-family: 'Glacial Indifference';
+      color: #6c0042;
+      opacity: 0.85;
+    }
+
+
+    #map {
+      width: 90%;
+      max-width: 700px;
+      height: 400px;
+      margin: 20px 0;
+      border: 2px;
+      border-radius: 10px;
+    }
+
+    /* MAP */
+    .map-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      height: 70vh;
+      max-width: 600px;
+      max-height: 80vh;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      overflow: hidden;
+      border: none;
+      box-shadow: none;
+      background-color: transparent;
+    }
+
+    .map-popup.hidden {
+      display: none;
+    }
+
+    .map-container {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    .map-toggle-btn {
+      position: fixed;
+      bottom: clamp(10px, 5vw, 20px);
+      right: clamp(10px, 5vw, 20px);
+      width: clamp(40px, 12vw, 50px);
+      height: clamp(40px, 12vw, 50px);
+      z-index: 1100;
+      cursor: pointer;
+      border-radius: 20%;
+      background-color: #4CAF50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .map-toggle-btn::before {
+      content: '\1F5FA';
+      font-size: 24px;
+      color: white;
+    }
+
+    .map-toggle-btn.highlight {
+      background-color: #ffcc00;
+      border: 2px solid #ff9900;
+      box-shadow: 0 2px 8px rgba(255, 165, 0, 0.6);
+      transform: scale(1.7);
+      transition: all 0.3s ease;
+    }
+
+    @media screen and (max-width: 600px) {
+      .map-popup {
+        width: 95vw;
+        height: 65vh;
+        border-radius: 10px;
+      }
+
+      #map {
+        border-radius: 8px;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .map-popup {
+        width: 98vw;
+        height: 60vh;
+        border-radius: 8px;
+      }
+    }
+
+    /*Hospital Infos*/
+
+    .info-popup {
+      font-family: 'Glacial Indifference';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 500px;
+      background-color: #fef9e5;
+      border-radius: 20px;
+      padding: 15px;
+      z-index: 2000;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      overflow-y: auto;
+      max-height: 85vh;
+      border: 1px solid #2d9900;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      opacity: 1;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .info-popup::-webkit-scrollbar {
+      display: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-popup.hidden {
+      opacity: 0;
+      transform: translate(-50%, -45%);
+      pointer-events: none;
+      display: block !important;
+    }
+
+    .info-header {
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .welcome-image-container {
+      width: calc(100% + 30px);
+      height: auto;
+      max-height: 160px;
+      overflow: hidden;
+      border-radius: 20px 20px 0 0;
+      margin: -15px -15px 0 -15px;
+      position: relative;
+    }
+
+    .popup-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hospital-title {
+      font-family: 'Glacial Indifference';
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: bold;
+      color: #b81e63;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    .about-section {
+      font-family: 'Glacial Indifference';
+      margin-top: 15px;
+    }
+
+    .about-title {
+      font-family: 'Glacial Indifference';
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #b81e63;
+    }
+
+    .about-description {
+      font-family: 'Glacial Indifference';
+      background-color: transparent;
+      color: #b81e63;
+      padding: 10px;
+      border-radius: 20px;
+      font-size: clamp(14px, 3.5vw, 16px);
+    }
+
+    .services-section {
+      margin-top: 15px;
+    }
+
+    .about-title,
+    .services-title {
+      font-size: clamp(16px, 4.5vw, 20px);
+      font-family: 'Glacial Indifference', sans-serif;
+      font-style: italic;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .service-btn {
+      background-color: #cb4d7a;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      width: 100%;
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: clamp(14px, 3.5vw, 16px);
+      transition: background-color 0.3s ease;
+      border-radius: 20px;
+    }
+
+    .service-btn.active {
+      background-color: rgb(48, 158, 48);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .arrow {
+      font-size: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .service-description {
+      font-family: 'Glacial Indifference';
+      background-color: rgb(48, 158, 48);
+      color: white;
+      padding: 0;
+      border-radius: 0 0 20px 20px;
+      margin-bottom: 8px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+      font-size: clamp(13px, 3.5vw, 15px);
+    }
+
+    .service-description.active {
+      max-height: 2000px;
+      opacity: 1;
+      padding: 8px 10px;
+      overflow-y: auto;
+    }
+
+    .service-description ul {
+      font-family: 'Glacial Indifference';
+      margin: 0.5em 0;
+      padding-left: 2em;
+    }
+
+    .service-description li {
+      font-family: 'Glacial Indifference';
+      margin-bottom: 0.25em;
+    }
+
+    .service-description p {
+      font-family: 'Glacial Indifference';
+      margin: 0.75em 0;
+    }
+
+    .service-description strong {
+      font-family: 'Glacial Indifference';
+      display: inline-block;
+      margin-top: 0.75em;
+    }
+
+    .service-description p strong {
+      font-family: 'Glacial Indifference';
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    /* Service group container to keep button and description together */
+    .service-group {
+      margin-bottom: 8px;
+    }
+
+    .service-group:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Media queries for different screen sizes */
+    @media screen and (max-width: 480px) {
+      .info-popup {
+        width: 95%;
+        padding: 12px;
+        border-radius: 15px;
+        max-height: 80vh;
+      }
+
+      .welcome-image-container {
+        width: calc(100% + 24px);
+        max-height: 120px;
+        margin: -12px -12px 0 -12px;
+        border-radius: 15px 15px 0 0;
+      }
+
+      .close-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 14px;
+        top: 8px;
+        right: 10px;
+      }
+
+      .service-btn {
+        padding: 6px 10px;
+      }
+
+      .service-description.active {
+        padding: 6px 10px;
+      }
+
+      .service-group {
+        margin-bottom: 6px;
+      }
+    }
+
+    /* For very small screens */
+    @media screen and (max-width: 320px) {
+      .info-popup {
+        width: 98%;
+        padding: 10px;
+        border-radius: 12px;
+      }
+
+      .welcome-image-container {
+        width: calc(100% + 20px);
+        max-height: 100px;
+        margin: -10px -10px 0 -10px;
+        border-radius: 12px 12px 0 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cards = document.querySelectorAll('.buttonCard');
+      cards.forEach((card, index) => {
+        card.style.setProperty('--fade-delay', `${index * 0.1}s`);
+      });
+    });
+  </script>
+
+  <div class="content">
+    <div id="mapPopup" class="map-popup hidden">
+      <div id="map" class="map-container"></div>
+    </div>
+
+    <button class="back-button" onclick="backToStudentLogin()">Back</button>
+
+
+    <img src="Navigate/Images/MapIcon.jpeg" alt="Toggle Map" class="map-toggle-btn" onclick="toggleMapPopup()">
+    <div class="scrollableSection">
+      <button class="buttonCard" onclick="showMap(0); showHospitalInfo(0);">
+        <img src="Navigate/Images/DoneJose.jpg" alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">DON JOSE S. MONFORT MEDICAL CENTER</div>
+          <div class="placeDescription">A government hospital in Barotac Nuevo, Iloilo offering secondary healthcare
+            services with emergency, surgical, and outpatient care.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(1); showHospitalInfo(1);">
+        <img src="Navigate/Images/RamonD.jpg" alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">RAMON D. DUREMDES DISCTRICT HOSPITAL</div>
+          <div class="placeDescription">Located in Dumangas, Iloilo, this district hospital provides basic medical,
+            surgical, and maternity services to sorrounding communities.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(2); showHospitalInfo(2);">
+        <img src="https://lh5.googleusercontent.com/p/AF1QipNyCH7pUfMm4DRwCYOS0yLvPAspG207boiQ_ltD=w800-h500-k-no"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">WESTERN VISAYAS MEDICAL CENTER</div>
+          <div class="placeDescription">A tertiary goverment hospital in Iloilo City with advanced medical services,
+            specialty departments, and training programs for health.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(3); showHospitalInfo(3);">
+        <img
+          src="https://dailyguardian.com.ph/wp-content/uploads/2023/10/West-Visayas-State-University-Medical-Center.jpg"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">WEST VISAYAS STATE UNVERSITY MEDICAL CENTER</div>
+          <div class="placeDescription">Located in Jaro, Iloilo City, WVSUMC is a tertiary-level teaching hospital
+            providing comprehensive medical services and serves as a training ground for medical and allied health
+            students.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(4); showHospitalInfo(4);">
+        <img src="https://iloilo.gov.ph/sites/default/files/inline-images/ALEOSAN-hosp-Building.jpg"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">ALEOSAN DISTRICT HOSPITAL</div>
+          <div class="placeDescription">Situated in Barangay Bancal, Alimodian, Aleosan District Hospital serves with
+            general surgery, OB-Gyne, pediatrics, and diagnostic services. </div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(5); showHospitalInfo(5);">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3eoru7UHoZh63UFvR-Mf3uaBjh4h33mWXZw&s"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">REP. PEDRO G. TRONO MEMORIAL HOSPITAL</div>
+          <div class="placeDescription">A district hospital in Guimbal, Iloilo providing essential healthcare services
+            including pediatrics, OB-GYN, and emergency care.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(6); showHospitalInfo(6);">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrcQSMAfjeWXlf14ZJSqod8jsmY3na29Y-ng&s"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">ILOILO PROVINCIAL HOSPITAL</div>
+          <div class="placeDescription">A government-run Level II hospital in Pototan, Iloilo, providing essential
+            medical services to the province and nearby areas.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(7); showHospitalInfo(7);">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg2K_UNRZcJy5tejgduO2_NO5QhkeLmReoWA&s"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">FEDERICO ROMAN TIRADOR SR. MEMORIAL DISTRICT HOSPITAL</div>
+          <div class="placeDescription">a local government-run healthcare facility located in Janiuay, Iloilo, serving
+            the medical needs of the surrounding communities in Western Visayas.</div>
+        </div>
+      </button>
+
+      <button class="buttonCard" onclick="showMap(8); showHospitalInfo(8);">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuk0EYLzfAvBJCCwnvddDCNY2BxLd27N9h6g&s"
+          alt="Hospital Image">
+        <div class="textContent">
+          <div class="placeName">FAMILY PLANNING ORGANIZATION OF THE PHILIPPINES (FPOP)</div>
+          <div class="placeDescription">PLACEHOLDER</div>
+        </div>
+      </button>
+
+    </div>
+
+    <div id="infoPopup" class="info-popup hidden">
+      <button class="close-btn" onclick="closeInfoPopup()">&times;</button>
+
+      <div class="welcome-image-container">
+        <img src="hospital-image.jpg" alt="Hospital Image" class="popup-image">
+      </div>
+
+      <div class="info-header">
+        <h2 id="popupHospitalName" class="hospital-title">Hospital Name</h2>
+      </div>
+
+      <div class="about-section">
+        <div class="about-title">About</div>
+        <div id="popupHospitalDesc" class="about-description">
+          Hospital description
+        </div>
+      </div>
+
+      <div class="services-section">
+        <div class="services-title" style="color: #b81e63;">SERVICES OFFERED:</div>
+        <div id="servicesList">
+
+          <div class="service-group">
+            <button class="service-btn">
+              Service Title <span class="arrow">▼</span>
+            </button>
+            <div class="service-description">
+              Service description content
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet library to use OpenStreetMap-->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+  <script>
+
+    //lat = latitude(north, south), lng = longitude(east, west) 
+    const hospitals = [
+      {
+        name: "DON JOSE S. MONFORT MEDICAL CENTER",
+        description: "<b>Address:</b> Tabucan, Barotac Nuevo, Iloilo <br> <b>Contact:</b> (033) 361 2010 | omcc@djsmmc.doh.gov.ph <br><br> Don Jose S. Monfort Medical Center is a Level III, government-run tertiary hospital with an authorized bed capacity of 300, serving patients primarily from Barotac Nuevo and nearby municipalities in Iloilo. <br><br> <b>Medical Center Chief</b>: Dr. Mariano S. Hembra <br><br><b>Chief Nurse</b>: Ma. Cecilia G. Montero",
+        image: "Navigate/Images/DoneJose.jpg",
+        services: [
+          { title: "Emergency Medical Services (EMS)" },
+          { title: "Outpatient Services" },
+          { title: "Inpatient Services" },
+          {
+            title: "Delivery Room (DR) Services",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to individual pregnant client and the newborn at risk/high-risk. <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Transport client to delivery room safely</li>
+               <li>Place client in lithotomy position</li>
+               <li>Prepare instruments and equipment needed</li>
+               <li>Perform perineal care using sterile technique correctly</li>
+               <li>Assist in delivery of the baby and placenta correctly and carefully</li>
+               <li>Assist in episiorrhaphy, if needed</li>
+               <li>Administer medications as ordered (e.g. Oxytocin)</li>
+               <li>Perform perineal care and apply pad correctly</li>
+               <li>Demonstrate proper "latch-on" and teach breastfeeding technique</li>
+               <li>Transfer patient to recovery room/ward</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Immediate Newborn Cord Care:</b>
+              <ul>
+               <li>Suction the baby, if needed</li>
+               <li>Apply umbilical cord clamp properly</li>
+               <li>Cut the cord correctly</li>
+               <li>Initiate skin to skin contact</li>
+               <li>Wipe newborn and wrap warmly</li>
+               <li>Perform anthropometric measurement</li>
+               <li>Check vital signs</li>
+               <li>Administer ordered medications (e.g. Vit K, Hepa B. Terramycin Ointment)</li>
+               <li>Ensure proper identification of newborn and the mother.</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Provide health/discharge instructions on:</b>
+              <ul>
+               <li>Daily cord care and prevention of cord infection</li>
+               <li>Newborn screening, immunizations and feeding</li>
+               <li>Postpartum care</li>
+               <li>Discharge instruction to breastfeeding, bathing, medications ordered, appointment dates for post-natal and well-baby check-up.</li>
+              </ul>
+            `
+          },
+          { title: "Medical Ward" },
+          { title: "Surgical Ward" },
+          { title: "OB-Gyne Ward" },
+          { title: "Pediatric Ward" },
+          { title: "Intensive Care Unit (ICU)" },
+          { title: "Neonatal Intensive Care Unit (NICU)" },
+          { title: "Laboratory and Pathology Services" },
+          { title: "Radiology and Imaging Services" },
+          { title: "Pharmacy Services" },
+          { title: "Dialysis Unit (Hemodialysis)" },
+          { title: "Dental Services" },
+          { title: "Physical Medicine and Rehabilitation" },
+          { title: "Psychiatry and Mental Health Services" },
+          { title: "Family Medicine" },
+          { title: "Medical Social Services" },
+          { title: "Nutrition and Dietetics Services" },
+          { title: "Training and Education" }
+
+        ]
+      },
+      {
+        name: "DUMANGAS DISTRICT HOSPITAL, Dumangas, Iloilo",
+        description: "<b>Address:</b> Ilaya 1st, Dumangas, Iloilo <br> <b>Contact:</b> +6333 522 8211 | rtmdh@iloilo.gov.ph <br><br> Ramon D. Duremdes District Hospital is a government district hospital in Dumangas, Iloilo, offering 24-hour medical services and sustainable healthcare initiatives to communities in central Iloilo. <br><br> <b>Medical Center Chief</b>: Dr. Dennise Roy M. Pasadilla <br><br><b>Chief Nurse</b>: Anmi Flores",
+        image: "Navigate/Images/RamonD.jpg",
+        services: [
+          { title: "Emergency Medical Services (EMS)" },
+          { title: "Outpatient Services" },
+          { title: "Inpatient Services" },
+          { title: "Operating Room (OR) Services" },
+          {
+            title: "Delivery Room (DR) Services",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to individual pregnant client and the newborn at risk/high-risk. <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Transport client to delivery room safely</li>
+               <li>Place client in lithotomy position</li>
+               <li>Prepare instruments and equipment needed</li>
+               <li>Perform perineal care using sterile technique correctly</li>
+               <li>Assist in delivery of the baby and placenta correctly and carefully</li>
+               <li>Assist in episiorrhaphy, if needed</li>
+               <li>Administer medications as ordered (e.g. Oxytocin)</li>
+               <li>Perform perineal care and apply pad correctly</li>
+               <li>Demonstrate proper "latch-on" and teach breastfeeding technique</li>
+               <li>Transfer patient to recovery room/ward</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Immediate Newborn Cord Care:</b>
+              <ul>
+               <li>Suction the baby, if needed</li>
+               <li>Apply umbilical cord clamp properly</li>
+               <li>Cut the cord correctly</li>
+               <li>Initiate skin to skin contact</li>
+               <li>Wipe newborn and wrap warmly</li>
+               <li>Perform anthropometric measurement</li>
+               <li>Check vital signs</li>
+               <li>Administer ordered medications (e.g. Vit K, Hepa B. Terramycin Ointment)</li>
+               <li>Ensure proper identification of newborn and the mother.</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Provide health/discharge instructions on:</b>
+              <ul>
+               <li>Daily cord care and prevention of cord infection</li>
+               <li>Newborn screening, immunizations and feeding</li>
+               <li>Postpartum care</li>
+               <li>Discharge instruction to breastfeeding, bathing, medications ordered, appointment dates for post-natal and well-baby check-up.</li>
+              </ul>
+            `
+          },
+          { title: "Medical Ward" },
+          { title: "Surgical Ward" },
+          { title: "OB-Gyne Ward" },
+          { title: "Pediatric Ward" },
+          { title: "Intensive Care Unit (ICU)" },
+          { title: "Neonatal Intensive Care Unit (NICU)" },
+          { title: "Laboratory and Pathology Services" },
+          { title: "Radiology and Imaging Services" },
+          { title: "Pharmacy Services" },
+          { title: "Dialysis Unit (Hemodialysis)" },
+          { title: "Dental Services" },
+          { title: "Physical Medicine and Rehabilitation" },
+          { title: "Psychiatry and Mental Health Services" },
+          { title: "Family Medicine" },
+          { title: "Medical Social Services" },
+          { title: "Nutrition and Dietetics Services" },
+          { title: "Training and Education" }
+        ]
+
+      },
+      {
+        name: "WESTERN VISAYAS MEDICAL CENTER, Iloilo City",
+        description: "<b>Address:</b> Q. Abeto Street, Mandurriao, Iloilo City <br> <b>Contact:</b> (033) 330-7700 | wvmciloilo@gmail.com <br><br> WVMC is a Level III, teaching and training hospital under the Department of Health, offering comprehensive medical services including Internal Medicine, Surgery, OB-Gyne, Pediatrics, Psychiatry, Orthopedics, Emergency Care and more. It also serves patients from the five (5) provinces and the City of Iloilo in Panay Island. <br><br> <b>Medical Center Chief</b>: Dr. Joseph Dean L. Nicolo <br><br><b>Chief Nurse</b>: Robyniel A. Alba",
+        image: "Navigate/Images/WVMC.jpg",
+        services: [
+          { title: "Emergency Medical Services (EMS)" },
+          { title: "Outpatient Services" },
+          { title: "Inpatient Services" },
+          { title: "Operating Room (OR) Services" },
+          {
+            title: "Delivery Room (DR) Services",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to individual pregnant client and the newborn at risk/high-risk. <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Transport client to delivery room safely</li>
+               <li>Place client in lithotomy position</li>
+               <li>Prepare instruments and equipment needed</li>
+               <li>Perform perineal care using sterile technique correctly</li>
+               <li>Assist in delivery of the baby and placenta correctly and carefully</li>
+               <li>Assist in episiorrhaphy, if needed</li>
+               <li>Administer medications as ordered (e.g. Oxytocin)</li>
+               <li>Perform perineal care and apply pad correctly</li>
+               <li>Demonstrate proper "latch-on" and teach breastfeeding technique</li>
+               <li>Transfer patient to recovery room/ward</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Immediate Newborn Cord Care:</b>
+              <ul>
+               <li>Suction the baby, if needed</li>
+               <li>Apply umbilical cord clamp properly</li>
+               <li>Cut the cord correctly</li>
+               <li>Initiate skin to skin contact</li>
+               <li>Wipe newborn and wrap warmly</li>
+               <li>Perform anthropometric measurement</li>
+               <li>Check vital signs</li>
+               <li>Administer ordered medications (e.g. Vit K, Hepa B. Terramycin Ointment)</li>
+               <li>Ensure proper identification of newborn and the mother.</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Provide health/discharge instructions on:</b>
+              <ul>
+               <li>Daily cord care and prevention of cord infection</li>
+               <li>Newborn screening, immunizations and feeding</li>
+               <li>Postpartum care</li>
+               <li>Discharge instruction to breastfeeding, bathing, medications ordered, appointment dates for post-natal and well-baby check-up.</li>
+              </ul>
+            `
+          },
+          { title: "Medical Ward" },
+          { title: "Surgical Ward" },
+          {
+            title: "OB-Gyne Ward",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to clients with gynecologic disturbances & pre-existing health problems and the pathologic changes during intrapartum and postpartum periods <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Vital Signs Monitoring and Recording</li>
+               <li>MIO & recording</li>
+               <li>Bed Making</li>
+               <li>Comfort and Hygiene</li>
+               <li>Activity and Exercises</li>
+               <li>Tepid Sponge Bath (TSB)</li>
+               <li>Nutrition and Hydration</li>
+               <li>Capillary Blood Glucose (CBG)</li>
+               <li>Pulmo-Aid Inhalation (PAI)</li>
+               <li>Phototherapy</li>
+               <li>Bili-light Therapy</li>
+               <li>Oral Suctioning</li>
+               <li>IV follow up/regulation, discontinuation, and changing to saline lock, IV splinting</li>
+               <li>Documentation</li>
+              </ul>
+            `
+          },
+          {
+            title: "Pediatric Ward",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to newborn and children <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Vital Signs Monitoring and Recording</li>
+               <li>Receive endorsement</li>
+               <li>Oral drug study</li>
+               <li>MIO & recording</li>
+               <li>Bed Making</li>
+               <li>Comfort and Hygiene</li>
+               <li>Activity and Exercises</li>
+               <li>Tepid Sponge Bath (TSB)</li>
+               <li>Nutrition and Hydration</li>
+               <li>Capillary Blood Glucose (CBG)</li>
+               <li>Pulmo-Aid Inhalation (PAI)</li>
+               <li>Phototherapy</li>
+               <li>Bili-light Therapy</li>
+               <li>Oral Suctioning</li>
+               <li>IV follow up/regulation, discontinuation, and changing to Saline lock, IV splinting</li>
+               <li>Medication (Oral, IM, ID, SC)</li>
+               <li>Documentation</li>
+               <li>Giving of Endorsement</li>
+               <li>Ward Class</li>
+              </ul>
+            `
+          },
+
+          { title: "Intensive Care Unit (ICU)" },
+          { title: "Neonatal Intensive Care Unit (NICU)" },
+          { title: "Laboratory and Pathology Services" },
+          { title: "Radiology and Imaging Services" },
+          { title: "Heart and Lung Center" },
+          { title: "Pharmacy Services" },
+          { title: "Dialysis Unit" },
+          { title: "Dental Services" },
+          { title: "Physical Medicine and Rehabilitation" },
+          { title: "Psychiatry and Mental Health Services" },
+          { title: "Family Medicine" },
+          { title: "Biomedical Services (Equipment Maintenance)" },
+          { title: "Medical Social Services" },
+          { title: "Nutrition and Dietetics Services" },
+          { title: "Training and Education (for student nurses, interns, and residents)" }
+
+        ]
+      },
+      {
+        name: "WEST VISAYAS STATE UNIVERSITY MEDICAL CENTER, Iloilo City",
+        description: "<b>Address:</b> E Lopez St, Jaro, Iloilo City, 500 <br> <b>Contact:</b> (033) 320 2431 | medcenter@wvsu.edu.ph | rtmdh@iloilo.gov.ph <br><br> WVSU-MC is a Level III government teaching and training hospital in Iloilo City, offering advanced medical care, specialized services, and clinical education affiliated with West Visayas State University. <br><br> <b>Medical Center Chief</b>: Dr. Dave Endel R. Gelito III <br><br><b>Chief Nurse</b>: Mr. Cesar Q. Tronco",
+        image: "Navigate/Images/WVSUMC.jpg",
+        services: [
+          { title: "Out-Patient Consultation" },
+          { title: "Surgical And Orthopedic Wards" },
+          { title: "Male And Female Medical Wards" },
+          { title: "Pediatric Wards" },
+          { title: "Psychiatric Ward" },
+          {
+            title: "Ob-Gyne Ward",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to clients with gynecologic disturbances & pre-existing health problems and the pathologic changes during intrapartum and postpartum periods <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Vital Signs Monitoring and Recording</li>
+               <li>MIO & recording</li>
+               <li>Bed Making</li>
+               <li>Comfort and Hygiene</li>
+               <li>Activity and Exercises</li>
+               <li>Tepid Sponge Bath (TSB)</li>
+               <li>Nutrition and Hydration</li>
+               <li>Capillary Blood Glucose (CBG)</li>
+               <li>Pulmo-Aid Inhalation (PAI)</li>
+               <li>Phototherapy</li>
+               <li>Bili-light Therapy</li>
+               <li>Oral Suctioning</li>
+               <li>IV follow up/regulation, discontinuation, and changing to saline lock, IV splinting</li>
+               <li>Documentation</li>
+              </ul>
+            `
+          },
+
+          {
+            title: "Delivery Room",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to individual pregnant client and the newborn at risk/high-risk. <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Transport client to delivery room safely</li>
+               <li>Place client in lithotomy position</li>
+               <li>Prepare instruments and equipment needed</li>
+               <li>Perform perineal care using sterile technique correctly</li>
+               <li>Assist in delivery of the baby and placenta correctly and carefully</li>
+               <li>Assist in episiorrhaphy, if needed</li>
+               <li>Administer medications as ordered (e.g. Oxytocin)</li>
+               <li>Perform perineal care and apply pad correctly</li>
+               <li>Demonstrate proper "latch-on" and teach breastfeeding technique</li>
+               <li>Transfer patient to recovery room/ward</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Immediate Newborn Cord Care:</b>
+              <ul>
+               <li>Suction the baby, if needed</li>
+               <li>Apply umbilical cord clamp properly</li>
+               <li>Cut the cord correctly</li>
+               <li>Initiate skin to skin contact</li>
+               <li>Wipe newborn and wrap warmly</li>
+               <li>Perform anthropometric measurement</li>
+               <li>Check vital signs</li>
+               <li>Administer ordered medications (e.g. Vit K, Hepa B. Terramycin Ointment)</li>
+               <li>Ensure proper identification of newborn and the mother.</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Provide health/discharge instructions on:</b>
+              <ul>
+               <li>Daily cord care and prevention of cord infection</li>
+               <li>Newborn screening, immunizations and feeding</li>
+               <li>Postpartum care</li>
+               <li>Discharge instruction to breastfeeding, bathing, medications ordered, appointment dates for post-natal and well-baby check-up.</li>
+              </ul>
+            `
+          },
+          { title: "Operating Room Complex With Six Theaters" },
+          { title: "Emergency Room Complex" },
+          { title: "Dental Unit" },
+          { title: "Laboratory" },
+          { title: "Rehabilitation Medicine for Physical and Occupational Therapy" },
+          { title: "Pulmonary Unit" },
+          { title: "Pharmacy" }
+
+        ]
+      },
+      {
+        name: "ALEOSAN DISTRICT HOSPITAL, Alimodian, Iloilo",
+        description: "<b>Address:</b> Brgy. Bancal, Alimodian, Iloilo <br> <b>Contact:</b> +6333 331 0602 /+6333 331 1033 | aleosan.disthospital@iloilo.gov.ph <br><br> ADH is a PHIC-accredited healthcare provider and the only public hospital serving the 2nd District of Iloilo. <br><br> <b>Medical Center Chief</b>: Dr. Cherubim C. Estrellanes <br><br><b>Chief Nurse</b>: Ms. Ma Azucena Amantillo Lamigo",
+        image: "Navigate/Images/Aleosan.jpg",
+        services: [
+          { title: "Out-Patient Consultation" },
+          { title: "General Surgery" },
+          { title: "OB-Gyne" },
+          {
+            title: "Delivery Room",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to individual pregnant client and the newborn at risk/high-risk. <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Transport client to delivery room safely</li>
+               <li>Place client in lithotomy position</li>
+               <li>Prepare instruments and equipment needed</li>
+               <li>Perform perineal care using sterile technique correctly</li>
+               <li>Assist in delivery of the baby and placenta correctly and carefully</li>
+               <li>Assist in episiorrhaphy, if needed</li>
+               <li>Administer medications as ordered (e.g. Oxytocin)</li>
+               <li>Perform perineal care and apply pad correctly</li>
+               <li>Demonstrate proper "latch-on" and teach breastfeeding technique</li>
+               <li>Transfer patient to recovery room/ward</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Immediate Newborn Cord Care:</b>
+              <ul>
+               <li>Suction the baby, if needed</li>
+               <li>Apply umbilical cord clamp properly</li>
+               <li>Cut the cord correctly</li>
+               <li>Initiate skin to skin contact</li>
+               <li>Wipe newborn and wrap warmly</li>
+               <li>Perform anthropometric measurement</li>
+               <li>Check vital signs</li>
+               <li>Administer ordered medications (e.g. Vit K, Hepa B. Terramycin Ointment)</li>
+               <li>Ensure proper identification of newborn and the mother.</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Provide health/discharge instructions on:</b>
+              <ul>
+               <li>Daily cord care and prevention of cord infection</li>
+               <li>Newborn screening, immunizations and feeding</li>
+               <li>Postpartum care</li>
+               <li>Discharge instruction to breastfeeding, bathing, medications ordered, appointment dates for post-natal and well-baby check-up.</li>
+              </ul>
+            `
+          },
+          { title: "Medical" },
+          {
+            title: "Pediatrics",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to newborn and children <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Vital Signs Monitoring and Recording</li>
+               <li>Receive endorsement</li>
+               <li>Oral drug study</li>
+               <li>MIO & recording</li>
+               <li>Bed Making</li>
+               <li>Comfort and Hygiene</li>
+               <li>Activity and Exercises</li>
+               <li>Tepid Sponge Bath (TSB)</li>
+               <li>Nutrition and Hydration</li>
+               <li>Capillary Blood Glucose (CBG)</li>
+               <li>Pulmo-Aid Inhalation (PAI)</li>
+               <li>Phototherapy</li>
+               <li>Bili-light Therapy</li>
+               <li>Oral Suctioning</li>
+               <li>IV follow up/regulation, discontinuation, and changing to Saline lock, IV splinting</li>
+               <li>Medication (Oral, IM, ID, SC)</li>
+               <li>Documentation</li>
+               <li>Giving of Endorsement</li>
+               <li>Ward Class</li>
+              </ul>
+            `
+          },
+          { title: "Pharmacy" },
+          { title: "Dental" },
+          { title: "Clinical Laboratory" },
+          { title: "X-ray, ECG, Ultrasound" },
+          { title: "Family Planning" },
+          { title: "Diabetes Education" },
+          { title: "Animal Bite Treatment Center" },
+          { title: "Mothers’ Class" },
+          { title: "Orthopedic " }
+        ]
+      },
+      {
+        name: "PEDRO G. TRONO MEMORIAL HOSPITAL, Guimbal, Iloilo",
+        description: "<b>Address:</b> Garriel Street, Guimbal, Iloilo <br> <b>Contact:</b> +6333 327 0188 | rpgtmd@iloilo.gov.ph <br><br> Rep. Pedro G. Trono Memorial Hospital is a district hospital located in Guimbal, Iloilo, providing essential medical services to residents of Guimbal and surrounding towns in southern Iloilo. <br><br> <b>Medical Center Chief</b>: Dr. Lily Ann C. Eslabra <br><br><b>Chief Nurse</b>: Josenia S. Curtom",
+        image: "Navigate/Images/PEDRO.jpeg",
+        services: [
+          { title: "Emergency Medical Services (EMS)" },
+          { title: "Outpatient Services" },
+          { title: "Inpatient Services" },
+          { title: "Operating Room (OR) Services" },
+          {
+            title: "Delivery Room (DR) Services",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to individual pregnant client and the newborn at risk/high-risk. <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Transport client to delivery room safely</li>
+               <li>Place client in lithotomy position</li>
+               <li>Prepare instruments and equipment needed</li>
+               <li>Perform perineal care using sterile technique correctly</li>
+               <li>Assist in delivery of the baby and placenta correctly and carefully</li>
+               <li>Assist in episiorrhaphy, if needed</li>
+               <li>Administer medications as ordered (e.g. Oxytocin)</li>
+               <li>Perform perineal care and apply pad correctly</li>
+               <li>Demonstrate proper "latch-on" and teach breastfeeding technique</li>
+               <li>Transfer patient to recovery room/ward</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Immediate Newborn Cord Care:</b>
+              <ul>
+               <li>Suction the baby, if needed</li>
+               <li>Apply umbilical cord clamp properly</li>
+               <li>Cut the cord correctly</li>
+               <li>Initiate skin to skin contact</li>
+               <li>Wipe newborn and wrap warmly</li>
+               <li>Perform anthropometric measurement</li>
+               <li>Check vital signs</li>
+               <li>Administer ordered medications (e.g. Vit K, Hepa B. Terramycin Ointment)</li>
+               <li>Ensure proper identification of newborn and the mother.</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Provide health/discharge instructions on:</b>
+              <ul>
+               <li>Daily cord care and prevention of cord infection</li>
+               <li>Newborn screening, immunizations and feeding</li>
+               <li>Postpartum care</li>
+               <li>Discharge instruction to breastfeeding, bathing, medications ordered, appointment dates for post-natal and well-baby check-up.</li>
+              </ul>
+            `
+          },
+          { title: "Medical Ward" },
+          { title: "Surgical Ward" },
+          { title: "OB-Gyne Ward" },
+          { title: "Pediatric Ward" },
+          { title: "Intensive Care Unit (ICU)" },
+          { title: "Neonatal Intensive Care Unit (NICU)" },
+          { title: "Laboratory and Pathology Services" },
+          { title: "Radiology and Imaging Services" },
+          { title: "Pharmacy Services" },
+          { title: "Dialysis Unit (Hemodialysis)" },
+          { title: "Dental Services" },
+          { title: "Physical Medicine and Rehabilitation" },
+          { title: "Psychiatry and Mental Health Services" },
+          { title: "Family Medicine" },
+          { title: "Medical Social Services" },
+          { title: "Nutrition and Dietetics Services" },
+          { title: "Training and Education" },
+
+        ]
+      },
+      {
+        name: "ILOILO PROVINCIAL HOSPITAL, Pototan, Iloilo",
+        description: "<b>Address:</b> Brgy. Rumbang, Pototan, Iloilo <br> <b>Contact:</b> +6333 529 7496 | provincial_hospital@iloilo.gov.ph <br><br> IPH is a government-run Level II hospital providing essential medical and surgical services to communities across the province. <br><br> <b>Medical Center Chief</b>: Dr. Albert S. Cordero <br><br><b>Chief Nurse</b>: Dr. Jurel A. Pio",
+        image: "Navigate/Images/ILOILO.jpeg",
+        services: [
+          { title: "Outpatient Consultation" },
+          { title: "Surgery/Orthopedics" },
+          { title: "Pediatric Ward" },
+          {
+            title: "Delivery Room",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to individual pregnant client and the newborn at risk/high-risk. <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Transport client to delivery room safely</li>
+               <li>Place client in lithotomy position</li>
+               <li>Prepare instruments and equipment needed</li>
+               <li>Perform perineal care using sterile technique correctly</li>
+               <li>Assist in delivery of the baby and placenta correctly and carefully</li>
+               <li>Assist in episiorrhaphy, if needed</li>
+               <li>Administer medications as ordered (e.g. Oxytocin)</li>
+               <li>Perform perineal care and apply pad correctly</li>
+               <li>Demonstrate proper "latch-on" and teach breastfeeding technique</li>
+               <li>Transfer patient to recovery room/ward</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Immediate Newborn Cord Care:</b>
+              <ul>
+               <li>Suction the baby, if needed</li>
+               <li>Apply umbilical cord clamp properly</li>
+               <li>Cut the cord correctly</li>
+               <li>Initiate skin to skin contact</li>
+               <li>Wipe newborn and wrap warmly</li>
+               <li>Perform anthropometric measurement</li>
+               <li>Check vital signs</li>
+               <li>Administer ordered medications (e.g. Vit K, Hepa B. Terramycin Ointment)</li>
+               <li>Ensure proper identification of newborn and the mother.</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Provide health/discharge instructions on:</b>
+              <ul>
+               <li>Daily cord care and prevention of cord infection</li>
+               <li>Newborn screening, immunizations and feeding</li>
+               <li>Postpartum care</li>
+               <li>Discharge instruction to breastfeeding, bathing, medications ordered, appointment dates for post-natal and well-baby check-up.</li>
+              </ul>
+            `
+          },
+          { title: "Ob-Gyne Ward" },
+          { title: "Internal Medicine" },
+          { title: "Anesthesia" },
+          { title: "Radiology Department" },
+          { title: "Intensive Care Unit (ICU)" },
+          { title: "Neonatal Intensive Care Unit (NICU)" },
+          { title: "Level III Clinical Laboratory" },
+          { title: "Respiratory Units" }
+        ]
+      },
+      {
+        name: "Federico Roman Tirador Sr. Memorial Hospital",
+        description: "<b>Address:</b> Brgy. Jibolo, Janiuay, Iloilo <br> <b>Contact:</b> +6333 531 8506 | frtmdh@iloilo.gov.ph <br><br> FRTSMDH is a public healthcare facility offering a comprehensive range of medical services, dedicated to providing accessible and quality healthcare to the local community. <br><br> <b>Medical Center Chief</b>: Dr. Jeseryl S. Villa <br><br><b>Chief Nurse</b>: Mr. Roland M. Lujan",
+        image: "Navigate/Images/FRED.jpeg",
+        services: [
+          { title: "Outpatient Department (OPD)" },
+          { title: "Consultation" },
+          { title: "Laboratory Service" },
+          { title: "Pharmacy Service" },
+          {
+            title: "Delivery Room",
+            description: `
+             <p>Students must have rendered safe and quality nursing care to individual pregnant client and the newborn at risk/high-risk. <br><br><b>Nursing procedures performed:</b></p>
+             <ul>
+               <li>Transport client to delivery room safely</li>
+               <li>Place client in lithotomy position</li>
+               <li>Prepare instruments and equipment needed</li>
+               <li>Perform perineal care using sterile technique correctly</li>
+               <li>Assist in delivery of the baby and placenta correctly and carefully</li>
+               <li>Assist in episiorrhaphy, if needed</li>
+               <li>Administer medications as ordered (e.g. Oxytocin)</li>
+               <li>Perform perineal care and apply pad correctly</li>
+               <li>Demonstrate proper "latch-on" and teach breastfeeding technique</li>
+               <li>Transfer patient to recovery room/ward</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Immediate Newborn Cord Care:</b>
+              <ul>
+               <li>Suction the baby, if needed</li>
+               <li>Apply umbilical cord clamp properly</li>
+               <li>Cut the cord correctly</li>
+               <li>Initiate skin to skin contact</li>
+               <li>Wipe newborn and wrap warmly</li>
+               <li>Perform anthropometric measurement</li>
+               <li>Check vital signs</li>
+               <li>Administer ordered medications (e.g. Vit K, Hepa B. Terramycin Ointment)</li>
+               <li>Ensure proper identification of newborn and the mother.</li>
+               <li>Endorsement</li>
+              </ul>
+              <b>Provide health/discharge instructions on:</b>
+              <ul>
+               <li>Daily cord care and prevention of cord infection</li>
+               <li>Newborn screening, immunizations and feeding</li>
+               <li>Postpartum care</li>
+               <li>Discharge instruction to breastfeeding, bathing, medications ordered, appointment dates for post-natal and well-baby check-up.</li>
+              </ul>
+            `
+          },
+          { title: "X-Ray Service" },
+          { title: "Dental Service" },
+          { title: "Ambulance Service" },
+          { title: "Rehabilitation Service" },
+          { title: "Medical Service (In-Patient)" }
+
+        ]
+      },
+      {
+        name: "FPOP Community Health Care Birthing Center and Laboratory",
+        description: "<b>Address:</b> 2F Dulalia Blg. Rizal St. Brgy. Maria Clara, City Proper, Iloilo City <br> <b>Contact:</b> (033) 329 5033/ +6333 329 5033| fpop_iloilo@yahoo.com <br><br> A one stop shop service-oriented organization providing sexual and reproductive services to all the Filipinos, especially the poor, marginalized, socially excluded and underserved. <br><br> <b>Executive Director:</b>: Nandy A. Senoc <br><br><b>Primary Care Nurse:</b>: Christine S. Gicole",
+        image: "Navigate/Images/FPOP.jpeg",
+        services: [
+          { title: "Family Planning Services" },
+          { title: "HIV Primary Care Clinic" },
+          { title: "Maternal Health" },
+          { title: "Child Health" },
+          { title: "Medical" },
+          { title: "Secondary Laboratory" },
+          { title: "Reproductive Health" },
+          { title: "TB DOTS" },
+          { title: "Konsulta Provider (Philhealth)" },
+          { title: "TransHealth (Mango Clinic)" },
+          { title: "Halfway Home (Balay Kaalwan)" },
+          { title: "Candy Lounge (Safe space for the youth)" },
+          { title: "Rajah Community Center" },
+          { title: "PrEP (pre-exposure prophylaxis)" },
+          { title: "SelfCare (HIV Self-screening Kits)" }
+        ]
+      },
+    ];
+
+    let map = L.map('map', {
+      zoomControl: true,
+      dragging: true,
+      scrollWheelZoom: true,
+      doubleClickZoom: false,
+      boxZoom: false,
+      keyboard: false,
+      tap: false,
+      touchZoom: true,
+      attributionControl: true
+    }).setView([10.7, 122.5], 10);
+
+    map.off('click');
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      interactive: false
+    }).addTo(map);
+
+
+    let routeControl = null;
+
+    function toggleMapPopup() {
+      const popup = document.getElementById("mapPopup");
+      popup.classList.toggle("hidden");
+
+      if (!popup.classList.contains("hidden")) {
+        setTimeout(() => {
+          map.invalidateSize();
+        }, 200);
+      }
+    }
+
+    function showMap(index) {
+      const hospital = hospitals[index];
+
+      if (routeControl) {
+        map.removeControl(routeControl);
+      }
+
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(hospital.name)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (!data.length) {
+            alert("Could not find location for " + hospital.name);
+            return;
+          }
+
+          const lat = parseFloat(data[0].lat);
+          const lon = parseFloat(data[0].lon);
+
+          map.setView([lat, lon], 13);
+
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+              const userLatLng = L.latLng(position.coords.latitude, position.coords.longitude);
+              const hospitalLatLng = L.latLng(lat, lon);
+
+              routeControl = L.Routing.control({
+                waypoints: [userLatLng, hospitalLatLng],
+                routeWhileDragging: false,
+                showAlternatives: false,
+                addWaypoints: false,
+                draggableWaypoints: false,
+                fitSelectedRoutes: true,
+                createMarker: (i, waypoint, n) => {
+                  return L.marker(waypoint.latLng).bindPopup(i === 0 ? "You are here" : hospital.name);
+                }
+              }).addTo(map);
+
+              const mapToggleButton = document.querySelector(".map-toggle-btn");
+              mapToggleButton.classList.add("highlight");
+
+              setTimeout(() => {
+                mapToggleButton.classList.remove("highlight");
+              }, 5000);
+            }, () => {
+              alert("Unable to retrieve your location.");
+            }, {
+              enableHighAccuracy: true,
+              timeout: 10000,
+              maximumAge: 0
+            });
+          } else {
+            alert("Geolocation is not supported by your browser.");
+          }
+        })
+        .catch(error => {
+          console.error("Geocoding error:", error);
+          alert("An error occurred while finding the hospital location.");
+        });
+    }
+
+    function showHospitalInfo(index) {
+      const hospital = hospitals[index];
+      const popup = document.getElementById("infoPopup");
+
+      document.getElementById("popupHospitalName").textContent = hospital.name;
+      document.getElementById("popupHospitalDesc").innerHTML = hospital.description;
+
+      const popupImage = document.querySelector("#infoPopup .popup-image");
+      popupImage.src = hospital.image;
+
+      const servicesList = document.getElementById("servicesList");
+      servicesList.innerHTML = "";
+
+      let toggleIndex = 0;
+
+      (hospital.services || []).forEach((service) => {
+        const serviceGroup = document.createElement("div");
+        serviceGroup.className = "service-group";
+
+        const button = document.createElement("button");
+        button.className = "service-btn";
+        const arrow = `<span class="arrow">▼</span>`;
+
+        if (service.description && service.description.trim() !== "") {
+          const currentIndex = toggleIndex;
+          button.innerHTML = `${service.title} ${arrow}`;
+          button.onclick = () => toggleService(currentIndex);
+
+          const desc = document.createElement("div");
+          desc.className = "service-description";
+          desc.id = `service-desc-${currentIndex}`;
+          desc.innerHTML = service.description;
+
+          serviceGroup.appendChild(button);
+          serviceGroup.appendChild(desc);
+          servicesList.appendChild(serviceGroup);
+          toggleIndex++;
+        } else {
+          button.innerHTML = `${service.title} ${arrow}`;
+
+          button.querySelector(".arrow").style.opacity = "0.5";
+          serviceGroup.appendChild(button);
+          servicesList.appendChild(serviceGroup);
+        }
+      });
+
+      popup.classList.remove("hidden");
+
+      void popup.offsetWidth;
+
+      popup.classList.add("popup-visible");
+    }
+
+    function closeInfoPopup() {
+      const popup = document.getElementById("infoPopup");
+
+      popup.classList.remove("popup-visible");
+
+      setTimeout(() => {
+        popup.classList.add("hidden");
+      }, 300);
+    }
+
+    function toggleService(index) {
+      const all = document.querySelectorAll(".service-description");
+      const allButtons = document.querySelectorAll(".service-btn");
+
+      all.forEach((el, i) => {
+        if (i === index) {
+          el.classList.toggle("active");
+
+          const button = el.previousElementSibling;
+          button.classList.toggle("active");
+          const arrow = button.querySelector(".arrow");
+
+          if (el.classList.contains("active")) {
+            arrow.style.transform = "rotate(180deg)";
+          } else {
+            arrow.style.transform = "rotate(0deg)";
+          }
+        } else {
+          el.classList.remove("active");
+
+          const correspondingButton = all[i].previousElementSibling;
+          if (correspondingButton) {
+            correspondingButton.classList.remove("active");
+
+            const arrow = correspondingButton.querySelector(".arrow");
+            if (arrow) {
+              arrow.style.transform = "rotate(0deg)";
+            }
+          }
+        }
+      });
+    }
+
+
+  </script>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

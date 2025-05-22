@@ -7,54 +7,114 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Gradient pink-white -->
   <div class="gradient-overlay-bottom"></div>
+
   <div class="overlay">
-  <!-- Accessibility -->
-  <div class="accessibility-overlay"></div>
-  <div class="accessibility-button" id="accessibilityBtn">
-    <img src="res/accessibility_icon.png" alt="Accessibility Icon">
-  </div>
-  <div id="accessibilityMenu" class="accessibility-menu">
-    <button data-content="aboutUs">ABOUT US</button>
-    <button data-content="wvsuVision">WVSU VISION</button>
-    <button data-content="wvsuMission">WVSU MISSION</button>
-  </div>
-  <div id="accessibilityContent" class="accessibility-content">
+
+    <div class="accessibility-overlay" id="accessibilityOverlay"style="display: none;">
+  <div class="accessibility-content active" id="accessibilityContent">
+    <button id="closeAccessibilityContent" class="accessibility-close">✖</button>
+
     <div class="content-header">
-      <h2 id="contentTitle"></h2>
+      <h2>ABOUT US</h2>
     </div>
-    <div id="contentDescription" class="content-description"></div>
+
+    <div id="contentDescription" class="content-description">
+     <p> Motherbords and Babybytes is a dedicated team of Level 2 students from the West Visayas State University College of Nursing. As part of our advocacy to bridge healthcare and technology, we developed NaviCare—a one-stop platform for learning, hospital navigation, and health support. NaviCare brings together nursing education, hospital services, and postpartum care in one accessible and user-friendly space.</p>
+    </div>
+
     <div class="content-logo">
-      <img src="res/accessibility_icon.png" alt="WVSU Logo">
+      <img src="res/accessibility_icon.png" alt="NaviCare/WVSU Related Icon">
     </div>
-    <button id="closeAccessibilityContent" class="accessibility-close">Close</button>
   </div>
-    <!-- Main Content -->
-    <div class="container">
+</div>
+
+    
+      <div id="wvsuOverlay" class="wvsu-overlay" style="display: none;">
+  <div class="wvsu-popup">
+    <img src="res/wvsu_logo.png" alt="WVSU Logo" class="wvsu-logo">
+    <h1 class="wvsu-title">WEST VISAYAS <br> STATE UNIVERSITY</h1>
+    <div class="wvsu-sections">
+      <div class="wvsu-box">
+        <h2>VISION</h2>
+        <p>A research university advancing quality education towards societal transformation and global recognition.</p>
+      </div>
+      <div class="wvsu-box">
+        <h2>MISSION</h2>
+        <p>WVSU commits to develop life-long learners empowered to generate knowledge and technology and transform communities as agents of change.</p>
+      </div>
+      <div class="wvsu-box">
+        <h2>CORE VALUES</h2>
+        <p>EXCELLENCE<br>CREATIVITY AND INNOVATION<br>SERVICE</p>
+      </div>
+    </div>
+    <button id="closeWvsu" class="wvsu-close">✖</button>
+  </div>
+</div>
+
+      <div id="ConOverlay" class="con-overlay" style="display: none;">
+  <div class="con-popup">
+    <img src="res/CON_logo.png" alt="CON Logo" class="con-logo">
+    <h1 class="con-title">COLLEGE OF <br> NURSING</h1>
+    <div class="con-sections">
+      <div class="con-box">
+        <h2>VISION</h2>
+        <p>To become a Center of Excellence for Nursing Education. It shall provide leadership in instruction, research, and extension among nursing education institutions in the country.</p>
+      </div>
+      <div class="con-box">
+        <h2>MISSION</h2>
+        <p>The WVSU College of Nursing is committed to the total development of world-class nurses who are scientifically and technologically prepared, morally, ethically, and professionally competent in the promotion of health, prevention of disease, and promoting life and efficiency based on ethical standards of the Nursing profession.</p>
+      </div>
+      <div class="con-box">
+        <h2>GOALS</h2>
+        <p>The WVSU College of Nursing aims to:<br>1.Provide high quality nursing education in the undergraduate and graduate levels.<br>2. Conduct nursing-related scientific investigation and disseminate the findings.<br>3. Create transformative linkages and extension programs to unleash the empowering capacity of clients, partners and communities.<br>4. Nurture commitment to excellence, discipline, integrity, loyalty and professionalism.<br>5. Promote patriotism and the preservation and enrichment of the environment and cultural heritage.</p>
+      </div>
+    </div>
+    <button id="closeCon" class="con-close">✖</button>
+  </div>
+</div>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#" id="accessibilityTrigger" data-content="aboutUs">About Us</a></li>
+        <li><a href="#" data-content="wvsuPanel" id="navWvsu">WVSU</a></li>
+        <li><a href="#" data-content="conPanel" id="navCon">COLLEGE OF NURSING</a></li>
+        <li><a href="care_for_your_health.html">CARE FOR YOUR HEALTH</a></li>
+        <li><a href="navigateClient.html">NAVIGAIT HOSPITALS</a></li>
+        <li><a href="Nurselabs-main/NurseHub/MainTab/MainTab.html">NURSEHUB</a></li>
+            <li class="search-bar-container">
+              <input type="search" placeholder="Search..." id="navSearch" aria-label="Search site">
+              <div id="suggestionsContainer"></div>
+              <img src="res/accessibility_icon.png" alt="Site Logo" class="nav-logo-beside-search">
+            </li>
+      </ul>
+    </nav>
+
+    <main class="container">
       <div class="header">
-        <img src="res/school_and_dept_Logo.png" alt="school and dept">
-      </div>
+        <img src="res/school_and_dept_Logo.png" alt="WVSU and College of Nursing Logos"> </div>
       <div class="navicare-icon">
-        <img src="res/navicare_icon.png" alt="NaviCare Logo">
-      </div>
+        <img src="res/navicare_icon.png" alt="NaviCare Logo"> </div>
+        <div class="qoutes"><p>"One Platform. Three Solutions. Endless Impact."</p></div>
       <div class="user-type-section">
         <p class="select-text">Select User Type</p>
         <div class="user-types">
-          <a href="login_student.html" class="user-card">
-            <img src="res/stdnt_faculty_icon.png" alt="Student">
-            <p class="fixed-student-faculty">Student / Faculty</p>
+          <a href="login.php" class="user-card">
+            <img src="res/stdnt_faculty_icon.png" alt="Student or Faculty user type"> <p class="fixed-student-faculty">Student / Faculty</p>
           </a>
           <a href="welcome_guess.html" class="user-card">
-            <img src="res/guest_icon .png" alt="Guest">
-            <p>Guest</p>
+            <img src="res/guest_icon .png" alt="Guest user type"> <p>Guest</p>
           </a>
         </div>
       </div>
-    </div> <!-- .container -->
-  </div> <!-- .overlay -->
-  
-  <!-- JavaScript -->
-  <script src="script.js"></script>
+    </main> <div class="top-info-banner" aria-label="Information Marquee">
+      <span>Maternal and Child Nursing is a specialized field focused on the comprehensive care of women during pregnancy, childbirth, and the postpartum period, as well as the care of their newborns and children through adolescence. This specialty integrates obstetric nursing, perinatal nursing, and pediatric nursing to support the health and well-being of mothers and children. </span>
+    </div>
+
+    <div class="sdg-image-banner" role="complementary" aria-label="Sustainable Development Goals">
+      <img src="res/sdg_footer.png" alt="Banner related to Sustainable Development Goals"> </div>
+
+  </div> <script src="script.js"></script>
 </body>
 </html>

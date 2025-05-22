@@ -3,14 +3,14 @@
 session_start();
 
 // Check if the user is actually logged in and the display name is set
-if (!isset($_SESSION['user_loggedin']) || $_SESSION['user_loggedin'] !== true || !isset($_SESSION['display_name'])) {
+if (!isset($_SESSION['user_loggedin']) || $_SESSION['user_loggedin'] !== true || !isset($_SESSION['fullname'])) {
     // If not logged in, redirect to the login page
     header("Location: login_student.html"); // Or your actual login form page
     exit;
 }
 
 // Get the display name and escape it for security (to prevent XSS)
-$displayName = htmlspecialchars($_SESSION['display_name']);
+$displayName = htmlspecialchars($_SESSION['fullname']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
