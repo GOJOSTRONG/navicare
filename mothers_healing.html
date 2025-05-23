@@ -85,6 +85,11 @@
     position: relative;
     z-index: 2;
   }
+
+  .references-text {
+    text-align: left;
+    margin-left: 20px;
+  }
   :root {
     --primary-green: #4CAF50;
     --primary-magenta: #D81B60;
@@ -101,7 +106,6 @@
 .page-title {
     color: var(--primary-green);
     font-size: 45px;
-    font-family: cursive;
     margin-bottom: 30px;
     text-align: center;
     margin: 0; 
@@ -299,9 +303,9 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
   }
   .back-button { 
-    position: absolute;
+    position: fixed;
     top: 20px;
-    left: 90%; 
+    right: 20px; 
   }
   
   .back-button:hover, .back-button2:hover {
@@ -443,7 +447,7 @@
       <button class="back-button">Back</button>
       
       <div class="title-container">
-        <h1 class="page-title">Mother's <br> Healing</h1>
+        <h1 class="page-title">Mother's Healing</h1>
         <div class="title-underline"></div>
       </div>
       
@@ -493,8 +497,8 @@
           <span class="plus-icon">+</span>
         </button>
       </div>
-              <h2>REFERENCES:<br></h2>
-      <p> https://pmc.ncbi.nlm.nih.gov/articles/PMC8812510/.<br>
+          <h2>REFERENCES:<br></h2>
+      <p class="references-text">  https://pmc.ncbi.nlm.nih.gov/articles/PMC8812510/.<br>
         https://www.mayoclinic.org/diseases-conditions/postpartum-depression/symptoms-causes/syc-20376617?utm_source=chatgpt.com<br>
         https://my.clevelandclinic.org/health/articles/9682-pregnancy-physical-changes-after-delivery?utm_source=chatgpt.com<br>
         https://www.health.harvard.edu/blog/postpartum-anxiety-an-invisible-disorder-that-can-affect-new-mothers-202107302558?utm_source=chatgpt.com<br>
@@ -546,7 +550,7 @@
           
           <div class="infographic-placeholder">
               <div class="infographic-wrapper">
-                 <img src="https://scontent.fdvo1-1.fna.fbcdn.net/v/t39.30808-6/293046218_10159853818387367_7605970302380743456_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=0b6b33&_nc_eui2=AeE5PgwvliSOLitS5TNDAc9dEKXMbOdkGSkQpcxs52QZKR6f2m3y4xmqbjsvRPs5Cj-FJGXkruZ5LBlKDdkxgZh4&_nc_ohc=NRTLauJxNVkQ7kNvwHEX1xS&_nc_oc=AdmO7oUnjXR4-eJ6cosS3QI5XQ1venzViX6JbCTDYeooPlnsgb82l_fM3gb5KOdnFAL_d4DSZviLIQM_qYD-5RyO&_nc_zt=23&_nc_ht=scontent.fdvo1-1.fna&_nc_gid=g-Xo-03TM3TumDJC0gBBSQ&oh=00_AfJj9tFzBiw0i5Z3q2rJ78EnyEKKHPqxYug72IEJj2xrlA&oe=6821ADD7" 
+                 <img src="https://i.ibb.co/d4HKQm5S/293046218-10159853818387367-7605970302380743456-n.jpg" 
                   alt="Physiological Changes Infographic" 
                   style="width: 100%; height: 100%; object-fit: cover;"> </div>
             </div>

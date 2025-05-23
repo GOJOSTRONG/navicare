@@ -397,8 +397,8 @@ body nav li a {
   box-sizing: border-box;
   overflow: hidden;        
   background-color: rgba(255,255,255,0.7); 
-  position: absolute;
-  bottom: 110px;
+    bottom: 7vmax;
+    position: absolute;
   z-index: 3;
 }
 
@@ -573,25 +573,25 @@ body nav li a {
 }
 .centered-text2 {
   text-align: center;
-  font-size: 30px;
+  font-size: 33px;
   position: absolute;
   top: 30%;
-  color: #ff7cbb;
+  color: #a2165f;
 }
 .back-button, .back-button2 {
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #f8d7e1;
-  color: #a2165f;
-  border: none;
-  border-radius: 16px;
-  padding: 0.4rem 1rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
-  z-index: 1001; 
+    background-color: #f9e7f0;
+    color: #a2165f;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
 .back-button:hover,
@@ -1009,11 +1009,10 @@ body nav li a {
 }
 
 .welcome-text {
-  color: #e91e63;
+  color: #a2165f;
   font-size: clamp(1.5rem, 6vw, 2.5rem); 
   margin-bottom: 5px; 
-  text-align: center;
-  font-weight: bold; 
+  text-align: center; 
 }
 
 .navicare-logo { 
@@ -1084,9 +1083,12 @@ body nav li a {
 .member-options {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
   margin-top: 30px;
+  position: absolute;
+  left: 32%;
+  
 }
 
 .member-button {
@@ -1096,7 +1098,7 @@ body nav li a {
   border: 1px solid #2d9900;
   border-radius: 25px;
   padding: 12px 20px;
-  margin: 10px 15px;
+  margin: 10px 30px;
   width: 90%;
   max-width: 350px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -1120,6 +1122,32 @@ body nav li a {
 .member-button.premium {
   color: #d32476; 
 }
+
+.dropdown-content  {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left:-1.8%;
+  background-color: #1f8c2d;
+  color: #fff;
+  padding: 15px;
+  max-width: 470px;
+  font-size: 14px;
+  line-height: 1.4;
+  z-index: 2;
+  border-radius: 8px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+}
+
+.dropdown-content .dropdown-description {
+  margin: 0;
+  text-align: justify;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 
 .member-button.premium .member-button-text span {
   color: #47b85c; 
@@ -1280,10 +1308,10 @@ body nav li a {
 }
 
 .contacts-grid {
-  display: grid; 
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-  gap: 15px; 
-  margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-direction: column;
 }
 
 .contact-item {
@@ -1348,6 +1376,16 @@ body nav li a {
   padding-bottom: 10px; 
   border-bottom: 1px solid #f0f0f0;
   margin-bottom: 15px; 
+}
+
+.consultator-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 8px auto;
+  display: block;
+  border: 3px solid #b31270;
 }
 
 @media (max-width: 768px) {
@@ -1487,7 +1525,7 @@ body nav li a {
   width: 90%;
   text-align: center;
   position: relative;
-  top: -80px;
+  top: -35px;
   z-index: 2;
 }
 
@@ -1495,8 +1533,8 @@ body nav li a {
     width: 300px;
     margin-bottom: 10px;
     position: absolute;
-    left: 18%;
-    top: -16px;
+    left: 34%;
+    top: -92px;
 }
 
 .wvsu-title {
@@ -1521,7 +1559,6 @@ body nav li a {
   border: 3px solid #38a300;
   border-radius: 20px;
   color: #a2165f;
-  font-weight: bold;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -1556,7 +1593,7 @@ body nav li a {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; 
+  overflow: auto; 
 }
 
 .con-popup {
@@ -1567,7 +1604,7 @@ body nav li a {
   overflow-y: auto;  
   text-align: center;
   position: relative;
-  top: -80px;
+  top: -25px;
   z-index: 4;
 }
 
@@ -1579,12 +1616,12 @@ body nav li a {
     width: 80px;
     margin-bottom: 10px;
     position: absolute;
-    left: 32%;
-    top: 120px;
+    left: 45%;
+    top: 43px;
 }
 
 .con-title {
-  margin-top: 90px; 
+  margin-top: 95px; 
   font-size: 1.8rem;
   color: #a2165f;
   margin-bottom: 20px;
@@ -1606,8 +1643,29 @@ body nav li a {
   border: 3px solid #38a300;
   border-radius: 20px;
   color: #a2165f;
-  font-weight: bold;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.con-sections .con-box:nth-child(3) p {
+  text-align: left;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.con-sections .con-box:nth-child(3) p::-webkit-scrollbar {
+  display: none;
+}
+.con-sections .con-box:nth-child(3) p {
+  scrollbar-width: none; /* for Firefox */
+}
+
+.goals-box p {
+  text-align: left; 
+}
+
+.goals-intro {
+  display: block;
+  text-align: center;
 }
 
 .con-box h2 {

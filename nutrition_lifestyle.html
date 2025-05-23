@@ -95,16 +95,24 @@
       font-size: 1.5rem; 
       text-align: left;
     }
+    i li {
+      color: #000000;
+    }
     
     .title-container {
       padding: 20px 20px 5px 20px;
       margin-bottom: 20px;
     }
+
+    .reference-text{
+      text-align: left;
+      margin-left: 1.4%;
+      margin-right: 5%;
+    }
     
     .page-title {
       color: #4CAF50;
       font-size: 45px;
-      font-family: 'Dancing Script', cursive; 
       margin-bottom: 30px;
       text-align: center;
       margin: 0;
@@ -114,7 +122,7 @@
     .title-underline {
       width: 100%;
       height: 2px;
-      background-color: #7faf1b;
+      background-color: #4CAF50;
       margin-top: 5px;
     }
 
@@ -134,6 +142,7 @@
       border: none;
       transition: all 0.3s ease;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2%;
     }
     
     .topic-button:hover {
@@ -142,7 +151,7 @@
     }
     
     .topic-button h3 {
-      color: #ffffff; 
+      color: #D81B60; 
       font-size: 24px;
       margin: 0;
       font-weight: bold;
@@ -250,7 +259,7 @@
     }
     
     .back-button, .back-button2 {
-      background-color: #f9e7f000;
+      background-color: #f9e7f0;
       color: #a2165f;
       border: none;
       border-radius: 20px;
@@ -263,9 +272,9 @@
     }
     
     .back-button {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
     }
     
     .back-button:hover, .back-button2:hover {
@@ -504,7 +513,7 @@
       <button class="back-button">Back</button>
   
       <div class="title-container">
-        <h1 class="page-title">Nutrition & <br> Lifestyle</h1>
+        <h1 class="page-title">Nutrition & Lifestyle</h1>
         <div class="title-underline"></div>
       </div>
       
@@ -516,10 +525,6 @@
           <span class="plus-icon">+</span>
         </button>
         
-        <div class="section-divider">
-            <img src="https://images.healthandme.com/thumb/msid-151123663,thumbsize-1523302,width-390,height-220,resizemode-3/151123663.jpg" alt="Postpartum Nutrition Banner"> 
-        </div>
-        
         <button class="topic-button" id="infection-button" data-topic="infection">
           <div class="topic-content">
             <h3>RETURNING TO WORK</h3>
@@ -527,13 +532,9 @@
           <span class="plus-icon">+</span>
         </button>
         
-        <div class="section-divider">
-            <img src="https://www.myshortlister.com/app/uploads/2023/11/Diversity.png" alt="Returning to Work Banner"> 
-        </div>
-        
         <h2>REFERENCES:</h2>
         <br>
-        <p> World Health Organization (2022). Postnatal care of women and newborns: WHO recommendations.<br>
+        <p class="reference-text"> World Health Organization (2022). Postnatal care of women and newborns: WHO recommendations.<br>
           CDC. (2024, April 12). Maternal diet and breastfeeding. Breastfeeding special circumstances.<br>
           https://www.cdc.gov/breastfeeding-special-circumstances/hcp/diet-micronutrients/maternal-diet.html<br>
           Department of Health - Philippines (2018). Maternal, Newborn, Child Health and Nutrition (MNCHN) Manual of Operations.<br>
@@ -557,7 +558,7 @@
     <div class="modal-content">
       <div class="infographic-placeholder">
         <div class="infographic-wrapper">
-            <img src="https://scontent.fcgy2-4.fna.fbcdn.net/v/t1.6435-9/53303496_1464668907001882_2673282658296922112_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFCoIJuTOCVYjDMsE9WlW_ule5U0Ayj5lyV7lTQDKPmXGe68ZR3xjPz3j9dYmTSay4Sjo8O6W9d8A6NnRha9cCE&_nc_ohc=K5gOIZzxnbAQ7kNvwHEk__f&_nc_oc=Adm6DmN1DDRb_r2Tnane25tguDh4HyFPGkqUe8hLYn5inZCcBzvVyZ6Eto5VhAOUshHOFj6RHLbmqk2a5V7C15QV&_nc_zt=23&_nc_ht=scontent.fcgy2-4.fna&_nc_gid=uNvYVzHh6TaJ2dp83Jz4LA&oh=00_AfKf9nVwwty6Emj9-ALJhgHwkQHVmTpVBz2REO3XPLI0og&oe=6845A915" 
+            <img src="https://i.ibb.co/V0tdbJMx/53303496-1464668907001882-2673282658296922112-n.jpg" 
             alt="Postpartum Nutrition Infographic (Pinggang Pinoy)" 
             style="width: 100%; height: 100%; object-fit: contain;">
           </div>
@@ -565,12 +566,12 @@
       <div class="centererd-text"><a href="https://web.facebook.com/photo/?fbid=1464668900335216&set=a.475670645901718" target="_blank">Source</a></div>
       
       <h2><i>1. Tumaas na Nutritional Needs</i></h2>
-      <p>• Pagkatapos ng panganganak, ang katawan ng isang ina ay sumasailalim sa paggaling at, kung nagpapasuso, ay patuloy na sumusuporta sa isa pang buhay. Ang mga pangangailangan sa nutrisyon ay mas mataas kaysa sa mga antas bago ang pagbubuntis.
+      <p>Pagkatapos ng panganganak, ang katawan ng isang ina ay sumasailalim sa paggaling at, kung nagpapasuso, ay patuloy na sumusuporta sa isa pang buhay. Ang mga pangangailangan sa nutrisyon ay mas mataas kaysa sa mga antas bago ang pagbubuntis.
         Enerhiya: Upang maging well-nourished, ang mga nanay na nagpapasuso ay nangangailangan ng 340 hanggang 400 higit pang kilocalories (kcal) bawat araw kaysa sa dami ng kanilang nakonsumo bago ang pagbubuntis. Nangangahulugan ito ng humigit-kumulang 2,000 hanggang 2,800 kcal bawat araw para sa mga babaeng nagpapasuso kumpara sa 1,600 hanggang 2,400 kcal bawat araw para sa katamtamang aktibong mga kababaihan na hindi buntis at hindi nagpapasuso.
         Protina: Kailangan para sa pag-aayos ng tissue at paggawa ng gatas. Isama ang mga walang taba na karne, itlog, pagawaan ng gatas, munggo, at mani.</p>
       
       <h2><i>2. Hydration</i></h2>
-      <p>• Sa panahon ng pagpapasuso, hinihikayat ang karagdagang 500 ml ng likido bawat araw para sa paggawa ng mataas na kalidad na gatas ng ina.
+      <p>Sa panahon ng pagpapasuso, hinihikayat ang karagdagang 500 ml ng likido bawat araw para sa paggawa ng mataas na kalidad na gatas ng ina.
         Maghangad ng 2.7–3.1 litro ng likido/araw.
         Pinakamainam ang tubig, ngunit nag-aambag din ang mga sopas, gatas, at sariwang katas ng prutas.</p>
 
@@ -627,7 +628,7 @@
       
             <div class="infographic-placeholder">
         <div class="infographic-wrapper">
-            <img src="https://scontent.fceb1-1.fna.fbcdn.net/v/t39.30808-6/491998230_23863344069929961_7579757976659026104_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=105&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeHKwVNiiAFXiKcOnxKm9Jf-VR_8PbmoLGBVH_w9uagsYK9n25qRzY4EKkGzCx_7rXP8vuKJm0Gb6p0SQBwstQU8&_nc_ohc=Qq5IEHrRg-4Q7kNvwGNdjfg&_nc_oc=AdlRYYBeavcY6vRqL2V_Vz1WXp-zpsz_CfKvydXQwNoFS1cni9DB5issPHwYf85LGkg&_nc_zt=23&_nc_ht=scontent.fceb1-1.fna&_nc_gid=YeVbZ5Glo-jogtldM9K0cg&oh=00_AfJOOK0FC1Tm28RbnYL2TLgLvXgKnhFql2rbPvpzACR2Aw&oe=682948E6" 
+            <img src="https://i.ibb.co/gb4YJztk/491998230-23863344069929961-7579757976659026104-n.jpg" 
             alt="Postpartum Nutrition Infographic (Pinggang Pinoy)" 
             style="width: 100%; height: 100%; object-fit: contain;">
           </div>
@@ -639,31 +640,31 @@
 
     <h3><i>Bakit mahalaga ang maternity leave?</i></h3>
     <ul>
-      <li><i>Ang iyong katawan ay nangangailangan ng oras upang gumaling pagkatapos ng panganganak.</i></li>
-      <li><i>Kailangan mo ng oras upang makipag-bonding sa iyong sanggol at simulan ang pagpapasuso.</i></li>
-      <li><i>Nakakatulong ito na protektahan ang iyong pisikal at mental na kagalingan.</i></li>
+      <p><li><i>Ang iyong katawan ay nangangailangan ng oras upang gumaling pagkatapos ng panganganak.</i></li>
+      <p><li><i>Kailangan mo ng oras upang makipag-bonding sa iyong sanggol at simulan ang pagpapasuso.</i></li>
+      <p><li><i>Nakakatulong ito na protektahan ang iyong pisikal at mental na kagalingan.</i></li>
     </ul>
 
     <h3><i>Magkano ang maternity leave mo?</i></h3>
     <p><i>Ayon sa WHO (World Health Organization):</i></p>
     <ul>
-      <li><i>Inirerekomenda ang hindi bababa sa 14 na linggo (98 araw) na bakasyon.</i></li>
-      <li><i>6 na linggo ay dapat pagkatapos ng panganganak.</i></li>
+      <p><li><i>Inirerekomenda ang hindi bababa sa 14 na linggo (98 araw) na bakasyon.</i></li></p>
+      <p><li><i>6 na linggo ay dapat pagkatapos ng panganganak.</i></li></p>
     </ul>
 
     <p><i>Ayon sa Batas ng Pilipinas (RA 11210):</i></p>
     <ul>
-      <li><i>105 araw na may bayad na maternity leave para sa lahat ng nagtatrabahong ina.</i></li>
-      <li><i>Extra 15 days kung solo mother ka.</i></li>
-      <li><i>Opsyonal 30 pang araw na walang bayad kung kinakailangan.</i></li>
-      <li><i>Maaaring gamitin bago o pagkatapos ng panganganak (batay sa payo ng doktor).</i></li>
+      <p><li><i>105 araw na may bayad na maternity leave para sa lahat ng nagtatrabahong ina.</i></li></p>
+      <p><li><i>Extra 15 days kung solo mother ka.</i></li></p>
+      <p><li><i>Opsyonal 30 pang araw na walang bayad kung kinakailangan.</i></li></p>
+      <p><li><i>Maaaring gamitin bago o pagkatapos ng panganganak (batay sa payo ng doktor).</i></li></p>
     </ul>
 
     <h3><i>Mahahalagang Paalala:</i></h3>
     <ul>
-      <li><i>Kumuha ng medical certificate mula sa iyong healthcare provider bago bumalik sa trabaho.</i></li>
-      <li><i>Ipaalam sa iyong employer ang tungkol sa iyong mga plano sa bakasyon nang maaga.</i></li>
-      <li><i>Gamitin ang iyong bakasyon para magpahinga, gumaling, at tumuon sa iyong sanggol.</i></li>
+      <p><li><i>Kumuha ng medical certificate mula sa iyong healthcare provider bago bumalik sa trabaho.</i></li></p>
+      <p><li><i>Ipaalam sa iyong employer ang tungkol sa iyong mga plano sa bakasyon nang maaga.</i></li></p>
+      <p><li><i>Gamitin ang iyong bakasyon para magpahinga, gumaling, at tumuon sa iyong sanggol.</i></li></p>
     </ul>
   </i>
     </div>

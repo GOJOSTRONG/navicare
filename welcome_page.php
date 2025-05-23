@@ -26,9 +26,9 @@ $displayName = htmlspecialchars($_SESSION['fullname']);
             <div class="school-logos">
                 <img src="res/school_and_dept_Logo.png" alt="School and Department Logos">
             </div>
-            <div class= "centered-text2">Hi <?php echo $displayName; ?>!<br></div>
+            <div class= "centered-text2">Hi, <?php echo $displayName; ?>!<br></div>
             <div class="welcome-container">
-                <div class="welcome-text"> Welcome to</div>
+                <div class="welcome-text"> <i>Welcome to...</i></div>
             </div>
             
             <img src="res/navicare_icon.png" alt="NaviCare Logo" class="navicare-logo">

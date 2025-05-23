@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    *{
+  *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -159,8 +159,6 @@
   .page-title {
     color: var(--primary-green);
     font-size: 45px; 
-    font-family: 'Dancing Script', cursive;
-    
     text-align: center;
     margin: 0 auto 30px auto; 
     text-transform: uppercase;
@@ -168,11 +166,16 @@
   
   .title-underline {
     width: 100%;
-    max-width: 300px; 
     margin: 5px auto 0 auto; 
     height: 2px;
     background-color: var(--primary-green);
-   
+    
+  }
+
+  .references-text { 
+  text-align: left;
+  margin-left: 15%;
+  margin-right: 15%;
   }
 
   
@@ -222,6 +225,7 @@
     top: 20px; 
     right: 20px; 
     z-index: 1005; 
+    /* Default display will be handled by JS, but typically inline-block for buttons */
   }
   
   .back-button:hover {
@@ -445,11 +449,7 @@
         
         
     }
-      
-    
-      
-    
-      
+        
     .option-icon {
       font-size: 2rem; 
       margin-bottom: 10px;
@@ -518,7 +518,6 @@
     .title-underline {
         max-width: 150px;
     }
-    
     
     .module-options {
         gap: 8px; 
@@ -612,7 +611,7 @@
   <div class="overlay">
     <div class="container">
       <button class="back-button">Back</button> <div class="title-container">
-        <h1 class="page-title">Infant <br> Care</h1>
+        <h1 class="page-title">Infant Care</h1>
         <div class="title-underline"></div>
       </div>
 
@@ -673,9 +672,9 @@
 
             <div class="infographic-placeholder">
                 <div class="infographic-wrapper">
-                   <img src="http://media.healthdirect.org.au/images/inline/w700/swaddling-infographic-185067.png" 
-                    alt="Swaddling Infographic" 
-                    style="width: 100%; object-fit: cover;"> </div>
+                  <img src="http://media.healthdirect.org.au/images/inline/w700/swaddling-infographic-185067.png" 
+                  alt="Swaddling Infographic" 
+                  style="width: 100%; object-fit: cover;"> </div>
               </div>
               
             <div class="centered-text">
@@ -852,7 +851,7 @@
       <div class="content-body">
         <div class="content-section">
         <h3 class="section-title"><i>Mga Karaniwang Isyu</i></h3> <ul>
-          <li><i><b>Colic:</b> Matagal na pag-iyak ng sanggol kahit siya ay mukhang malusog. Maaaring mapagaan ito sa pamamagitan ng paghele, pagyakap, o pagtitiyak na hindi siya gutom,  hindi puno ang diaper, o hindi komportable.        </i></li>
+          <li><i><b>Colic:</b> Matagal na pag-iyak ng sanggol kahit siya ay mukhang malusog. Maaaring mapagaan ito sa pamamagitan ng paghele, pagyakap, o pagtitiyak na hindi siya gutom,   hindi puno ang diaper, o hindi komportable.        </i></li>
           <li><i><b>Diaper Rash:</b> Pamumula at pamamaga ng balat sa bahagi ng diaper. Maiiwasan ito sa pamamagitan ng pagpapanatiling malinis at tuyo ang bahaging ito. Iwasan ang paglalagay ng mga chemical or produkto na maaaring makairita sa balat ng sanggol.</i></li>
           <li><i><b>Constipation:</b> Bihirang pagdumi o matitigas na dumi. Tiyakin na sapat ang likido or tubig na nakukuha ng sanggol at kumunsulta sa doktor kung magpatuloy ang problema.</i></li>
         </ul>
@@ -860,7 +859,7 @@
       </div>
     </div>
           <h2>REFERENCES:</h2>
-          <p> CDC. (2024, September 17). Providing Care for Babies to Sleep Safely. Sudden Unexpected Infant Death and Sudden Infant Death Syndrome.
+          <p class="references-text"> CDC. (2024, September 17). Providing Care for Babies to Sleep Safely. Sudden Unexpected Infant Death and Sudden Infant Death Syndrome.
           <br>https://www.cdc.gov/sudden-infant-death/sleep-safely/index.html<br>
           Centers for Disease Control and Prevention. (2024, May 8). CDC’s Developmental Milestones. Centers for Disease Control and Prevention.
           <br>https://www.cdc.gov/ncbddd/actearly/milestones/index.html<br>
@@ -882,25 +881,12 @@ document.addEventListener('DOMContentLoaded', function() {
   if (mainBackButton) {
     mainBackButton.addEventListener('click', function(e) {
       e.preventDefault();
-      // Check if we are on a content page or main options page
-      const mainOptionsVisible = document.getElementById('main-options').style.display !== 'none';
-      
-      if (!mainOptionsVisible) {
-        // If on a content page, behavior is handled by showMainOptions() via inline onclick
-        // This button should primarily act as a browser back or app exit
-        // For this specific button, let's make it always try to go back in history or to index
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          window.location.href = 'index.html'; // Fallback to a main page
-        }
+      // This button's action is primarily for when on the main options screen
+      // Its visibility is controlled by showContent and showMainOptions
+      if (window.history.length > 1) {
+        window.history.back();
       } else {
-        // If on main options page, standard back behavior
-        if (window.history.length > 1) {
-          window.history.back();
-        } else {
-          window.location.href = 'index.html'; // Fallback to a main page
-        }
+        window.location.href = 'index.html'; // Fallback to a main page
       }
     });
   }
@@ -930,10 +916,11 @@ function showContent(contentId) {
     selectedContent.scrollTop = 0; // Scroll to top of content
   }
 
-  // Optionally hide the main fixed back button when viewing content,
-  // as there's an in-content back button.
+  // Hide the main fixed back button when viewing content
   const fixedBackButton = document.querySelector('.container > .back-button');
-  // if (fixedBackButton) fixedBackButton.style.display = 'none';
+  if (fixedBackButton) {
+      fixedBackButton.style.display = 'none';
+  }
 }
 
 // Function to return to main options
@@ -952,7 +939,11 @@ function showMainOptions() {
   
   // Ensure the main fixed back button is visible
   const fixedBackButton = document.querySelector('.container > .back-button');
-  // if (fixedBackButton) fixedBackButton.style.display = 'block'; // Or 'inline-block' depending on its default
+  if (fixedBackButton) {
+      // Buttons are typically 'inline-block' by default or by common CSS practice.
+      // If you prefer 'block', you can change it here.
+      fixedBackButton.style.display = 'inline-block'; 
+  }
 }
 
 // This global goBack might be for other pages, or a duplicate.

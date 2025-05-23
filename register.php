@@ -4,7 +4,7 @@ $db = 'navicare';
 $user = 'root';
 $pass = '';
 
-$conn = new mysqli($host, $user, $pass, $db);
+$conn = new mysqli($host, $user, $pass, $db );
 if ($conn->connect_error) {
     echo "<script>alert('Database connection error.'); window.history.back();</script>";
     exit();
